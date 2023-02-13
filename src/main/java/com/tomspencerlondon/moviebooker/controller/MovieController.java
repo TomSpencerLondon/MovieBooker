@@ -1,4 +1,4 @@
-package com.tomspencerlondon.moviebooker.adapter.in;
+package com.tomspencerlondon.moviebooker.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
