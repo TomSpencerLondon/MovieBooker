@@ -1,4 +1,4 @@
-package com.tomspencerlondon.moviebooker.entity;
+package com.tomspencerlondon.moviebooker.adapter.out.jpa;
 
 
 import jakarta.persistence.Entity;
@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "movies")
-public class MovieDto {
+public class MovieDbo {
 
     @Id
     private Long id;
