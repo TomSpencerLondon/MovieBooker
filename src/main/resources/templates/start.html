@@ -17,31 +17,30 @@
     <main>
         <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
             <div class="px-4 py-4 sm:px-0">
-                <ul>
-                    <li th:each="movie : ${movies}">
-                        <div th:text="${movie.movieName()}"></div>
-                    </li>
-                </ul>
-
-                <div class="rounded overflow-hidden shadow-lg m-4 flex justify-between">
-                    <div class="md:flex-shrink-0">
-                        <img class="md:w-56"
-                             th:src="@{/img/godfather.jpg}"
-                             alt="A Quiet Place movie poster" />
-                    </div>
-                    <div class="flex flex-col flex-grow px-8 py-4 bg-color-333">
-                        <h3 class="font-bold text-4xl md:text-2xl lg:text-2xl text-gray-900 movie--title">The Godfather</h3>
-                        <span class="movie--year text-xl lg:text-sm lg:mb-4">1972</span>
-                        <div class="flex-grow">
-                            <p class="text-xl md:text-base lg:text-base text-gray-900 leading-snug truncate-overflow">
-                                Widely regarded as one of the greatest films of all time, this mob drama, based on Mario Puzo's novel of the same name, focuses on the powerful Italian-American crime family of Don Vito Corleone (Marlon Brando). When the don's youngest son, Michael (Al Pacino), reluctantly joins the Mafia, he becomes involved in the inevitable cycle of violence and betrayal. Although Michael tries to maintain a normal relationship with his wife, Kay (Diane Keaton), he is drawn deeper into the family business.
-                            </p>
+                <th:block th:each="movie : ${movies}">
+                    <div class="rounded overflow-hidden shadow-lg m-4 flex justify-between">
+                        <div class="md:flex-shrink-0">
+                            <img class="md:w-56"
+                                 th:src="@{{path}(path=${movie.image()})}"
+                                 alt="A Quiet Place movie poster"/>
                         </div>
-                        <div class="button-container flex justify-between mb-2">
-                            <button class="text-lg mr-4 lg:text-sm text-gray-900">More Info</button>
+                        <div class="flex flex-col flex-grow px-8 py-4 bg-color-333">
+                            <h3 class="font-bold text-4xl md:text-2xl lg:text-2xl text-gray-900 movie--title"
+                            th:text="${movie.movieName()}"></h3>
+                            <span class="movie--year text-xl lg:text-sm lg:mb-4" th:text="${movie.releaseDate()}"></span>
+                            <div class="flex-grow">
+                                <p class="text-xl md:text-base lg:text-base text-gray-900 leading-snug truncate-overflow"
+                                th:text="${movie.description()}">
+                                </p>
+                            </div>
+                            <div class="button-container flex justify-between mb-2">
+                                <form th:method="post" th:action="@{/movie(filmId=${movie.getId()})}">
+                                <button class="text-lg mr-4 lg:text-sm text-gray-900">More Info</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </th:block>
             </div>
             <!-- /End replace -->
         </div>

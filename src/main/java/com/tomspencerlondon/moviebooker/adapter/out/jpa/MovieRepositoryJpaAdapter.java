@@ -34,6 +34,7 @@ public class MovieRepositoryJpaAdapter implements MovieRepository {
 
     @Override
     public Optional<Movie> findById(Long movieId) {
-        return Optional.empty();
+        return movieJpaRepository.findById(movieId)
+                .map(movieTransformer::toMovie);
     }
 }

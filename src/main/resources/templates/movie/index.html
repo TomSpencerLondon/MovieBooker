@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      class="h-full bg-gray-100"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul>
+    <li th:each="program : ${moviePrograms}">
+        <div th:text="${program.getScheduleId()}"></div>
+        <div th:text="${program.scheduleDate()}"></div>
+    </li>
+</ul>
+</body>
+</html>
