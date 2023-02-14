@@ -1,6 +1,7 @@
 package com.tomspencerlondon.moviebooker.hexagon.domain;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class MovieProgram {
     private Long scheduleId;
@@ -21,11 +22,12 @@ public class MovieProgram {
         return scheduleId;
     }
 
-    public LocalDateTime scheduleDate() {
-        return scheduleDate;
+    public String scheduleDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return scheduleDate.format(formatter);
     }
 
-    public Integer getSeats() {
-        return seats;
+    public String seats() {
+        return seats > 0 ? seats + " available" : "Sold Out!";
     }
 }

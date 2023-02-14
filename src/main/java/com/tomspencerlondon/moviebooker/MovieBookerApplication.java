@@ -30,6 +30,7 @@ public class MovieBookerApplication implements CommandLineRunner {
         movieDbo.setMovieName("Godfather");
         MovieProgramDbo program = new MovieProgramDbo();
         program.setScheduleDate(LocalDateTime.of(2023, 2, 14, 13, 0));
+        program.setSeats(70);
         movieDbo.setMoviePrograms(List.of(
                 program
         ));
