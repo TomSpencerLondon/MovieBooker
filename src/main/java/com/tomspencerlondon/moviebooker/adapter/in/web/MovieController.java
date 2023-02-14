@@ -22,11 +22,6 @@ public class MovieController {
         return "start";
     }
 
-    @PostMapping("/movie")
-    public String movie(@RequestParam(value = "filmId") String filmId) {
-        return "redirect:/movie?filmId=" + filmId;
-    }
-
     @GetMapping("/movie")
     public String movie(Model model, @RequestParam(value = "filmId", defaultValue = "") String filmId) {
         model.addAttribute("moviePrograms", movieService.programsForFilm(Long.valueOf(filmId)));
