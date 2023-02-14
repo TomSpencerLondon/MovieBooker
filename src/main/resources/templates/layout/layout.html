@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en"
+      class="h-full bg-gray-100">
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Goer</title>
+  <link rel="stylesheet"
+        th:href="@{/css/application.css}"
+        href="../../../../target/classes/static/css/application.css"
+  >
+</head>
+<body class="h-full">
+<div class="min-h-full">
+  <header class="bg-blue-200 shadow-sm">
+    <div class="mx-auto max-w-7xl py-4 px-4 sm:px-6 lg:px-8">
+      <h1 class="text-lg font-semibold leading-6 text-gray-900">Movie Goer</h1>
+    </div>
+  </header>
+  <main>
+    <div layout:fragment="content" />
+  </main>
+</div>
+</body>
+</html>

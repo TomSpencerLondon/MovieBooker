@@ -1,22 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      class="h-full bg-gray-100"
->
-<head>
-    <meta charset="UTF-8">
-    <title>Movie Goer</title>
-    <link rel="stylesheet"
-          th:href="@{/css/application.css}"
-          href="../static/css/application.css"
-    >
-</head>
-<body class="h-full">
-<div class="min-h-full">
-    <header class="bg-blue-200 shadow-sm">
-        <div class="mx-auto max-w-7xl py-4 px-4 sm:px-6 lg:px-8">
-            <h1 class="text-lg font-semibold leading-6 text-gray-900">Movie Goer</h1>
-        </div>
-    </header>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<div layout:fragment="content"
+        class="min-h-full">
     <div class="px-4 sm:px-6 lg:px-8">
         <div class="mt-8 flex flex-col">
             <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -67,5 +55,4 @@
         </div>
     </div>
 </div>
-</body>
 </html>
