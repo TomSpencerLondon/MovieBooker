@@ -7,11 +7,13 @@ public class MovieProgram {
     private Long scheduleId;
     private final LocalDateTime scheduleDate;
     private final Integer seats;
+    private Movie movie;
 
-    public MovieProgram(Long scheduleId, LocalDateTime scheduleDate, Integer seats) {
+    public MovieProgram(Long scheduleId, LocalDateTime scheduleDate, Integer seats, Movie movie) {
         this.scheduleId = scheduleId;
         this.scheduleDate = scheduleDate;
         this.seats = seats;
+        this.movie = movie;
     }
 
     public void setScheduleId(Long id) {
@@ -22,12 +24,24 @@ public class MovieProgram {
         return scheduleId;
     }
 
-    public String scheduleDate() {
+    public LocalDateTime scheduleDate() {
+        return scheduleDate;
+    }
+
+    public String scheduleDateText() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return scheduleDate.format(formatter);
     }
 
-    public String seats() {
+    public Integer seats() {
+        return seats;
+    }
+
+    public String seatsText() {
         return seats > 0 ? seats + " available" : "Sold Out!";
+    }
+
+    public Movie movie() {
+        return movie;
     }
 }

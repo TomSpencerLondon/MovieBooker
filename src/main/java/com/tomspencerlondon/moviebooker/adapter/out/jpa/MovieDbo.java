@@ -4,8 +4,6 @@ package com.tomspencerlondon.moviebooker.adapter.out.jpa;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "movies")
@@ -13,14 +11,14 @@ public class MovieDbo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    private Long movieId;
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setMovieId(Long id) {
+        this.movieId = id;
     }
 
-    public Long getId() {
-        return id;
+    public Long getMovieId() {
+        return movieId;
     }
 
     private String movieName;
@@ -30,10 +28,6 @@ public class MovieDbo {
 
     @Column(length = 1000)
     private String description;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "movie_id")
-    private List<MovieProgramDbo> moviePrograms = new ArrayList<>();
 
     public String getMovieName() {
         return movieName;
@@ -65,13 +59,5 @@ public class MovieDbo {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public List<MovieProgramDbo> getMoviePrograms() {
-        return moviePrograms;
-    }
-
-    public void setMoviePrograms(List<MovieProgramDbo> moviePrograms) {
-        this.moviePrograms = moviePrograms;
     }
 }

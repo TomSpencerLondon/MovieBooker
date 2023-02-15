@@ -1,19 +1,20 @@
 package com.tomspencerlondon.moviebooker.hexagon.application;
 
+import com.tomspencerlondon.moviebooker.hexagon.application.port.MovieProgramRepository;
 import com.tomspencerlondon.moviebooker.hexagon.application.port.MovieRepository;
 import com.tomspencerlondon.moviebooker.hexagon.domain.Movie;
 import com.tomspencerlondon.moviebooker.hexagon.domain.MovieProgram;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 public class MovieService {
 
     private MovieRepository movieRepository;
+    private MovieProgramRepository movieProgramRepository;
 
-    public MovieService(MovieRepository movieRepository) {
+    public MovieService(MovieRepository movieRepository, MovieProgramRepository movieProgramRepository) {
         this.movieRepository = movieRepository;
+        this.movieProgramRepository = movieProgramRepository;
     }
 
     public List<Movie> findAll() {
@@ -24,6 +25,16 @@ public class MovieService {
         Movie movie = movieRepository.findById(filmId)
                 .orElseThrow(UnsupportedOperationException::new);
 
-        return movie.moviePrograms();
+        Long movieId = movie.getId();
+
+        return movieProgramRepository.findByMovieId(movieId);
+    }
+
+    public Movie saveMovie(Movie movie) {
+        return movieRepository.save(movie);
+    }
+
+    public MovieProgram saveMovieProgram(MovieProgram movieProgram) {
+        return movieProgramRepository.save(movieProgram);
     }
 }

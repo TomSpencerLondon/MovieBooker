@@ -29,6 +29,9 @@ public class MovieProgramDbo {
     @JoinColumn(name = "schedule_id")
     private List<BookingDbo> bookings = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "movie_id")
+    MovieDbo movie;
 
     public LocalDateTime getScheduleDate() {
         return scheduleDate;
@@ -44,5 +47,21 @@ public class MovieProgramDbo {
 
     public void setSeats(Integer seats) {
         this.seats = seats;
+    }
+
+    public List<BookingDbo> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<BookingDbo> bookings) {
+        this.bookings = bookings;
+    }
+
+    public MovieDbo getMovie() {
+        return movie;
+    }
+
+    public void setMovie(MovieDbo movie) {
+        this.movie = movie;
     }
 }

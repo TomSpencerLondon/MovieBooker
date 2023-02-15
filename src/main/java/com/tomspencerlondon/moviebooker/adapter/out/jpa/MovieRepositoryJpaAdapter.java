@@ -21,7 +21,10 @@ public class MovieRepositoryJpaAdapter implements MovieRepository {
 
     @Override
     public Movie save(Movie movie) {
-        return null;
+        MovieDbo movieDbo = movieTransformer.toMovieDbo(movie);
+        MovieDbo savedMovieDbo = movieJpaRepository.save(movieDbo);
+
+        return movieTransformer.toMovie(savedMovieDbo);
     }
 
     @Override

@@ -10,15 +10,13 @@ public class Movie {
     private final String image;
     private final LocalDate releaseDate;
     private final String description;
-    private final List<MovieProgram> moviePrograms;
 
-    public Movie(Long id, String movieName, String image, LocalDate releaseDate, String description, List<MovieProgram> moviePrograms) {
+    public Movie(Long id, String movieName, String image, LocalDate releaseDate, String description) {
         this.id = id;
         this.movieName = movieName;
         this.image = image;
         this.releaseDate = releaseDate;
         this.description = description;
-        this.moviePrograms = moviePrograms;
     }
 
     public Long getId() {
@@ -37,7 +35,11 @@ public class Movie {
         return image;
     }
 
-    public String releaseDate() {
+    public LocalDate releaseDate() {
+        return releaseDate;
+    }
+
+    public String releaseDateText() {
         return String.valueOf(releaseDate.getYear());
     }
 
@@ -45,7 +47,4 @@ public class Movie {
         return description;
     }
 
-    public List<MovieProgram> moviePrograms() {
-        return moviePrograms;
-    }
 }
