@@ -3,6 +3,8 @@ package com.tomspencerlondon.moviebooker.adapter.out.jpa;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "movie_programs")
@@ -22,6 +24,11 @@ public class MovieProgramDbo {
     private LocalDateTime scheduleDate;
 
     private Integer seats;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "schedule_id")
+    private List<BookingDbo> bookings = new ArrayList<>();
+
 
     public LocalDateTime getScheduleDate() {
         return scheduleDate;

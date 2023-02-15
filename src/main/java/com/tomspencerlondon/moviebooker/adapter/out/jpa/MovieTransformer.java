@@ -10,7 +10,7 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service("jpaQuestionTransformer")
+@Service("jpaMovieTransformer")
 public class MovieTransformer {
 
     public Movie toMovie(MovieDbo movieDbo) {
