@@ -4,9 +4,7 @@ import com.tomspencerlondon.moviebooker.hexagon.application.BookingService;
 import com.tomspencerlondon.moviebooker.hexagon.application.MovieService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MovieController {
@@ -40,6 +38,14 @@ public class MovieController {
 
     @GetMapping("/bookings")
     public String bookings(Model model) {
+        model.addAttribute("bookings", bookingService.findAll());
         return "bookings/index";
+    }
+
+    @DeleteMapping("/bookings/{bookingId}")
+    public String deleteBooking(@PathVariable(value = "bookingId") Long bookingId) {
+        bookingService.cancelBookingFor(bookingId);
+
+        return "redirect:/bookings";
     }
 }

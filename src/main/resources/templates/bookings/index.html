@@ -1,12 +1,61 @@
-<!DOCTYPE html>
-<html lang="en"
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
->
-<head>
-    <meta charset="UTF-8">
-    <title>Bookings</title>
-</head>
-<body>
-    <h1>Bookings Page</h1>
-</body>
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<div layout:fragment="content"
+     class="min-h-full">
+    <div class="px-4 sm:px-6 lg:px-8">
+        <div class="mt-8 flex flex-col">
+            <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                    <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                        <table class="min-w-full divide-y divide-gray-300">
+                            <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                    Cinema
+                                </th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                    Film
+                                </th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                    Date
+                                </th>
+                                <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                                    <span class="sr-only">Cancel</span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200 bg-white">
+                            <th:block th:each="booking : ${bookings}">
+                                <tr>
+                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                        Clapham Common
+                                    </td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                                        th:text="${booking.getMovieProgram().movie().movieName()}"
+                                    >
+                                    </td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                                        th:text="${booking.getMovieProgram().scheduleDateText()}"
+                                    >
+                                    </td>
+                                    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                                        <form th:action="@{/bookings/{bookingId}(bookingId=${booking.getBookingId()})}"
+                                              th:method="delete"
+                                        >
+                                            <button th:type="submit" class="text-indigo-600 hover:text-indigo-900">Cancel</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </th:block>
+                            <!-- More people... -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </html>

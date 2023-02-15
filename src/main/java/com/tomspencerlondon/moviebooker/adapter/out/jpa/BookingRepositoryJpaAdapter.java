@@ -2,11 +2,11 @@ package com.tomspencerlondon.moviebooker.adapter.out.jpa;
 
 import com.tomspencerlondon.moviebooker.hexagon.application.port.BookingRepository;
 import com.tomspencerlondon.moviebooker.hexagon.domain.Booking;
-import com.tomspencerlondon.moviebooker.hexagon.domain.Movie;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class BookingRepositoryJpaAdapter implements BookingRepository {
@@ -21,17 +21,27 @@ public class BookingRepositoryJpaAdapter implements BookingRepository {
 
 
     @Override
-    public Booking save(Movie movie) {
-        return null;
+    public Booking save(Booking booking) {
+        BookingDbo savedBookingDbo = bookingJpaRepository
+                .save(bookingTransformer.toBookingDbo(booking));
+        return bookingTransformer.toBooking(savedBookingDbo);
     }
 
     @Override
     public List<Booking> findAll() {
-        return null;
+        return bookingJpaRepository.findAll()
+                .stream()
+                .map(bookingTransformer::toBooking)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Optional<Booking> findById(Long movieId) {
+    public Optional<Booking> findById(Long bookingId) {
         return Optional.empty();
+    }
+
+    @Override
+    public void deleteById(Long bookingId) {
+        bookingJpaRepository.deleteById(bookingId);
     }
 }

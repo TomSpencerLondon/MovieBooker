@@ -18,10 +18,6 @@ public class MovieGoerDbo {
 
     private Integer loyaltyPoints;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private List<BookingDbo> bookings = new ArrayList<>();
-
     public void setUserId(Long id) {
         this.userId = id;
     }

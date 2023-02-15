@@ -11,6 +11,10 @@ public class BookingDbo {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long bookingId;
 
+    @ManyToOne
+    @JoinColumn(name = "schedule_id")
+    private MovieProgramDbo movieProgram;
+
     public void setBookingId(Long id) {
         this.bookingId = id;
     }
@@ -18,4 +22,13 @@ public class BookingDbo {
     public Long getBookingId() {
         return bookingId;
     }
+
+    public MovieProgramDbo getMovieProgram() {
+        return movieProgram;
+    }
+
+    public void setMovieProgram(MovieProgramDbo scheduleId) {
+        this.movieProgram = scheduleId;
+    }
+
 }

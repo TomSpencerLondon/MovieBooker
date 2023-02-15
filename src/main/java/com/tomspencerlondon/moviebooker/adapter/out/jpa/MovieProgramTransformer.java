@@ -6,6 +6,12 @@ import org.springframework.stereotype.Service;
 
 @Service("jpaMovieProgramTransformer")
 public class MovieProgramTransformer {
+    MovieTransformer movieTransformer;
+
+    public MovieProgramTransformer(MovieTransformer movieTransformer) {
+        this.movieTransformer = movieTransformer;
+    }
+
     public MovieProgram toMovieProgram(MovieProgramDbo movieProgramDbo) {
         MovieDbo movieDbo = movieProgramDbo.getMovie();
         Movie movie = new Movie(
@@ -20,5 +26,18 @@ public class MovieProgramTransformer {
                 movieProgramDbo.getScheduleDate(),
                 movieProgramDbo.getSeats(),
                 movie);
+    }
+
+    public MovieProgramDbo toMovieProgramDbo(MovieProgram movieProgram) {
+        MovieProgramDbo movieProgramDbo = new MovieProgramDbo();
+
+        movieProgramDbo.setScheduleId(movieProgram.getScheduleId());
+        movieProgramDbo.setScheduleDate(movieProgram.scheduleDate());
+        movieProgramDbo.setSeats(movieProgram.seats());
+        movieProgramDbo.setMovie(
+                movieTransformer.toMovieDbo(movieProgram.movie())
+        );
+
+        return movieProgramDbo;
     }
 }

@@ -1,11 +1,11 @@
 package com.tomspencerlondon.moviebooker.adapter.out.jpa;
 
 import com.tomspencerlondon.moviebooker.hexagon.application.port.MovieProgramRepository;
-import com.tomspencerlondon.moviebooker.hexagon.domain.Movie;
 import com.tomspencerlondon.moviebooker.hexagon.domain.MovieProgram;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -44,6 +44,12 @@ public class MovieProgramRepositoryJpaAdapter implements MovieProgramRepository 
     public List<MovieProgram> findByMovieId(Long movieId) {
         return movieProgramJpaRepository.findMovieProgramDbosBy(movieId)
                 .stream().map(movieProgramTransformer::toMovieProgram).collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<MovieProgram> findById(Long scheduleId) {
+        return movieProgramJpaRepository.findById(scheduleId)
+                .map(movieProgramTransformer::toMovieProgram);
     }
 
 

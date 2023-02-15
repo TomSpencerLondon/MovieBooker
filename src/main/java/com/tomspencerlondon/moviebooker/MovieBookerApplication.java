@@ -42,6 +42,6 @@ public class MovieBookerApplication implements CommandLineRunner {
                 70,
                 savedMovie);
 
-        MovieProgram savedMovieProgram = movieService.saveMovieProgram(movieProgram);
+        movieService.saveMovieProgram(movieProgram);
     }
 }
