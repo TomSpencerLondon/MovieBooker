@@ -17,6 +17,10 @@ public class MovieService {
         this.movieProgramRepository = movieProgramRepository;
     }
 
+    public Movie findById(Long movieId) {
+        return movieRepository.findById(movieId).orElseThrow(UnsupportedOperationException::new);
+    }
+
     public List<Movie> findAll() {
         return movieRepository.findAll();
     }

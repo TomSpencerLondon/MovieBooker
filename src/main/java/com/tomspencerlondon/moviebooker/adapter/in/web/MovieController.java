@@ -25,7 +25,9 @@ public class MovieController {
 
     @GetMapping("/movie")
     public String movie(Model model, @RequestParam(value = "filmId", defaultValue = "") String filmId) {
-        model.addAttribute("moviePrograms", movieService.programsForFilm(Long.valueOf(filmId)));
+        Long filmIdLong = Long.valueOf(filmId);
+        model.addAttribute("movie", movieService.findById(filmIdLong));
+        model.addAttribute("moviePrograms", movieService.programsForFilm(filmIdLong));
 
         return "movie/index";
     }
