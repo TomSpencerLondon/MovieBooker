@@ -1,7 +1,9 @@
 package com.tomspencerlondon.moviebooker.adapter.out.jpa;
 
 import com.tomspencerlondon.moviebooker.hexagon.application.port.BookingRepository;
+import com.tomspencerlondon.moviebooker.hexagon.application.port.MovieProgramRepository;
 import com.tomspencerlondon.moviebooker.hexagon.domain.Booking;
+import com.tomspencerlondon.moviebooker.hexagon.domain.MovieProgram;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -11,10 +13,13 @@ import java.util.stream.Collectors;
 @Repository
 public class BookingRepositoryJpaAdapter implements BookingRepository {
 
+    public final MovieProgramRepository movieProgramRepository;
     private final BookingJpaRepository bookingJpaRepository;
+
     private final BookingTransformer bookingTransformer;
 
-    public BookingRepositoryJpaAdapter(BookingJpaRepository bookingJpaRepository, BookingTransformer bookingTransformer) {
+    public BookingRepositoryJpaAdapter(MovieProgramRepository movieProgramRepository, BookingJpaRepository bookingJpaRepository, BookingTransformer bookingTransformer) {
+        this.movieProgramRepository = movieProgramRepository;
         this.bookingJpaRepository = bookingJpaRepository;
         this.bookingTransformer = bookingTransformer;
     }
@@ -22,8 +27,13 @@ public class BookingRepositoryJpaAdapter implements BookingRepository {
 
     @Override
     public Booking save(Booking booking) {
+        MovieProgram movieProgram = movieProgramRepository
+                .findById(booking.scheduleId())
+                .orElseThrow(UnsupportedOperationException::new);
+
         BookingDbo savedBookingDbo = bookingJpaRepository
-                .save(bookingTransformer.toBookingDbo(booking));
+                .save(bookingTransformer.toBookingDbo(booking, movieProgram));
+
         return bookingTransformer.toBooking(savedBookingDbo);
     }
 
@@ -42,6 +52,7 @@ public class BookingRepositoryJpaAdapter implements BookingRepository {
 
     @Override
     public void deleteById(Long bookingId) {
-        bookingJpaRepository.deleteById(bookingId);
+        Optional<BookingDbo> bookingDbo = bookingJpaRepository.findById(bookingId);
+        bookingDbo.ifPresent(bookingJpaRepository::delete);
     }
 }

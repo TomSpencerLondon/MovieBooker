@@ -17,11 +17,16 @@ public class BookingService {
     }
 
 
-    public Booking makeBookingFor(Long scheduleId) {
+    public Booking makeBookingFor(Long scheduleId, Integer numberOfSeatsBooked) {
         MovieProgram movieProgram = movieProgramRepository.findById(scheduleId)
                 .orElseThrow(UnsupportedOperationException::new);
 
-        Booking booking = new Booking(movieProgram);
+        Booking booking = new Booking(
+                movieProgram.movie().movieName(),
+                movieProgram.scheduleDate(),
+                movieProgram.getScheduleId(),
+                numberOfSeatsBooked);
+
         return bookingRepository.save(booking);
     }
 

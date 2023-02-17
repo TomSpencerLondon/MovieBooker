@@ -1,6 +1,7 @@
 package com.tomspencerlondon.moviebooker.adapter.out.jpa;
 
 import com.tomspencerlondon.moviebooker.hexagon.application.port.MovieProgramRepository;
+import com.tomspencerlondon.moviebooker.hexagon.domain.Booking;
 import com.tomspencerlondon.moviebooker.hexagon.domain.MovieProgram;
 import org.springframework.stereotype.Repository;
 
@@ -13,12 +14,16 @@ public class MovieProgramRepositoryJpaAdapter implements MovieProgramRepository 
 
     private final MovieProgramJpaRepository movieProgramJpaRepository;
     private final MovieProgramTransformer movieProgramTransformer;
+    private final BookingTransformer bookingTransformer;
 
     private final MovieTransformer movieTransformer;
 
-    public MovieProgramRepositoryJpaAdapter(MovieProgramJpaRepository movieProgramJpaRepository, MovieProgramTransformer movieProgramTransformer, MovieTransformer movieTransformer) {
+    public MovieProgramRepositoryJpaAdapter(MovieProgramJpaRepository movieProgramJpaRepository,
+                                            MovieProgramTransformer movieProgramTransformer,
+                                            BookingTransformer bookingTransformer, MovieTransformer movieTransformer) {
         this.movieProgramJpaRepository = movieProgramJpaRepository;
         this.movieProgramTransformer = movieProgramTransformer;
+        this.bookingTransformer = bookingTransformer;
         this.movieTransformer = movieTransformer;
     }
 
@@ -28,11 +33,16 @@ public class MovieProgramRepositoryJpaAdapter implements MovieProgramRepository 
         movieProgramDbo.setScheduleId(movieProgram.getScheduleId());
         movieProgramDbo.setMovie(movieTransformer.toMovieDbo(movieProgram.movie()));
         movieProgramDbo.setScheduleDate(movieProgram.scheduleDate());
-        movieProgramDbo.setSeats(movieProgram.seats());
+        movieProgramDbo.setSeats(movieProgram.totalSeats());
 
         MovieProgramDbo saved = movieProgramJpaRepository.save(movieProgramDbo);
+
+        List<Booking> bookings = movieProgramDbo.getBookings()
+                .stream()
+                .map(bookingTransformer::toBooking).toList();
+
         return new MovieProgram(saved.getScheduleId(), saved.getScheduleDate(), saved.getSeats(),
-                movieTransformer.toMovie(saved.getMovie()));
+                movieTransformer.toMovie(saved.getMovie()), bookings);
     }
 
     @Override

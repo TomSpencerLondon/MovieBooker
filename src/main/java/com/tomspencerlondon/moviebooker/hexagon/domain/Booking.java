@@ -1,11 +1,20 @@
 package com.tomspencerlondon.moviebooker.hexagon.domain;
 
+import java.time.LocalDateTime;
+
 public class Booking {
     private Long bookingId;
-    private MovieProgram movieProgram;
+    private Long scheduleId;
+    private int numberOfSeatsBooked;
 
-    public Booking(MovieProgram movieProgram) {
-        this.movieProgram = movieProgram;
+    private final String filmName;
+    private final LocalDateTime bookingTime;
+
+    public Booking(String filmName, LocalDateTime bookingTime, Long scheduleId, int numberOfSeatsBooked) {
+        this.filmName = filmName;
+        this.bookingTime = bookingTime;
+        this.scheduleId = scheduleId;
+        this.numberOfSeatsBooked = numberOfSeatsBooked;
     }
 
     public void setBookingId(Long bookingId) {
@@ -16,7 +25,19 @@ public class Booking {
         return bookingId;
     }
 
-    public MovieProgram getMovieProgram() {
-        return movieProgram;
+    public Long scheduleId() {
+        return scheduleId;
+    }
+
+    public String filmName() {
+        return filmName;
+    }
+
+    public LocalDateTime bookingTime() {
+        return bookingTime;
+    }
+
+    public int numberOfSeatsBooked() {
+        return numberOfSeatsBooked;
     }
 }

@@ -2,18 +2,21 @@ package com.tomspencerlondon.moviebooker.hexagon.domain;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class MovieProgram {
     private Long scheduleId;
     private final LocalDateTime scheduleDate;
-    private final Integer seats;
+    private final Integer totalSeats;
     private Movie movie;
+    private List<Booking> bookings;
 
-    public MovieProgram(Long scheduleId, LocalDateTime scheduleDate, Integer seats, Movie movie) {
+    public MovieProgram(Long scheduleId, LocalDateTime scheduleDate, Integer totalSeats, Movie movie, List<Booking> bookings) {
         this.scheduleId = scheduleId;
         this.scheduleDate = scheduleDate;
-        this.seats = seats;
+        this.totalSeats = totalSeats;
         this.movie = movie;
+        this.bookings = bookings;
     }
 
     public void setScheduleId(Long id) {
@@ -33,15 +36,26 @@ public class MovieProgram {
         return scheduleDate.format(formatter);
     }
 
-    public Integer seats() {
-        return seats;
+    public Integer totalSeats() {
+        return totalSeats;
     }
 
     public String seatsText() {
-        return seats > 0 ? seats + " available" : "Sold Out!";
+        return availableSeats() > 0 ? availableSeats() + " available" : "Sold Out!";
     }
 
     public Movie movie() {
         return movie;
+    }
+
+    public int availableSeats() {
+        int total = bookings.stream()
+                .mapToInt(Booking::numberOfSeatsBooked)
+                .sum();
+        return totalSeats - total;
+    }
+
+    public boolean canBook() {
+        return availableSeats() > 0;
     }
 }

@@ -28,13 +28,13 @@ public class MovieController {
         Long filmIdLong = Long.valueOf(filmId);
         model.addAttribute("movie", movieService.findById(filmIdLong));
         model.addAttribute("moviePrograms", movieService.programsForFilm(filmIdLong));
-
+        model.addAttribute("numberOfSeats", 1);
         return "movie/index";
     }
 
     @PostMapping("/bookings")
-    public String bookings(@RequestParam(value = "programId", defaultValue = "") String programId) {
-        bookingService.makeBookingFor(Long.valueOf(programId));
+    public String bookings(@RequestParam(value = "programId") String programId, @RequestParam(value = "numberOfSeats") String numberOfSeats) {
+        bookingService.makeBookingFor(Long.valueOf(programId), Integer.valueOf(numberOfSeats));
         return "redirect:/bookings";
     }
 

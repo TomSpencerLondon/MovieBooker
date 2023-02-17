@@ -31,7 +31,7 @@ public class MovieProgramDbo {
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
-    MovieDbo movie;
+    private MovieDbo movie;
 
     public LocalDateTime getScheduleDate() {
         return scheduleDate;

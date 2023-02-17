@@ -15,6 +15,8 @@ public class BookingDbo {
     @JoinColumn(name = "schedule_id")
     private MovieProgramDbo movieProgram;
 
+    private Integer numberOfSeatsBooked;
+
     public void setBookingId(Long id) {
         this.bookingId = id;
     }
@@ -31,4 +33,11 @@ public class BookingDbo {
         this.movieProgram = scheduleId;
     }
 
+    public int getNumberOfSeatsBooked() {
+        return numberOfSeatsBooked;
+    }
+
+    public void setNumberOfSeatsBooked(Integer numberOfSeatsBooked) {
+        this.numberOfSeatsBooked = numberOfSeatsBooked;
+    }
 }

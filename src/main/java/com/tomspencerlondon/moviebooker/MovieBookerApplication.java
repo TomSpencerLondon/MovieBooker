@@ -1,9 +1,5 @@
 package com.tomspencerlondon.moviebooker;
 
-import com.tomspencerlondon.moviebooker.adapter.out.jpa.MovieDbo;
-import com.tomspencerlondon.moviebooker.adapter.out.jpa.MovieJpaRepository;
-import com.tomspencerlondon.moviebooker.adapter.out.jpa.MovieProgramDbo;
-import com.tomspencerlondon.moviebooker.adapter.out.jpa.MovieProgramJpaRepository;
 import com.tomspencerlondon.moviebooker.hexagon.application.MovieService;
 import com.tomspencerlondon.moviebooker.hexagon.domain.Movie;
 import com.tomspencerlondon.moviebooker.hexagon.domain.MovieProgram;
@@ -14,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Collections;
 
 @SpringBootApplication
 public class MovieBookerApplication implements CommandLineRunner {
@@ -39,8 +35,8 @@ public class MovieBookerApplication implements CommandLineRunner {
         Movie savedMovie = movieService.saveMovie(movie);
         MovieProgram movieProgram = new MovieProgram(1L,
                 LocalDateTime.of(2023, 2, 14, 13, 0),
-                70,
-                savedMovie);
+                5,
+                savedMovie, Collections.EMPTY_LIST);
 
         movieService.saveMovieProgram(movieProgram);
     }
