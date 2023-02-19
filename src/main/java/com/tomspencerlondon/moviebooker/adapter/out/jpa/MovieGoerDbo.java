@@ -6,10 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "moviegoers")
+@Table(name = "moviegoers", uniqueConstraints = @UniqueConstraint(columnNames = "userName"))
 public class MovieGoerDbo {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long userId;
 
     private String userName;
@@ -17,6 +18,9 @@ public class MovieGoerDbo {
     private String password;
 
     private Integer loyaltyPoints;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private List<BookingDbo> bookings = new ArrayList<>();
 
     public void setUserId(Long id) {
         this.userId = id;
