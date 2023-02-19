@@ -4,6 +4,7 @@ import com.tomspencerlondon.moviebooker.hexagon.application.BookingService;
 import com.tomspencerlondon.moviebooker.hexagon.application.MovieGoerService;
 import com.tomspencerlondon.moviebooker.hexagon.application.MovieService;
 import com.tomspencerlondon.moviebooker.hexagon.domain.MovieGoer;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,8 +69,9 @@ public class MovieController {
     }
 
     @PostMapping("/bookings")
-    public String bookings(@RequestParam(value = "programId") String programId, @RequestParam(value = "numberOfSeats") String numberOfSeats) {
-        bookingService.makeBookingFor(Long.valueOf(programId), Integer.valueOf(numberOfSeats));
+    public String bookings(HttpServletRequest request, @RequestParam(value = "programId") String programId, @RequestParam(value = "numberOfSeats") String numberOfSeats) {
+        String userName = request.getUserPrincipal().getName();
+        bookingService.makeBookingFor(userName, Long.valueOf(programId), Integer.valueOf(numberOfSeats));
         return "redirect:/bookings";
     }
 

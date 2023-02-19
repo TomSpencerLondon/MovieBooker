@@ -15,10 +15,14 @@ public class MovieGoerTransformer {
     }
 
     public MovieGoer toMovieGoer(MovieGoerDbo movieGoerDbo) {
-        return new MovieGoer(
+        MovieGoer movieGoer = new MovieGoer(
                 movieGoerDbo.getUserName(),
                 movieGoerDbo.getPassword(),
                 movieGoerDbo.getLoyaltyPoints()
         );
+
+        movieGoer.setUserId(movieGoerDbo.getUserId());
+
+        return movieGoer;
     }
 }

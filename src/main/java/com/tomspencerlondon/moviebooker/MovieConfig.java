@@ -20,8 +20,9 @@ public class MovieConfig {
     }
 
     @Bean
-    public BookingService bookingService(BookingRepository bookingRepository, MovieProgramRepository movieProgramRepository) {
-        return new BookingService(bookingRepository, movieProgramRepository);
+    public BookingService bookingService(BookingRepository bookingRepository, MovieProgramRepository movieProgramRepository,
+                                         MovieGoerRepository movieGoerRepository) {
+        return new BookingService(bookingRepository, movieProgramRepository, movieGoerRepository);
     }
 
     @Bean

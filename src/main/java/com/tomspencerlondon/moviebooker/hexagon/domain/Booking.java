@@ -7,14 +7,20 @@ public class Booking {
     private Long scheduleId;
     private int numberOfSeatsBooked;
 
+    private Long movieGoerId;
     private final String filmName;
     private final LocalDateTime bookingTime;
 
-    public Booking(String filmName, LocalDateTime bookingTime, Long scheduleId, int numberOfSeatsBooked) {
+    public Booking(Long movieGoerId, String filmName, LocalDateTime bookingTime, Long scheduleId, int numberOfSeatsBooked) {
+        this.movieGoerId = movieGoerId;
         this.filmName = filmName;
         this.bookingTime = bookingTime;
         this.scheduleId = scheduleId;
         this.numberOfSeatsBooked = numberOfSeatsBooked;
+    }
+
+    public Long movieGoerId() {
+        return movieGoerId;
     }
 
     public void setBookingId(Long bookingId) {
