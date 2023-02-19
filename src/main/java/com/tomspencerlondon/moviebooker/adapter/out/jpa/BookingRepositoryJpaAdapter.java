@@ -31,8 +31,10 @@ public class BookingRepositoryJpaAdapter implements BookingRepository {
                 .findById(booking.scheduleId())
                 .orElseThrow(UnsupportedOperationException::new);
 
+        BookingDbo bookingDbo = bookingTransformer.toBookingDbo(booking, movieProgram);
+
         BookingDbo savedBookingDbo = bookingJpaRepository
-                .save(bookingTransformer.toBookingDbo(booking, movieProgram));
+                .save(bookingDbo);
 
         return bookingTransformer.toBooking(savedBookingDbo);
     }

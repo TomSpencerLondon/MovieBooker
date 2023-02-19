@@ -1,6 +1,7 @@
 package com.tomspencerlondon.moviebooker;
 
 import com.tomspencerlondon.moviebooker.hexagon.application.BookingService;
+import com.tomspencerlondon.moviebooker.hexagon.application.CustomUserDetailsService;
 import com.tomspencerlondon.moviebooker.hexagon.application.MovieGoerService;
 import com.tomspencerlondon.moviebooker.hexagon.application.MovieService;
 import com.tomspencerlondon.moviebooker.hexagon.application.port.BookingRepository;
@@ -26,5 +27,10 @@ public class MovieConfig {
     @Bean
     public MovieGoerService movieGoerService(MovieGoerRepository movieGoerRepository) {
         return new MovieGoerService(movieGoerRepository);
+    }
+
+    @Bean
+    CustomUserDetailsService customUserDetailsService(MovieGoerRepository movieGoerRepository) {
+        return new CustomUserDetailsService(movieGoerRepository);
     }
 }

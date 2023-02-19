@@ -4,10 +4,10 @@ import com.tomspencerlondon.moviebooker.hexagon.application.BookingService;
 import com.tomspencerlondon.moviebooker.hexagon.application.MovieGoerService;
 import com.tomspencerlondon.moviebooker.hexagon.application.MovieService;
 import com.tomspencerlondon.moviebooker.hexagon.domain.MovieGoer;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class MovieController {
@@ -16,16 +16,24 @@ public class MovieController {
     private final BookingService bookingService;
     private MovieGoerService movieGoerService;
 
-    public MovieController(MovieService movieService, BookingService bookingService, MovieGoerService movieGoerService) {
+    private PasswordEncoder passwordEncoder;
+
+    public MovieController(MovieService movieService, BookingService bookingService, MovieGoerService movieGoerService, PasswordEncoder passwordEncoder) {
         this.movieService = movieService;
         this.bookingService = bookingService;
         this.movieGoerService = movieGoerService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("movies", movieService.findAll());
         return "start";
+    }
+
+    @GetMapping("/login")
+    public String loginForm() {
+        return "login";
     }
 
     @GetMapping("/register")
@@ -37,7 +45,10 @@ public class MovieController {
 
     @PostMapping("/register")
     public String register(@ModelAttribute("movieGoerRegistrationForm") MovieGoerRegistrationForm movieGoerRegistrationForm, Model model) {
-        MovieGoer movieGoer = new MovieGoer(movieGoerRegistrationForm.getUserName(), movieGoerRegistrationForm.getPassword(), 0);
+        MovieGoer movieGoer = new MovieGoer(
+                movieGoerRegistrationForm.getUserName(),
+                passwordEncoder.encode(movieGoerRegistrationForm.getPassword()),
+                0);
         try {
             movieGoerService.save(movieGoer);
         } catch (RuntimeException e) {
