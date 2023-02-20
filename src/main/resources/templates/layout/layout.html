@@ -14,9 +14,14 @@
 <body class="h-full">
 <div class="min-h-full">
   <header class="bg-blue-200 shadow-sm">
-    <div class="mx-auto max-w-7xl py-4 px-4 sm:px-6 lg:px-8">
-      <h1 class="text-lg font-semibold leading-6 text-gray-900">Movie Goer</h1>
-    </div>
+      <div class="mx-auto max-w-7xl py-4 px-4 sm:px-6 lg:px-8 grid grid-cols-2">
+        <div>
+          <h1 class="text-lg font-semibold leading-6 text-gray-900 justify-self-start">Movie Goer</h1>
+        </div>
+        <div class="justify-self-end">tomspencerlondon@gmail.com
+          <a th:href="@{/logout}" class="px-16 text-indigo-600 hover:text-indigo-900">logout</a>
+        </div>
+      </div>
   </header>
   <main>
     <div layout:fragment="content" />
