@@ -87,7 +87,7 @@ public class MovieController {
     }
 
     @PostMapping("/bookings")
-    public String bookings(HttpServletRequest request, @RequestParam(value = "programId") Long programId,
+    public String bookings(@RequestParam(value = "programId") Long programId,
                            @RequestParam(value = "numberOfSeats") int numberOfSeats) {
         return "redirect:/book?movieProgramId=" + programId + "&numberOfSeats=" + numberOfSeats;
     }

@@ -35,9 +35,11 @@
                                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                         Clapham Common
                                     </td>
-                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
-                                        th:text="${booking.filmName()}"
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-blue-800"
                                     >
+                                        <a th:text="${booking.filmName()}"
+                                           th:href="@{/movie(filmId=${booking.getBookingId()})}"
+                                           />
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
                                         th:text="${booking.bookingTime()}"
