@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -36,7 +37,7 @@ public class MovieBookerApplication implements CommandLineRunner {
         MovieProgram movieProgram = new MovieProgram(1L,
                 LocalDateTime.of(2023, 2, 14, 13, 0),
                 5,
-                savedMovie, Collections.EMPTY_LIST);
+                savedMovie, Collections.EMPTY_LIST, new BigDecimal("5.00"));
 
         movieService.saveMovieProgram(movieProgram);
     }

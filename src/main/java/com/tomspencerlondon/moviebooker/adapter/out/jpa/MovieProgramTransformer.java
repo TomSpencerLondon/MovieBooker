@@ -35,7 +35,7 @@ public class MovieProgramTransformer {
                 movieProgramDbo.getScheduleDate(),
                 movieProgramDbo.getSeats(),
                 movie,
-                bookings);
+                bookings, movieProgramDbo.getPrice());
     }
 
     public MovieProgramDbo toMovieProgramDbo(MovieProgram movieProgram) {
@@ -47,6 +47,8 @@ public class MovieProgramTransformer {
         movieProgramDbo.setMovie(
                 movieTransformer.toMovieDbo(movieProgram.movie())
         );
+
+        movieProgramDbo.setPrice(movieProgram.price());
 
         return movieProgramDbo;
     }

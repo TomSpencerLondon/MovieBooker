@@ -3,6 +3,7 @@ package com.tomspencerlondon.moviebooker.adapter.in.web;
 import com.tomspencerlondon.moviebooker.hexagon.application.BookingService;
 import com.tomspencerlondon.moviebooker.hexagon.application.MovieGoerService;
 import com.tomspencerlondon.moviebooker.hexagon.application.MovieService;
+import com.tomspencerlondon.moviebooker.hexagon.domain.Booking;
 import com.tomspencerlondon.moviebooker.hexagon.domain.MovieGoer;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -68,11 +69,27 @@ public class MovieController {
         return "movie/index";
     }
 
-    @PostMapping("/bookings")
-    public String bookings(HttpServletRequest request, @RequestParam(value = "programId") String programId, @RequestParam(value = "numberOfSeats") String numberOfSeats) {
+    @GetMapping("/book")
+    public String createBooking(HttpServletRequest request, Model model, @RequestParam(value = "movieProgramId")
+    Long movieProgramId, @RequestParam(value = "numberOfSeats") int numberOfSeats) {
         String userName = request.getUserPrincipal().getName();
-        bookingService.makeBookingFor(userName, Long.valueOf(programId), Integer.valueOf(numberOfSeats));
+        Booking booking = bookingService.createBooking(userName, movieProgramId, numberOfSeats);
+        BookingForm bookingForm = BookingForm.from(booking);
+        model.addAttribute("bookingForm", bookingForm);
+        return "bookings/book";
+    }
+
+    @PostMapping("/book")
+    public String makeBooking(@ModelAttribute("bookingForm") BookingForm bookingForm) {
+        Booking booking = BookingForm.to(bookingForm);
+        bookingService.save(booking);
         return "redirect:/bookings";
+    }
+
+    @PostMapping("/bookings")
+    public String bookings(HttpServletRequest request, @RequestParam(value = "programId") Long programId,
+                           @RequestParam(value = "numberOfSeats") int numberOfSeats) {
+        return "redirect:/book?movieProgramId=" + programId + "&numberOfSeats=" + numberOfSeats;
     }
 
     @GetMapping("/bookings")

@@ -22,17 +22,16 @@ public class BookingService {
     }
 
 
-    public Booking makeBookingFor(String userName, Long scheduleId, Integer numberOfSeatsBooked) {
-        MovieGoer movieGoer = movieGoerRepository.findByUserName(userName).orElseThrow(UnsupportedOperationException::new);
+    public Booking makeBookingFor(Long userId, Long scheduleId, Integer numberOfSeatsBooked) {
         MovieProgram movieProgram = movieProgramRepository.findById(scheduleId)
                 .orElseThrow(UnsupportedOperationException::new);
 
         Booking booking = new Booking(
-                movieGoer.getUserId(),
+                userId,
                 movieProgram.movie().movieName(),
                 movieProgram.scheduleDate(),
                 movieProgram.getScheduleId(),
-                numberOfSeatsBooked);
+                numberOfSeatsBooked, movieProgram.price());
 
         return bookingRepository.save(booking);
     }
@@ -43,5 +42,17 @@ public class BookingService {
 
     public void cancelBookingFor(Long bookingId) {
         bookingRepository.deleteById(bookingId);
+    }
+
+    public Booking createBooking(String userName, Long movieProgramId, int numberOfSeats) {
+        MovieGoer movieGoer = movieGoerRepository.findByUserName(userName).orElseThrow(IllegalArgumentException::new);
+        MovieProgram movieProgram = movieProgramRepository.findById(movieProgramId)
+                .orElseThrow(IllegalArgumentException::new);
+
+        return movieProgram.createBooking(movieGoer.getUserId(), numberOfSeats);
+    }
+
+    public Booking save(Booking booking) {
+        return bookingRepository.save(booking);
     }
 }

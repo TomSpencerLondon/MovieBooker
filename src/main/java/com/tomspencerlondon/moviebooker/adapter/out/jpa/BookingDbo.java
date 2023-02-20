@@ -3,6 +3,8 @@ package com.tomspencerlondon.moviebooker.adapter.out.jpa;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "bookings")
 public class BookingDbo {
@@ -18,6 +20,8 @@ public class BookingDbo {
     private Long userId;
 
     private Integer numberOfSeatsBooked;
+
+    private BigDecimal price;
 
     public void setBookingId(Long id) {
         this.bookingId = id;
@@ -60,5 +64,13 @@ public class BookingDbo {
 
     public void setMovieGoerDbo(MovieGoerDbo movieGoerDbo) {
         this.movieGoerDbo = movieGoerDbo;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal pricePaid) {
+        this.price = pricePaid;
     }
 }

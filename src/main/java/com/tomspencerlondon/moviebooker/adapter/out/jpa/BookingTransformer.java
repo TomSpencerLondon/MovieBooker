@@ -19,15 +19,18 @@ public class BookingTransformer {
     public BookingDbo toBookingDbo(Booking booking, MovieProgram movieProgram) {
         BookingDbo bookingDbo = new BookingDbo();
         bookingDbo.setBookingId(booking.getBookingId());
+
         MovieGoer movieGoer = movieGoerRepository
                 .findById(booking.movieGoerId())
                 .orElseThrow(UnsupportedOperationException::new);
+
         MovieGoerDbo movieGoerDbo = new MovieGoerDbo();
         movieGoerDbo.setUserId(movieGoer.getUserId());
         movieGoerDbo.setUserName(movieGoer.userName());
         movieGoerDbo.setPassword(movieGoer.password());
         movieGoerDbo.setLoyaltyPoints(movieGoer.loyaltyPoints());
         bookingDbo.setMovieGoerDbo(movieGoerDbo);
+
         MovieProgramDbo movieProgramDbo = new MovieProgramDbo();
         movieProgramDbo.setScheduleId(movieProgram.getScheduleId());
         movieProgramDbo.setScheduleDate(movieProgram.scheduleDate());
@@ -45,6 +48,7 @@ public class BookingTransformer {
         );
         bookingDbo.setMovieProgram(movieProgramDbo);
         bookingDbo.setNumberOfSeatsBooked(booking.numberOfSeatsBooked());
+        bookingDbo.setPrice(booking.price());
         return bookingDbo;
     }
 
@@ -55,7 +59,9 @@ public class BookingTransformer {
         Booking booking = new Booking(
                 movieGoerId, movieProgramDbo.getMovie().getMovieName(),
                 movieProgramDbo.getScheduleDate(),
-                movieProgramDbo.getScheduleId(), bookingDbo.getNumberOfSeatsBooked());
+                movieProgramDbo.getScheduleId(),
+                bookingDbo.getNumberOfSeatsBooked(),
+                bookingDbo.getPrice());
         booking.setBookingId(bookingId);
         return booking;
     }

@@ -2,6 +2,7 @@ package com.tomspencerlondon.moviebooker.adapter.out.jpa;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ public class MovieProgramDbo {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long scheduleId;
+    private BigDecimal price;
 
     public void setScheduleId(Long id) {
         this.scheduleId = id;
@@ -63,5 +65,13 @@ public class MovieProgramDbo {
 
     public void setMovie(MovieDbo movie) {
         this.movie = movie;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 }

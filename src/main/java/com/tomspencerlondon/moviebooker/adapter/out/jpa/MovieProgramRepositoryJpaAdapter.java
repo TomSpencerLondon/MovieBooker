@@ -5,6 +5,7 @@ import com.tomspencerlondon.moviebooker.hexagon.domain.Booking;
 import com.tomspencerlondon.moviebooker.hexagon.domain.MovieProgram;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -34,6 +35,7 @@ public class MovieProgramRepositoryJpaAdapter implements MovieProgramRepository 
         movieProgramDbo.setMovie(movieTransformer.toMovieDbo(movieProgram.movie()));
         movieProgramDbo.setScheduleDate(movieProgram.scheduleDate());
         movieProgramDbo.setSeats(movieProgram.totalSeats());
+        movieProgramDbo.setPrice(movieProgram.price());
 
         MovieProgramDbo saved = movieProgramJpaRepository.save(movieProgramDbo);
 
@@ -42,7 +44,7 @@ public class MovieProgramRepositoryJpaAdapter implements MovieProgramRepository 
                 .map(bookingTransformer::toBooking).toList();
 
         return new MovieProgram(saved.getScheduleId(), saved.getScheduleDate(), saved.getSeats(),
-                movieTransformer.toMovie(saved.getMovie()), bookings);
+                movieTransformer.toMovie(saved.getMovie()), bookings, saved.getPrice());
     }
 
     @Override

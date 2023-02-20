@@ -1,5 +1,6 @@
 package com.tomspencerlondon.moviebooker.hexagon.domain;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -11,12 +12,15 @@ public class MovieProgram {
     private Movie movie;
     private List<Booking> bookings;
 
-    public MovieProgram(Long scheduleId, LocalDateTime scheduleDate, Integer totalSeats, Movie movie, List<Booking> bookings) {
+    private final BigDecimal price;
+
+    public MovieProgram(Long scheduleId, LocalDateTime scheduleDate, Integer totalSeats, Movie movie, List<Booking> bookings, BigDecimal price) {
         this.scheduleId = scheduleId;
         this.scheduleDate = scheduleDate;
         this.totalSeats = totalSeats;
         this.movie = movie;
         this.bookings = bookings;
+        this.price = price;
     }
 
     public void setScheduleId(Long id) {
@@ -57,5 +61,20 @@ public class MovieProgram {
 
     public boolean canBook() {
         return availableSeats() > 0;
+    }
+
+    public Booking createBooking(Long movieGoerId, int numberOfSeats) {
+
+        return new Booking(
+                movieGoerId,
+                movie.movieName(),
+                scheduleDate,
+                scheduleId,
+                numberOfSeats,
+                price.multiply(new BigDecimal(numberOfSeats)));
+    }
+
+    public BigDecimal price() {
+        return price;
     }
 }
