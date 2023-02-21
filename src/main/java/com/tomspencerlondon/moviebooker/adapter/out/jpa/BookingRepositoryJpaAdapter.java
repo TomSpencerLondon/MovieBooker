@@ -57,4 +57,12 @@ public class BookingRepositoryJpaAdapter implements BookingRepository {
         Optional<BookingDbo> bookingDbo = bookingJpaRepository.findById(bookingId);
         bookingDbo.ifPresent(bookingJpaRepository::delete);
     }
+
+    @Override
+    public List<Booking> findByUserId(Long userId) {
+        return bookingJpaRepository.findByUserId(userId)
+                .stream()
+                .map(bookingTransformer::toBooking)
+                .toList();
+    }
 }

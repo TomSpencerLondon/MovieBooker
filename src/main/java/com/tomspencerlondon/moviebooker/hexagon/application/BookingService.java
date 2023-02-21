@@ -21,19 +21,10 @@ public class BookingService {
         this.movieGoerRepository = movieGoerRepository;
     }
 
+    public List<Booking> findAllBookingsFor(String userName) {
+        MovieGoer movieGoer = movieGoerRepository.findByUserName(userName).orElseThrow(IllegalArgumentException::new);
 
-    public Booking makeBookingFor(Long userId, Long scheduleId, Integer numberOfSeatsBooked) {
-        MovieProgram movieProgram = movieProgramRepository.findById(scheduleId)
-                .orElseThrow(UnsupportedOperationException::new);
-
-        Booking booking = new Booking(
-                userId,
-                movieProgram.movie().movieName(),
-                movieProgram.scheduleDate(),
-                movieProgram.getScheduleId(),
-                numberOfSeatsBooked, movieProgram.price());
-
-        return bookingRepository.save(booking);
+        return bookingRepository.findByUserId(movieGoer.getUserId());
     }
 
     public List<Booking> findAll() {

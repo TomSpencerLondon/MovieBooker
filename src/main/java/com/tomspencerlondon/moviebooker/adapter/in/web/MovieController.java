@@ -93,8 +93,9 @@ public class MovieController {
     }
 
     @GetMapping("/bookings")
-    public String bookings(Model model) {
-        model.addAttribute("bookings", bookingService.findAll());
+    public String bookings(HttpServletRequest request, Model model) {
+        String userName = request.getUserPrincipal().getName();
+        model.addAttribute("bookings", bookingService.findAllBookingsFor(userName));
         return "bookings/index";
     }
 
