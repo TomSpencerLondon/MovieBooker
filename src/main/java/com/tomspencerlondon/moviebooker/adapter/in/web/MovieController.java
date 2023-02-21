@@ -5,7 +5,9 @@ import com.tomspencerlondon.moviebooker.hexagon.application.MovieGoerService;
 import com.tomspencerlondon.moviebooker.hexagon.application.MovieService;
 import com.tomspencerlondon.moviebooker.hexagon.domain.Booking;
 import com.tomspencerlondon.moviebooker.hexagon.domain.MovieGoer;
-import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +31,7 @@ public class MovieController {
 
     @GetMapping("/")
     public String home(Model model) {
+        model.addAttribute("userName", userName());
         model.addAttribute("movies", movieService.findAll());
         return "start";
     }
@@ -63,6 +66,7 @@ public class MovieController {
     @GetMapping("/movie")
     public String movie(Model model, @RequestParam(value = "filmId", defaultValue = "") String filmId) {
         Long filmIdLong = Long.valueOf(filmId);
+        model.addAttribute("userName", userName());
         model.addAttribute("movie", movieService.findById(filmIdLong));
         model.addAttribute("moviePrograms", movieService.programsForFilm(filmIdLong));
         model.addAttribute("numberOfSeats", 1);
@@ -70,12 +74,13 @@ public class MovieController {
     }
 
     @GetMapping("/book")
-    public String createBooking(HttpServletRequest request, Model model, @RequestParam(value = "movieProgramId")
+    public String createBooking(Model model, @RequestParam(value = "movieProgramId")
     Long movieProgramId, @RequestParam(value = "numberOfSeats") int numberOfSeats) {
-        String userName = request.getUserPrincipal().getName();
-        Booking booking = bookingService.createBooking(userName, movieProgramId, numberOfSeats);
+
+        Booking booking = bookingService.createBooking(userName(), movieProgramId, numberOfSeats);
         BookingForm bookingForm = BookingForm.from(booking);
         model.addAttribute("bookingForm", bookingForm);
+        model.addAttribute("userName", userName());
         return "bookings/book";
     }
 
@@ -93,9 +98,9 @@ public class MovieController {
     }
 
     @GetMapping("/bookings")
-    public String bookings(HttpServletRequest request, Model model) {
-        String userName = request.getUserPrincipal().getName();
-        model.addAttribute("bookings", bookingService.findAllBookingsFor(userName));
+    public String bookings(Model model) {
+        model.addAttribute("bookings", bookingService.findAllBookingsFor(userName()));
+        model.addAttribute("userName", userName());
         return "bookings/index";
     }
 
@@ -105,4 +110,12 @@ public class MovieController {
 
         return "redirect:/bookings";
     }
+
+
+    private String userName() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+        return userPrincipal.getUsername();
+    }
+
 }
