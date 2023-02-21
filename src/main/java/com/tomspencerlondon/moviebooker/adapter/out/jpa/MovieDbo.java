@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class MovieDbo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long movieId;
 
     public void setMovieId(Long id) {

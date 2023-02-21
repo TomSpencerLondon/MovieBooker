@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public class BookingDbo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bookingId;
 
     @ManyToOne

@@ -10,7 +10,7 @@ import java.util.List;
 public class MovieGoerDbo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
     private String userName;

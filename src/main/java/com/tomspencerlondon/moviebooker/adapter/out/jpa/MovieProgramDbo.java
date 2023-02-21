@@ -11,7 +11,7 @@ import java.util.List;
 @Table(name = "movie_programs")
 public class MovieProgramDbo {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long scheduleId;
     private BigDecimal price;
 
