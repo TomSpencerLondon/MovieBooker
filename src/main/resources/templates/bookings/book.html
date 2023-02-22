@@ -3,106 +3,60 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout}">
 
-<div    layout:fragment="content"
-        class="min-h-full">
-    <div class="container p-12 mx-auto">
-        <div class="flex flex-col w-full px-0 mx-auto md:flex-row">
-            <div class="flex flex-col md:w-full">
-                <h2 class="mb-4 font-bold md:text-xl text-heading">Booking
-                </h2>
-                <form th:action="@{/book}" th:object="${bookingForm}" method="POST" class="space-y-6">
-                    <input type="hidden" th:name="scheduleId" th:value="*{scheduleId}"/>
-                    <input type="hidden" th:name="movieGoerId" th:value="*{movieGoerId}"/>
-                    <div>
-                        <label for="movieName" class="block text-sm font-medium text-gray-700">
-                            Movie name
-                        </label>
-                        <div class="mt-1">
-                            <input id="movieName" th:field="*{movieName}" th:autocomplete="*{movieName}" required
-                                   class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm">
-                        </div>
-                    </div>
-
-                    <div class="space-y-1">
-                        <label for="scheduleDate"
-                               class="block text-sm font-medium text-gray-700">Date</label>
-                        <div class="mt-1">
-                            <input id="scheduleDate" th:field="*{scheduleDate}"
-                                   th:autocomplete="*{scheduleDate}"
-                                   required
-                                   class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm">
-                        </div>
-                    </div>
-
-                    <div class="space-y-1">
-                        <label for="numberOfSeats"
-                               class="block text-sm font-medium text-gray-700">Number of seats</label>
-                        <div class="mt-1">
-                            <input id="numberOfSeats" th:field="*{numberOfSeats}"
-                                   th:autocomplete="*{numberOfSeats}"
-                                   required
-                                   class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm">
-                        </div>
-                    </div>
-
-                    <div class="space-y-1">
-                        <label for="price"
-                               class="block text-sm font-medium text-gray-700">Price</label>
-                        <div class="mt-1">
-                            <input id="price" th:field="*{price}"
-                                   th:autocomplete="*{price}"
-                                   required
-                                   class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm">
-                        </div>
-                    </div>
-                    <div>
-                        <button type="submit"
-                                class="flex w-full justify-center rounded-md border border-transparent bg-blue-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                            Pay
-                        </button>
-                    </div>
-                </form>
+<div layout:fragment="content"
+     class="min-h-full">
+    <div class="h-screen grid grid-cols-1 md:grid-cols-3 tracking-wide mt-5">
+        <div class="h-full col-start-2 py-15 place-self-center items-center md: py-3 px-3">
+            <div class="bg-white rounded-t-lg">
+                <img src="img/book/illustration-hero.svg" alt="" srcset="" class="w-full rounded-t-lg">
             </div>
-            <div class="flex flex-col w-full ml-0 lg:ml-12 lg:w-2/5">
-                <div class="pt-12 md:pt-0 2xl:ps-4">
-                    <h2 class="text-xl font-bold">Order Summary
-                    </h2>
-                    <div class="mt-8">
-                        <div class="flex flex-col space-y-4">
-                            <div class="flex space-x-4">
-                                <div>
-                                    <img class="md:w-60"
-                                         src="/img/godfather.jpg"
-                                         alt="A Quiet Place movie poster"/>
-                                </div>
-                                <div>
-                                    <h2 class="text-xl font-bold">The Godfather</h2>
-                                    <p class="text-sm">Lorem ipsum dolor sit amet, tet</p>
-                                    <span class="text-blue-600">Price</span> £5.00
-                                </div>
-                                <div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
-                                         viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                              d="M6 18L18 6M6 6l12 12"/>
-                                    </svg>
-                                </div>
+            <form th:action="@{/book}" th:object="${bookingForm}" method="POST">
+                <input type="hidden" th:name="movieGoerId" th:value="*{movieGoerId}"/>
+                <input type="hidden" th:name="movieName" th:value="*{movieName}"/>
+                <input type="hidden" th:name="scheduleDate" th:value="*{scheduleDate}"/>
+                <input type="hidden" th:name="scheduleId" th:value="*{scheduleId}"/>
+                <input type="hidden" th:name="numberOfSeats" th:value="*{numberOfSeats}"/>
+                <input type="hidden" th:name="price" th:value="*{price}"/>
+                <div
+                        class="grid grid-cols-1 justify-items-center px-20 py-10 bg-white rounded-b-lg  shadow-2xl">
+                    <div>
+                        <h1 class="text-xl">Order Summary</h1>
+                    </div>
+                    <div class="mb-10">
+                        <dl class="mt-6 flex gap-4 sm:gap-6">
+                            <div class="flex flex-col">
+                                <dt class="text-lg font-medium text-gray-600 flex justify-center">Film</dt>
+                                <dd class="text-base text-gray-500" th:text="${bookingForm.getMovieName()}"></dd>
                             </div>
-                        </div>
+
+                            <div class="flex flex-col">
+                                <dt class="text-lg font-medium text-gray-600 flex justify-center">Showing</dt>
+                                <dd class="text-base text-gray-500" th:text="${bookingForm.getScheduleDateText()}"></dd>
+                            </div>
+                            <div class="flex flex-col">
+                                <dt class="text-lg font-medium text-gray-600">Price</dt>
+                                <dd class="text-base text-gray-500" th:text="${bookingForm.getPriceText()}"></dd>
+                            </div>
+                            <div class="flex flex-col">
+                                <dt class="text-lg font-medium text-gray-600">Tickets</dt>
+                                <dd class="text-base text-gray-500 flex justify-center"
+                                    th:text="${bookingForm.getNumberOfSeats()}"></dd>
+                            </div>
+                        </dl>
                     </div>
-                    <div class="flex p-2 mt-2">
-                        <h2 class="text-xl font-bold">2 Tickets</h2>
+                    <button type="submit"
+                            class="mb-4 flex w-full justify-center rounded-md border border-transparent bg-blue-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                        Pay
+                    </button>
+                    <div id="cancel">
+                        <a href="#" class="text-sm text-gray-700">Cancel Order</a>
                     </div>
-                    <div
-                            class="flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
-                        Subtotal<span class="ml-2">£10.00</span></div>
-                    <div
-                            class="flex items-center w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
-                        Total<span class="ml-2">£10.00</span></div>
                 </div>
-            </div>
+            </form>
+
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>

@@ -5,6 +5,8 @@ import com.tomspencerlondon.moviebooker.hexagon.domain.Booking;
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 public class BookingForm {
 
@@ -71,6 +73,11 @@ public class BookingForm {
         return scheduleDate;
     }
 
+    public String getScheduleDateText() {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT);
+        return scheduleDate.format(dateTimeFormatter);
+    }
+
     public void setScheduleDate(LocalDateTime scheduleDate) {
         this.scheduleDate = scheduleDate;
     }
@@ -93,6 +100,10 @@ public class BookingForm {
 
     public BigDecimal getPrice() {
         return price;
+    }
+
+    public String getPriceText() {
+        return String.format("£%.2f", price);
     }
 
     public void setPrice(BigDecimal price) {
