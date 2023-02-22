@@ -35,7 +35,11 @@ public class MovieGoer {
         return loyaltyPoints;
     }
 
-    public void updateLoyaltyPoints(int numberOfSeatsBooked) {
-        loyaltyPoints += numberOfSeatsBooked;
+    public void increaseLoyaltyPoints(int loyaltyPoints) {
+        this.loyaltyPoints += loyaltyPoints;
+    }
+
+    public void decreaseLoyaltyPoints(int loyaltyPoints) {
+        this.loyaltyPoints -= loyaltyPoints;
     }
 }

@@ -49,7 +49,8 @@ public class BookingRepositoryJpaAdapter implements BookingRepository {
 
     @Override
     public Optional<Booking> findById(Long bookingId) {
-        return Optional.empty();
+        return bookingJpaRepository.findById(bookingId)
+                .map(bookingTransformer::toBooking);
     }
 
     @Override
