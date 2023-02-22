@@ -34,4 +34,8 @@ public class MovieGoer {
     public Integer loyaltyPoints() {
         return loyaltyPoints;
     }
+
+    public void updateLoyaltyPoints(int numberOfSeatsBooked) {
+        loyaltyPoints += numberOfSeatsBooked;
+    }
 }

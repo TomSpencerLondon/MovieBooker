@@ -31,7 +31,7 @@ public class MovieController {
 
     @GetMapping("/")
     public String home(Model model) {
-        model.addAttribute("userName", userName());
+        model.addAttribute("movieGoer", movieGoerView());
         model.addAttribute("movies", movieService.findAll());
         return "start";
     }
@@ -66,7 +66,7 @@ public class MovieController {
     @GetMapping("/movie")
     public String movie(Model model, @RequestParam(value = "filmId", defaultValue = "") String filmId) {
         Long filmIdLong = Long.valueOf(filmId);
-        model.addAttribute("userName", userName());
+        model.addAttribute("movieGoer", movieGoerView());
         model.addAttribute("movie", movieService.findById(filmIdLong));
         model.addAttribute("moviePrograms", movieService.programsForFilm(filmIdLong));
         model.addAttribute("numberOfSeats", 1);
@@ -76,11 +76,10 @@ public class MovieController {
     @GetMapping("/book")
     public String createBooking(Model model, @RequestParam(value = "movieProgramId")
     Long movieProgramId, @RequestParam(value = "numberOfSeats") int numberOfSeats) {
-
-        Booking booking = bookingService.createBooking(userName(), movieProgramId, numberOfSeats);
+        Booking booking = bookingService.createBooking(movieGoerView().getUserName(), movieProgramId, numberOfSeats);
         BookingForm bookingForm = BookingForm.from(booking);
         model.addAttribute("bookingForm", bookingForm);
-        model.addAttribute("userName", userName());
+        model.addAttribute("movieGoer", movieGoerView());
         return "bookings/book";
     }
 
@@ -99,8 +98,8 @@ public class MovieController {
 
     @GetMapping("/bookings")
     public String bookings(Model model) {
-        model.addAttribute("bookings", bookingService.findAllBookingsFor(userName()));
-        model.addAttribute("userName", userName());
+        model.addAttribute("bookings", bookingService.findAllBookingsFor(movieGoerView().getUserName()));
+        model.addAttribute("movieGoer", movieGoerView());
         return "bookings/index";
     }
 
@@ -112,10 +111,10 @@ public class MovieController {
     }
 
 
-    private String userName() {
+    private MovieGoerView movieGoerView() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
-        return userPrincipal.getUsername();
+        return MovieGoerView.from(movieGoerService.findByUserName(userPrincipal.getUsername()));
     }
 
 }

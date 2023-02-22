@@ -12,6 +12,10 @@ public class MovieGoerService {
         this.movierGoerRepository = movierGoerRepository;
     }
 
+    public MovieGoer findByUserName(String userName) {
+        return movierGoerRepository.findByUserName(userName).orElseThrow(IllegalArgumentException::new);
+    }
+
     public MovieGoer save(MovieGoer movieGoer) {
         Optional<MovieGoer> foundMovieGoer = movierGoerRepository.findByUserName(movieGoer.userName());
         if (foundMovieGoer.isPresent()) {

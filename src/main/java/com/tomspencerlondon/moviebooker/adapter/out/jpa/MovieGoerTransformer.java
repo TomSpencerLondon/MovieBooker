@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 public class MovieGoerTransformer {
     public MovieGoerDbo toMovieGoerDbo(MovieGoer movieGoer) {
         MovieGoerDbo movieGoerDbo = new MovieGoerDbo();
-        movieGoerDbo.setUserId(movieGoerDbo.getUserId());
+        movieGoerDbo.setUserId(movieGoer.getUserId());
         movieGoerDbo.setUserName(movieGoer.userName());
         movieGoerDbo.setPassword(movieGoer.password());
         movieGoerDbo.setLoyaltyPoints(movieGoer.loyaltyPoints());

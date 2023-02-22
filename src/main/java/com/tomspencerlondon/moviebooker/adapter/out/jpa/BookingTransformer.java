@@ -58,7 +58,8 @@ public class BookingTransformer {
         Long bookingId = bookingDbo.getBookingId();
         Long movieGoerId = bookingDbo.getUserId();
         Booking booking = new Booking(
-                movieGoerId, movieProgramDbo.getMovie().getMovieName(),
+                movieGoerId,
+                movieProgramDbo.getMovie().getMovieName(),
                 movieProgramDbo.getScheduleDate(),
                 movieProgramDbo.getScheduleId(),
                 bookingDbo.getNumberOfSeatsBooked(),
