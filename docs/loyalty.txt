@@ -1,0 +1,51 @@
+Loyalty points description
+
+6 seats
+6 seats
+=> 12 loyalty points
+2 seats
+=> cost:
+1 seat
+1 free seat
+3 loyalty points left
+
+
+Another example:
+9 loyalty points
+2 seats
+=> 11 loyalty points
+
+
+Price
+price
+finalPrice
+LoyaltyPoints before
+LoyaltyPoints after
+
+8 loyalty points
+book 2 seats
+=> no discount
+
+9 loyalty points
+book 2 seats
+=> pay for one seat
+
+9 loyalty points
+book 1 seat
+=> pay for one seat
+10 loyalty points
+
+    private void calculate() {
+        BigDecimal runningTotal = new BigDecimal(0);
+        int runningLoyaltyPoints = startingLoyaltyPoints;
+        for (int i = 0; i < numberOfSeats; i++) {
+            if (runningLoyaltyPoints >= 10) {
+                runningLoyaltyPoints = runningLoyaltyPoints - 10;
+            } else {
+                runningTotal.add(seatPrice);
+                runningLoyaltyPoints++;
+            }
+        }
+        this.finalPrice = runningTotal;
+        this.finalLoyaltyPoints = runningLoyaltyPoints;
+    }
