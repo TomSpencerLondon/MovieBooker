@@ -17,11 +17,14 @@ public class BookingDbo {
     @JoinColumn(name = "schedule_id")
     private MovieProgramDbo movieProgram;
 
+    @Column(name = "user_id")
     private Long userId;
 
     private Integer numberOfSeatsBooked;
 
     private BigDecimal price;
+
+    private Integer loyaltyPointCost;
 
     public void setBookingId(Long id) {
         this.bookingId = id;
@@ -55,22 +58,19 @@ public class BookingDbo {
         this.userId = userId;
     }
 
-    @ManyToOne(optional = false)
-    private MovieGoerDbo movieGoerDbo;
-
-    public MovieGoerDbo getMovieGoerDbo() {
-        return movieGoerDbo;
-    }
-
-    public void setMovieGoerDbo(MovieGoerDbo movieGoerDbo) {
-        this.movieGoerDbo = movieGoerDbo;
-    }
-
     public BigDecimal getPrice() {
         return price;
     }
 
     public void setPrice(BigDecimal pricePaid) {
         this.price = pricePaid;
+    }
+
+    public void setLoyaltyPointCost(int loyaltyPointCost) {
+        this.loyaltyPointCost = loyaltyPointCost;
+    }
+
+    public Integer getLoyaltyPointCost() {
+        return loyaltyPointCost;
     }
 }

@@ -1,6 +1,7 @@
 package com.tomspencerlondon.moviebooker.adapter.in.web;
 
 import com.tomspencerlondon.moviebooker.hexagon.domain.Booking;
+import com.tomspencerlondon.moviebooker.hexagon.domain.Price;
 
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
@@ -28,6 +29,9 @@ public class BookingForm {
     @NotBlank
     private BigDecimal price;
 
+    @NotBlank
+    private int loyaltyPointCost;
+
 
     public static BookingForm from(Booking booking) {
         BookingForm bookingForm = new BookingForm();
@@ -37,6 +41,7 @@ public class BookingForm {
         bookingForm.setScheduleId(booking.scheduleId());
         bookingForm.setNumberOfSeats(booking.numberOfSeatsBooked());
         bookingForm.setPrice(booking.price());
+        bookingForm.setLoyaltyPointCost(booking.loyaltyPointChange());
         return bookingForm;
     }
 
@@ -47,9 +52,8 @@ public class BookingForm {
                 bookingForm.getScheduleDate(),
                 bookingForm.getScheduleId(),
                 bookingForm.getNumberOfSeats(),
-                bookingForm.getPrice());
-        booking.setBookingId(booking.getBookingId());
-
+                new Price(bookingForm.getLoyaltyPointCost(),
+                        bookingForm.getPrice()));
         return booking;
     }
 
@@ -108,5 +112,13 @@ public class BookingForm {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public int getLoyaltyPointCost() {
+        return loyaltyPointCost;
+    }
+
+    public void setLoyaltyPointCost(int loyaltyPointCost) {
+        this.loyaltyPointCost = loyaltyPointCost;
     }
 }

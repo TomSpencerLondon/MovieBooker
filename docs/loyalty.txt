@@ -49,3 +49,15 @@ book 1 seat
         this.finalPrice = runningTotal;
         this.finalLoyaltyPoints = runningLoyaltyPoints;
     }
+
+
+Design issues:
+We get a booking (number of seats, movie, movieGoer, price per seat)
+Now we want to add loyalty points => price per seat and number of seats don't calculate the price
+
+Price - loyalty points => final loyalty points
+final price with loyalty discount
+
+use loyalty points to store updated loyalty points
+
+Price combination of loyalty points and money -> 10 loyalty points and five pounds

@@ -7,13 +7,14 @@ public class Booking {
     private Long bookingId;
     private Long scheduleId;
     private int numberOfSeatsBooked;
-    private BigDecimal price;
+    private Price price;
 
     private Long movieGoerId;
     private final String filmName;
     private final LocalDateTime bookingTime;
 
-    public Booking(Long movieGoerId, String filmName, LocalDateTime bookingTime, Long scheduleId, int numberOfSeatsBooked, BigDecimal price) {
+    public Booking(Long movieGoerId, String filmName, LocalDateTime bookingTime,
+                   Long scheduleId, int numberOfSeatsBooked, Price price) {
         this.movieGoerId = movieGoerId;
         this.filmName = filmName;
         this.bookingTime = bookingTime;
@@ -51,6 +52,14 @@ public class Booking {
     }
 
     public BigDecimal price() {
-        return price;
+        return price.amountPaid();
+    }
+
+    public int loyaltyPointChange() {
+        return price.loyaltyPointChange();
+    }
+
+    public int negativeLoyaltyPointChange() {
+        return -loyaltyPointChange();
     }
 }

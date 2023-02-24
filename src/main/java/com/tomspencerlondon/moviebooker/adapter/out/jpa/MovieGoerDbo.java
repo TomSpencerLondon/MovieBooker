@@ -19,9 +19,6 @@ public class MovieGoerDbo {
 
     private Integer loyaltyPoints;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private List<BookingDbo> bookings = new ArrayList<>();
-
     public void setUserId(Long id) {
         this.userId = id;
     }

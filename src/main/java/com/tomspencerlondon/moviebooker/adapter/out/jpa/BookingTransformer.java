@@ -1,10 +1,7 @@
 package com.tomspencerlondon.moviebooker.adapter.out.jpa;
 
 import com.tomspencerlondon.moviebooker.hexagon.application.port.MovieGoerRepository;
-import com.tomspencerlondon.moviebooker.hexagon.domain.Booking;
-import com.tomspencerlondon.moviebooker.hexagon.domain.Movie;
-import com.tomspencerlondon.moviebooker.hexagon.domain.MovieGoer;
-import com.tomspencerlondon.moviebooker.hexagon.domain.MovieProgram;
+import com.tomspencerlondon.moviebooker.hexagon.domain.*;
 import org.springframework.stereotype.Service;
 
 @Service("jpaBookingTransformer")
@@ -18,7 +15,6 @@ public class BookingTransformer {
 
     public BookingDbo toBookingDbo(Booking booking, MovieProgram movieProgram) {
         BookingDbo bookingDbo = new BookingDbo();
-        bookingDbo.setBookingId(booking.getBookingId());
 
         MovieGoer movieGoer = movieGoerRepository
                 .findById(booking.movieGoerId())
@@ -29,7 +25,6 @@ public class BookingTransformer {
         movieGoerDbo.setUserName(movieGoer.userName());
         movieGoerDbo.setPassword(movieGoer.password());
         movieGoerDbo.setLoyaltyPoints(movieGoer.loyaltyPoints());
-        bookingDbo.setMovieGoerDbo(movieGoerDbo);
 
         MovieProgramDbo movieProgramDbo = new MovieProgramDbo();
         movieProgramDbo.setScheduleId(movieProgram.getScheduleId());
@@ -49,6 +44,7 @@ public class BookingTransformer {
         bookingDbo.setMovieProgram(movieProgramDbo);
         bookingDbo.setNumberOfSeatsBooked(booking.numberOfSeatsBooked());
         bookingDbo.setPrice(booking.price());
+        bookingDbo.setLoyaltyPointCost(booking.loyaltyPointChange());
         bookingDbo.setUserId(booking.movieGoerId());
         return bookingDbo;
     }
@@ -63,7 +59,7 @@ public class BookingTransformer {
                 movieProgramDbo.getScheduleDate(),
                 movieProgramDbo.getScheduleId(),
                 bookingDbo.getNumberOfSeatsBooked(),
-                bookingDbo.getPrice());
+                new Price(bookingDbo.getLoyaltyPointCost(), bookingDbo.getPrice()));
         booking.setBookingId(bookingId);
         return booking;
     }

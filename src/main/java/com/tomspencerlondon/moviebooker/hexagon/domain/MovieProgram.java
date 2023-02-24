@@ -12,15 +12,15 @@ public class MovieProgram {
     private Movie movie;
     private List<Booking> bookings;
 
-    private final BigDecimal price;
+    private final BigDecimal seatPrice;
 
-    public MovieProgram(Long scheduleId, LocalDateTime scheduleDate, Integer totalSeats, Movie movie, List<Booking> bookings, BigDecimal price) {
+    public MovieProgram(Long scheduleId, LocalDateTime scheduleDate, Integer totalSeats, Movie movie, List<Booking> bookings, BigDecimal seatPrice) {
         this.scheduleId = scheduleId;
         this.scheduleDate = scheduleDate;
         this.totalSeats = totalSeats;
         this.movie = movie;
         this.bookings = bookings;
-        this.price = price;
+        this.seatPrice = seatPrice;
     }
 
     public void setScheduleId(Long id) {
@@ -63,18 +63,19 @@ public class MovieProgram {
         return availableSeats() > 0;
     }
 
-    public Booking createBooking(Long movieGoerId, int numberOfSeats) {
-
+    public Booking createBooking(MovieGoer movieGoer, int numberOfSeats) {
+        Price bookingPrice = Price.calculatePrice(numberOfSeats, movieGoer.loyaltyPoints(), this.seatPrice);
         return new Booking(
-                movieGoerId,
+                movieGoer.getUserId(),
                 movie.movieName(),
                 scheduleDate,
                 scheduleId,
                 numberOfSeats,
-                price.multiply(new BigDecimal(numberOfSeats)));
+                bookingPrice);
     }
 
     public BigDecimal price() {
-        return price;
+        return seatPrice;
     }
+
 }

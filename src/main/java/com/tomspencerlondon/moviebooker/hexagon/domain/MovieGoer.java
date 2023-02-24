@@ -35,7 +35,7 @@ public class MovieGoer {
         return loyaltyPoints;
     }
 
-    public void increaseLoyaltyPoints(int loyaltyPoints) {
+    public void adjustLoyaltyPoints(int loyaltyPoints) {
         this.loyaltyPoints += loyaltyPoints;
     }
 

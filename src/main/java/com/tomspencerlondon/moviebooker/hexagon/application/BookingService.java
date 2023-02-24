@@ -32,7 +32,8 @@ public class BookingService {
                 .orElseThrow(IllegalArgumentException::new);
         MovieGoer movieGoer = movieGoerRepository.findById(booking.movieGoerId())
                 .orElseThrow(IllegalArgumentException::new);
-        movieGoer.decreaseLoyaltyPoints(booking.numberOfSeatsBooked());
+
+        movieGoer.adjustLoyaltyPoints(booking.negativeLoyaltyPointChange());
         movieGoerRepository.save(movieGoer);
         bookingRepository.deleteById(bookingId);
     }
@@ -42,14 +43,15 @@ public class BookingService {
         MovieProgram movieProgram = movieProgramRepository.findById(movieProgramId)
                 .orElseThrow(IllegalArgumentException::new);
 
-        return movieProgram.createBooking(movieGoer.getUserId(), numberOfSeats);
+        return movieProgram.createBooking(movieGoer, numberOfSeats);
     }
 
     public Booking save(Booking booking) {
         MovieGoer movieGoer = movieGoerRepository.findById(booking.movieGoerId())
                 .orElseThrow(IllegalArgumentException::new);
-        movieGoer.increaseLoyaltyPoints(booking.numberOfSeatsBooked());
+        movieGoer.adjustLoyaltyPoints(booking.loyaltyPointChange());
         movieGoerRepository.save(movieGoer);
         return bookingRepository.save(booking);
     }
+
 }

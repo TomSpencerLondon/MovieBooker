@@ -17,33 +17,34 @@
                 <input type="hidden" th:name="scheduleId" th:value="*{scheduleId}"/>
                 <input type="hidden" th:name="numberOfSeats" th:value="*{numberOfSeats}"/>
                 <input type="hidden" th:name="price" th:value="*{price}"/>
+                <input type="hidden" th:name="loyaltyPointCost" th:value="*{loyaltyPointCost}"/>
                 <div
                         class="grid grid-cols-1 justify-items-center px-20 py-10 bg-white rounded-b-lg  shadow-2xl">
                     <div>
                         <h1 class="lg:text-xl sm:text-sm">Order Summary</h1>
                     </div>
                     <div class="lg:mb-5 lg:mt-5 sm:mt-2 sm:mb-2">
-                        <div class="flex lg:flex-row md:flex-col gap-4">
+                        <div class="flex lg:flex-row md:flex-col lg:gap-4 md:gap-1">
                             <div class="flex flex-col">
-                                <div class="text-lg font-medium text-gray-600 flex justify-center">Film</div>
+                                <div class="lg:text-lg md:text-sm font-medium text-gray-600 flex justify-center">Film</div>
                                 <div class="text-sm text-gray-500 flex justify-center"
                                      th:text="${bookingForm.getMovieName()}"
                                 >Godfather</div>
                             </div>
                             <div class="flex flex-col">
-                                <div class="text-lg font-medium text-gray-600 flex justify-center">Showing</div>
+                                <div class="lg:text-lg md:text-sm font-medium text-gray-600 flex justify-center">Showing</div>
                                 <div class="text-sm text-gray-500 flex justify-center"
                                      th:text="${bookingForm.getScheduleDateText()}"
                                 >Godfather</div>
                             </div>
                             <div class="flex flex-col">
-                                <div class="text-lg font-medium text-gray-600 flex justify-center">Price</div>
+                                <div class="lg:text-lg md:text-sm font-medium text-gray-600 flex justify-center">Price</div>
                                 <div class="text-sm text-gray-500 flex justify-center"
                                      th:text="${bookingForm.getPriceText()}"
                                 >Godfather</div>
                             </div>
                             <div class="flex flex-col">
-                                <div class="text-lg font-medium text-gray-600 flex justify-center">Tickets</div>
+                                <div class="lg:text-lg md:text-sm font-medium text-gray-600 flex justify-center">Tickets</div>
                                 <div class="text-sm text-gray-500 flex justify-center"
                                      th:text="${bookingForm.getNumberOfSeats()}"
                                 >Godfather</div>
