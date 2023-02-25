@@ -58,8 +58,4 @@ public class Booking {
     public int loyaltyPointChange() {
         return price.loyaltyPointChange();
     }
-
-    public int negativeLoyaltyPointChange() {
-        return -loyaltyPointChange();
-    }
 }

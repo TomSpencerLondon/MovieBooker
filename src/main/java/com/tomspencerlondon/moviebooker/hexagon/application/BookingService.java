@@ -33,7 +33,7 @@ public class BookingService {
         MovieGoer movieGoer = movieGoerRepository.findById(booking.movieGoerId())
                 .orElseThrow(IllegalArgumentException::new);
 
-        movieGoer.adjustLoyaltyPoints(booking.negativeLoyaltyPointChange());
+        movieGoer.adjustLoyaltyPoints(-booking.numberOfSeatsBooked());
         movieGoerRepository.save(movieGoer);
         bookingRepository.deleteById(bookingId);
     }
