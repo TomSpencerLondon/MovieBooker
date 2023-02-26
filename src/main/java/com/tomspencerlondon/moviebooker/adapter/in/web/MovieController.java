@@ -103,14 +103,6 @@ public class MovieController {
         return "bookings/index";
     }
 
-    @DeleteMapping("/bookings/{bookingId}")
-    public String deleteBooking(@PathVariable(value = "bookingId") Long bookingId) {
-        bookingService.cancelBookingFor(bookingId);
-
-        return "redirect:/bookings";
-    }
-
-
     private MovieGoerView movieGoerView() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();

@@ -27,17 +27,6 @@ public class BookingService {
         return bookingRepository.findByUserId(movieGoer.getUserId());
     }
 
-    public void cancelBookingFor(Long bookingId) {
-        Booking booking = bookingRepository.findById(bookingId)
-                .orElseThrow(IllegalArgumentException::new);
-        MovieGoer movieGoer = movieGoerRepository.findById(booking.movieGoerId())
-                .orElseThrow(IllegalArgumentException::new);
-
-        movieGoer.adjustLoyaltyPoints(-booking.numberOfSeatsBooked());
-        movieGoerRepository.save(movieGoer);
-        bookingRepository.deleteById(bookingId);
-    }
-
     public Booking createBooking(String userName, Long movieProgramId, int numberOfSeats) {
         MovieGoer movieGoer = movieGoerRepository.findByUserName(userName).orElseThrow(IllegalArgumentException::new);
         MovieProgram movieProgram = movieProgramRepository.findById(movieProgramId)

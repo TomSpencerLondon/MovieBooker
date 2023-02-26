@@ -49,6 +49,13 @@
                                      th:text="${bookingForm.getNumberOfSeats()}"
                                 >Godfather</div>
                             </div>
+
+                            <div class="flex flex-col">
+                                <div class="lg:text-lg md:text-sm font-medium text-gray-600 flex justify-center">Points</div>
+                                <div class="text-sm text-gray-500 flex justify-center"
+                                     th:text="${bookingForm.getLoyaltyPointCost()}"
+                                ></div>
+                            </div>
                         </div>
                     </div>
                     <button type="submit"
