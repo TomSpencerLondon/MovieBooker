@@ -18,6 +18,9 @@ public class MovieGoerDbo {
     private String password;
 
     private Integer loyaltyPoints;
+    private Boolean isLoyaltyUser;
+    private Boolean askedForLoyalty;
+
 
     public void setUserId(Long id) {
         this.userId = id;
@@ -49,5 +52,21 @@ public class MovieGoerDbo {
 
     public void setLoyaltyPoints(Integer loyaltyPoints) {
         this.loyaltyPoints = loyaltyPoints;
+    }
+
+    public boolean getIsLoyaltyUser() {
+        return isLoyaltyUser;
+    }
+
+    public boolean getAskedForLoyalty() {
+        return askedForLoyalty;
+    }
+
+    public void setIsLoyaltyUser(boolean loyaltyUser) {
+        this.isLoyaltyUser = loyaltyUser;
+    }
+
+    public void setAskedForLoyalty(boolean askedForLoyalty) {
+        this.askedForLoyalty = askedForLoyalty;
     }
 }

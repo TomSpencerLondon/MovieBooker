@@ -11,6 +11,8 @@ public class MovieGoerTransformer {
         movieGoerDbo.setUserName(movieGoer.userName());
         movieGoerDbo.setPassword(movieGoer.password());
         movieGoerDbo.setLoyaltyPoints(movieGoer.loyaltyPoints());
+        movieGoerDbo.setIsLoyaltyUser(movieGoer.isLoyaltyUser());
+        movieGoerDbo.setAskedForLoyalty(movieGoer.isAskedForLoyalty());
         return movieGoerDbo;
     }
 
@@ -18,8 +20,9 @@ public class MovieGoerTransformer {
         MovieGoer movieGoer = new MovieGoer(
                 movieGoerDbo.getUserName(),
                 movieGoerDbo.getPassword(),
-                movieGoerDbo.getLoyaltyPoints()
-        );
+                movieGoerDbo.getLoyaltyPoints(),
+                movieGoerDbo.getIsLoyaltyUser(),
+                movieGoerDbo.getAskedForLoyalty());
 
         movieGoer.setUserId(movieGoerDbo.getUserId());
 

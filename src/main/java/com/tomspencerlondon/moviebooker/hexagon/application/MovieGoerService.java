@@ -12,8 +12,20 @@ public class MovieGoerService {
         this.movierGoerRepository = movierGoerRepository;
     }
 
+    public void askForLoyalty(String userName, boolean optIn) {
+        MovieGoer movieGoer = findByUserName(userName);
+        if (optIn) {
+            movieGoer.askForLoyalty(true);
+        } else {
+            movieGoer.askForLoyalty(false);
+        }
+
+        movierGoerRepository.save(movieGoer);
+    }
+
     public MovieGoer findByUserName(String userName) {
-        return movierGoerRepository.findByUserName(userName).orElseThrow(IllegalArgumentException::new);
+        return movierGoerRepository.findByUserName(userName)
+                .orElseThrow(IllegalArgumentException::new);
     }
 
     public MovieGoer save(MovieGoer movieGoer) {

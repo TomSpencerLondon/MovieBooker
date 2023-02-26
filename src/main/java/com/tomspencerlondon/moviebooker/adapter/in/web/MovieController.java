@@ -53,7 +53,7 @@ public class MovieController {
         MovieGoer movieGoer = new MovieGoer(
                 movieGoerRegistrationForm.getUserName(),
                 passwordEncoder.encode(movieGoerRegistrationForm.getPassword()),
-                0);
+                0, false, false);
         try {
             movieGoerService.save(movieGoer);
         } catch (RuntimeException e) {
@@ -76,11 +76,16 @@ public class MovieController {
     @GetMapping("/book")
     public String createBooking(Model model, @RequestParam(value = "movieProgramId")
     Long movieProgramId, @RequestParam(value = "numberOfSeats") int numberOfSeats) {
-        Booking booking = bookingService.createBooking(movieGoerView().getUserName(), movieProgramId, numberOfSeats);
-        BookingForm bookingForm = BookingForm.from(booking);
-        model.addAttribute("bookingForm", bookingForm);
-        model.addAttribute("movieGoer", movieGoerView());
-        return "bookings/book";
+        MovieGoerView movieGoerView = movieGoerView();
+        if (movieGoerView.isAskedForLoyalty()) {
+            Booking booking = bookingService.createBooking(movieGoerView.getUserName(), movieProgramId, numberOfSeats);
+            BookingForm bookingForm = BookingForm.from(booking);
+            model.addAttribute("bookingForm", bookingForm);
+            model.addAttribute("movieGoer", movieGoerView);
+            return "bookings/book";
+        } else {
+            return "redirect:/loyalty-signup?programId=" + movieProgramId + "&numberOfSeats=" + numberOfSeats;
+        }
     }
 
     @PostMapping("/book")
@@ -103,9 +108,27 @@ public class MovieController {
         return "bookings/index";
     }
 
+    @GetMapping("/loyalty-signup")
+    public String loyaltySignUp(Model model, @RequestParam(value = "programId") Long programId,
+                                @RequestParam(value = "numberOfSeats") int numberOfSeats) {
+        model.addAttribute("movieGoer", movieGoerView());
+        model.addAttribute("programId", programId);
+        model.addAttribute("numberOfSeats", numberOfSeats);
+        return "loyalty/signup";
+    }
+
+    @PostMapping("/loyalty-signup")
+    public String loyaltySignUp(@RequestParam(value = "optIn") boolean optIn,
+                                @RequestParam(value = "programId") Long programId,
+                                @RequestParam(value = "numberOfSeats") int numberOfSeats) {
+        movieGoerService.askForLoyalty(movieGoerView().getUserName(), optIn);
+
+        return "redirect:/book?movieProgramId=" + programId + "&numberOfSeats=" + numberOfSeats;
+    }
+
     private MovieGoerView movieGoerView() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+        UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
         return MovieGoerView.from(movieGoerService.findByUserName(userPrincipal.getUsername()));
     }
 

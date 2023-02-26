@@ -9,10 +9,15 @@ public class MovieGoer {
 
     private Integer loyaltyPoints;
 
-    public MovieGoer(String userName, String password, Integer loyaltyPoints) {
+    private boolean isLoyaltyUser;
+    private boolean askedForLoyalty;
+
+    public MovieGoer(String userName, String password, Integer loyaltyPoints, boolean isLoyaltyUser, boolean askedForLoyalty) {
         this.userName = userName;
         this.password = password;
         this.loyaltyPoints = loyaltyPoints;
+        this.isLoyaltyUser = isLoyaltyUser;
+        this.askedForLoyalty = askedForLoyalty;
     }
 
     public Long getUserId() {
@@ -40,7 +45,16 @@ public class MovieGoer {
         this.loyaltyPoints = Math.max(this.loyaltyPoints, 0);
     }
 
-    public void decreaseLoyaltyPoints(int loyaltyPoints) {
-        this.loyaltyPoints -= loyaltyPoints;
+    public void askForLoyalty(boolean isLoyaltyUser) {
+        this.askedForLoyalty = true;
+        this.isLoyaltyUser = isLoyaltyUser;
+    }
+
+    public boolean isLoyaltyUser() {
+        return isLoyaltyUser;
+    }
+
+    public boolean isAskedForLoyalty() {
+        return askedForLoyalty;
     }
 }

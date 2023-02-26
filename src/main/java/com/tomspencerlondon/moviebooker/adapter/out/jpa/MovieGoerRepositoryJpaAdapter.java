@@ -20,7 +20,11 @@ public class MovieGoerRepositoryJpaAdapter implements MovieGoerRepository {
     public MovieGoer save(MovieGoer movieGoer) {
         MovieGoerDbo movieGoerDbo = movieGoerTransformer.toMovieGoerDbo(movieGoer);
         MovieGoerDbo saved = movieGoerJpaRepository.save(movieGoerDbo);
-        return new MovieGoer(saved.getUserName(), saved.getPassword(), saved.getLoyaltyPoints());
+        return new MovieGoer(
+                saved.getUserName(),
+                saved.getPassword(),
+                saved.getLoyaltyPoints(),
+                saved.getIsLoyaltyUser(), saved.getAskedForLoyalty());
     }
 
     @Override
