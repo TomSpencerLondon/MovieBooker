@@ -78,7 +78,7 @@ class PriceTest {
                 movieGoerCurrentLoyaltyPoints, seatPrice);
 
 
-        assertThat(price.loyaltyPointChange())
+        assertThat(price.loyaltyPointsUpdate())
                 .isEqualTo(result);
     }
 }

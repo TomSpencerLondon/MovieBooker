@@ -41,7 +41,7 @@ public class BookingForm {
         bookingForm.setScheduleId(booking.scheduleId());
         bookingForm.setNumberOfSeats(booking.numberOfSeatsBooked());
         bookingForm.setPrice(booking.price());
-        bookingForm.setLoyaltyPointCost(booking.loyaltyPointChange());
+        bookingForm.setLoyaltyPointCost(booking.loyaltyPointsUpdated());
         return bookingForm;
     }
 

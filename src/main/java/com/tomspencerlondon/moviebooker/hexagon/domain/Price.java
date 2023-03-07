@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 
 public class Price {
     public static final int LOYALTY_POINTS_PER_SEAT = 5;
-    private int loyaltyPointChange;
+    private int loyaltyPointsUpdate;
     private BigDecimal amountPaid;
 
-    public Price(int loyaltyPointChange, BigDecimal amountPaid) {
-        this.loyaltyPointChange = loyaltyPointChange;
+    public Price(int loyaltyPointsUpdate, BigDecimal amountPaid) {
+        this.loyaltyPointsUpdate = loyaltyPointsUpdate;
         this.amountPaid = amountPaid;
     }
 
@@ -30,8 +30,8 @@ public class Price {
     }
 
 
-    public int loyaltyPointChange() {
-        return loyaltyPointChange;
+    public int loyaltyPointsUpdate() {
+        return loyaltyPointsUpdate;
     }
 
     public BigDecimal amountPaid() {

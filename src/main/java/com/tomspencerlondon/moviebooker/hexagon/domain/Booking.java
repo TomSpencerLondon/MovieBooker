@@ -55,7 +55,7 @@ public class Booking {
         return price.amountPaid();
     }
 
-    public int loyaltyPointChange() {
-        return price.loyaltyPointChange();
+    public int loyaltyPointsUpdated() {
+        return price.loyaltyPointsUpdate();
     }
 }
