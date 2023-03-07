@@ -64,7 +64,12 @@ public class MovieProgram {
     }
 
     public Booking createBooking(MovieGoer movieGoer, int numberOfSeats) {
-        Price bookingPrice = Price.calculatePrice(numberOfSeats, movieGoer.loyaltyPoints(), this.seatPrice);
+        PriceCalculation loyaltyPriceCalculation = new LoyaltyPriceCalculation();
+        Price bookingPrice = loyaltyPriceCalculation.calculatePrice(
+                numberOfSeats,
+                movieGoer.loyaltyPoints(),
+                this.seatPrice);
+
         return new Booking(
                 movieGoer.getUserId(),
                 movie.movieName(),

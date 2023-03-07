@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class PriceTest {
+class LoyaltyPriceCalculationTest {
 
     @Test
     void loyaltyPointsIncreaseAsSeatsAreBought() {
@@ -65,7 +65,8 @@ class PriceTest {
     }
 
     private static void amountPaidAssertion(int numberOfSeats, int movieGoerCurrentLoyaltyPoints, BigDecimal seatPrice, BigDecimal expected) {
-        Price price = Price.calculatePrice(numberOfSeats,
+        PriceCalculation loyaltyPriceCalculation = new LoyaltyPriceCalculation();
+        Price price = loyaltyPriceCalculation.calculatePrice(numberOfSeats,
                 movieGoerCurrentLoyaltyPoints, seatPrice);
 
         assertThat(price.amountPaid())
@@ -74,7 +75,8 @@ class PriceTest {
 
 
     private static void loyaltyPointAssertion(int numberOfSeats, int movieGoerCurrentLoyaltyPoints, BigDecimal seatPrice, int result) {
-        Price price = Price.calculatePrice(numberOfSeats,
+        PriceCalculation loyaltyPriceCalculation = new LoyaltyPriceCalculation();
+        Price price = loyaltyPriceCalculation.calculatePrice(numberOfSeats,
                 movieGoerCurrentLoyaltyPoints, seatPrice);
 
 
