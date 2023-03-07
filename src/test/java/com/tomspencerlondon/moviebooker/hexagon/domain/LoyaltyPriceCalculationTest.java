@@ -65,9 +65,9 @@ class LoyaltyPriceCalculationTest {
     }
 
     private static void amountPaidAssertion(int numberOfSeats, int movieGoerCurrentLoyaltyPoints, BigDecimal seatPrice, BigDecimal expected) {
-        PriceCalculation loyaltyPriceCalculation = new LoyaltyPriceCalculation();
+        PriceCalculation loyaltyPriceCalculation = new LoyaltyPriceCalculation(movieGoerCurrentLoyaltyPoints);
         Price price = loyaltyPriceCalculation.calculatePrice(numberOfSeats,
-                movieGoerCurrentLoyaltyPoints, seatPrice);
+                seatPrice);
 
         assertThat(price.amountPaid())
                 .isEqualTo(expected);
@@ -75,9 +75,9 @@ class LoyaltyPriceCalculationTest {
 
 
     private static void loyaltyPointAssertion(int numberOfSeats, int movieGoerCurrentLoyaltyPoints, BigDecimal seatPrice, int result) {
-        PriceCalculation loyaltyPriceCalculation = new LoyaltyPriceCalculation();
+        PriceCalculation loyaltyPriceCalculation = new LoyaltyPriceCalculation(movieGoerCurrentLoyaltyPoints);
         Price price = loyaltyPriceCalculation.calculatePrice(numberOfSeats,
-                movieGoerCurrentLoyaltyPoints, seatPrice);
+                seatPrice);
 
 
         assertThat(price.loyaltyPointsUpdate())

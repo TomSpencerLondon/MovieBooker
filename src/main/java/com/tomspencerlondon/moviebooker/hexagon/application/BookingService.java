@@ -38,7 +38,7 @@ public class BookingService {
     public Booking save(Booking booking) {
         MovieGoer movieGoer = movieGoerRepository.findById(booking.movieGoerId())
                 .orElseThrow(IllegalArgumentException::new);
-        movieGoer.setLoyaltyPoints(booking.loyaltyPointsUpdated());
+        movieGoer.confirmBooking(booking);
         movieGoerRepository.save(movieGoer);
         return bookingRepository.save(booking);
     }

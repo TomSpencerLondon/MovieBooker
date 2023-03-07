@@ -40,8 +40,16 @@ public class MovieGoer {
         return loyaltyPoints;
     }
 
-    public void setLoyaltyPoints(int loyaltyPoints) {
-        this.loyaltyPoints = loyaltyPoints;
+    public void confirmBooking(Booking booking) {
+        requireBookingIsForUser(booking);
+
+        this.loyaltyPoints = booking.loyaltyPointsUpdated();
+    }
+
+    private void requireBookingIsForUser(Booking booking) {
+        if (booking.movieGoerId() != this.userId) {
+            throw new IllegalArgumentException();
+        }
     }
 
     public void askForLoyalty(boolean isLoyaltyUser) {
@@ -55,5 +63,13 @@ public class MovieGoer {
 
     public boolean isAskedForLoyalty() {
         return askedForLoyalty;
+    }
+
+    public PriceCalculation priceCalculation() {
+        if (this.isLoyaltyUser) {
+            return new LoyaltyPriceCalculation(this.loyaltyPoints);
+        }
+
+        return new NonLoyaltyPriceCalculation();
     }
 }

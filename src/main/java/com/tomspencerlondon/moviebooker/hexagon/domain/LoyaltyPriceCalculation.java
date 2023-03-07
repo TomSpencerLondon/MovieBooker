@@ -4,10 +4,15 @@ import java.math.BigDecimal;
 
 public class LoyaltyPriceCalculation implements PriceCalculation {
     public static final int LOYALTY_POINTS_PER_SEAT = 5;
+    private final int loyaltyPoints;
+
+    public LoyaltyPriceCalculation(int loyaltyPoints) {
+        this.loyaltyPoints = loyaltyPoints;
+    }
 
     @Override
-    public Price calculatePrice(int numberOfSeats, int movieGoerCurrentLoyaltyPoints, BigDecimal seatPrice) {
-        int runningLoyaltyPoints = movieGoerCurrentLoyaltyPoints;
+    public Price calculatePrice(int numberOfSeats, BigDecimal seatPrice) {
+        int runningLoyaltyPoints = loyaltyPoints;
         BigDecimal amountPaid = new BigDecimal(0);
         for (int i = 0; i < numberOfSeats; i++) {
             if (runningLoyaltyPoints >= LOYALTY_POINTS_PER_SEAT) {
