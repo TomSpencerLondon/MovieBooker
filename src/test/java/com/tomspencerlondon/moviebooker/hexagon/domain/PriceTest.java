@@ -16,6 +16,8 @@ class PriceTest {
         loyaltyPointAssertion(
                 5, 0,
                 new BigDecimal(5), 5);
+
+        loyaltyPointAssertion(3, 5, new BigDecimal(5), 2);
     }
 
     @Test
@@ -77,6 +79,6 @@ class PriceTest {
 
 
         assertThat(price.loyaltyPointChange())
-                .isEqualTo(result - movieGoerCurrentLoyaltyPoints);
+                .isEqualTo(result);
     }
 }

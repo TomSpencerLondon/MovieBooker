@@ -42,7 +42,6 @@ public class MovieGoer {
 
     public void adjustLoyaltyPoints(int loyaltyPoints) {
         this.loyaltyPoints += loyaltyPoints;
-        this.loyaltyPoints = Math.max(this.loyaltyPoints, 0);
     }
 
     public void askForLoyalty(boolean isLoyaltyUser) {

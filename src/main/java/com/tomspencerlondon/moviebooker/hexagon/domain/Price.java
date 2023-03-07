@@ -26,8 +26,7 @@ public class Price {
             amountPaid = amountPaid.add(seatPrice);
         }
 
-        int loyaltyPointChange = runningLoyaltyPoints - movieGoerCurrentLoyaltyPoints;
-        return new Price(loyaltyPointChange, amountPaid);
+        return new Price(runningLoyaltyPoints, amountPaid);
     }
 
 
