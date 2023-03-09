@@ -14,11 +14,7 @@ public class MovieGoerService {
 
     public void askForLoyalty(String userName, boolean optIn) {
         MovieGoer movieGoer = findByUserName(userName);
-        if (optIn) {
-            movieGoer.askForLoyalty(true);
-        } else {
-            movieGoer.askForLoyalty(false);
-        }
+        movieGoer.askForLoyalty(optIn);
 
         movierGoerRepository.save(movieGoer);
     }

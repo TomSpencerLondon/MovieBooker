@@ -52,7 +52,17 @@
             <div id="user-menu" class="hidden absolute right-0 z-10 mt-2 w-65 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
               <!-- Active: "bg-blue-100", Not Active: "" -->
               <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0" th:text="${movieGoer.getUserName()}">tomspencerlondon@gmail.com</a>
-              <a th:href="@{/bookings}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Your bookings</a>
+              <th:block th:if="${movieGoer.isLoyaltyUser()}">
+                <a th:href="@{/bookings}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-booking-1">Your bookings</a>
+              </th:block>
+              <th:block th:unless="${movieGoer.isLoyaltyUser()}">
+                <form method="POST" th:action="@{/loyalty-signup-confirmation}"
+                >
+                  <button class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+                          type="submit" name="submit" value="value">Loyalty signup</button>
+                </form>
+<!--                <a th:href="@{/loyalty-signup(programId=0, numberOfSeats=0)}" id="user-menu-item-register-1">Loyalty Signup</a>-->
+              </th:block>
               <span class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">
                 <span th:text="${movieGoer.getLoyaltyPoints()}"></span>
                 <span th:text="${movieGoer.getLoyaltyPoints() == 1 ? 'Loyalty Point' : 'Loyalty Points' }"></span>

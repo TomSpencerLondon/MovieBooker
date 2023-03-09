@@ -126,6 +126,15 @@ public class MovieController {
         return "redirect:/book?movieProgramId=" + programId + "&numberOfSeats=" + numberOfSeats;
     }
 
+    @PostMapping("/loyalty-signup-confirmation")
+    public String loyaltySignUp(Model model) {
+        MovieGoerView movieGoerView = movieGoerView();
+        movieGoerService.askForLoyalty(movieGoerView.getUserName(), true);
+        model.addAttribute("movieGoer", movieGoerView);
+
+        return "loyalty/signup-confirmation";
+    }
+
     private MovieGoerView movieGoerView() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
