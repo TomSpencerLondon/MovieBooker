@@ -37,7 +37,8 @@ public class MovieController {
     }
 
     @GetMapping("/login")
-    public String loginForm() {
+    public String loginForm(@RequestParam(value = "error", defaultValue = "false") boolean error, Model model) {
+        model.addAttribute("error", error);
         return "login";
     }
 
