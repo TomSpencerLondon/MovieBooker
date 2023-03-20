@@ -132,6 +132,14 @@ public class MovieController {
         movieGoerService.askForLoyalty(movieGoerView.getUserName(), true);
         model.addAttribute("movieGoer", movieGoerView);
 
+        return "redirect:/loyalty-signup-confirmation";
+    }
+
+    @GetMapping("/loyalty-signup-confirmation")
+    public String loyaltySignUpConfirmation(Model model) {
+        MovieGoerView movieGoerView = movieGoerView();
+        model.addAttribute("movieGoer", movieGoerView);
+
         return "loyalty/signup-confirmation";
     }
 
