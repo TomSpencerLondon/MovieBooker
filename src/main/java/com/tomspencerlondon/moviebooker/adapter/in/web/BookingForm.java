@@ -1,7 +1,6 @@
 package com.tomspencerlondon.moviebooker.adapter.in.web;
 
 import com.tomspencerlondon.moviebooker.hexagon.domain.Booking;
-import com.tomspencerlondon.moviebooker.hexagon.domain.Price;
 
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
@@ -27,10 +26,10 @@ public class BookingForm {
     private int numberOfSeats;
 
     @NotBlank
-    private BigDecimal price;
+    private BigDecimal amountToPay;
 
     @NotBlank
-    private int loyaltyPointCost;
+    private int updatedLoyaltyPoints;
 
 
     public static BookingForm from(Booking booking) {
@@ -40,8 +39,8 @@ public class BookingForm {
         bookingForm.setScheduleDate(booking.bookingTime());
         bookingForm.setScheduleId(booking.scheduleId());
         bookingForm.setNumberOfSeats(booking.numberOfSeatsBooked());
-        bookingForm.setPrice(booking.price());
-        bookingForm.setLoyaltyPointCost(booking.loyaltyPointsUpdated());
+        bookingForm.setAmountToPay(booking.price());
+        bookingForm.setUpdatedLoyaltyPoints(booking.loyaltyPointsUpdated());
         return bookingForm;
     }
 
@@ -52,8 +51,9 @@ public class BookingForm {
                 bookingForm.getScheduleDate(),
                 bookingForm.getScheduleId(),
                 bookingForm.getNumberOfSeats(),
-                new Price(bookingForm.getLoyaltyPointCost(),
-                        bookingForm.getPrice()));
+                bookingForm.amountToPay(),
+                bookingForm.getUpdatedLoyaltyPoints()
+                );
         return booking;
     }
 
@@ -102,23 +102,23 @@ public class BookingForm {
         this.numberOfSeats = numberOfSeats;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public BigDecimal amountToPay() {
+        return amountToPay;
     }
 
     public String getPriceText() {
-        return String.format("£%.2f", price);
+        return String.format("£%.2f", amountToPay);
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setAmountToPay(BigDecimal amountToPay) {
+        this.amountToPay = amountToPay;
     }
 
-    public int getLoyaltyPointCost() {
-        return loyaltyPointCost;
+    public int getUpdatedLoyaltyPoints() {
+        return updatedLoyaltyPoints;
     }
 
-    public void setLoyaltyPointCost(int loyaltyPointCost) {
-        this.loyaltyPointCost = loyaltyPointCost;
+    public void setUpdatedLoyaltyPoints(int updatedLoyaltyPoints) {
+        this.updatedLoyaltyPoints = updatedLoyaltyPoints;
     }
 }

@@ -64,10 +64,10 @@ public class MovieProgram {
     }
 
     public Booking createBooking(MovieGoer movieGoer, int numberOfSeats) {
-        PriceCalculation priceCalculation = movieGoer.priceCalculation();
-        Price bookingPrice = priceCalculation.calculatePrice(
-                numberOfSeats,
-                this.seatPrice);
+        LoyaltyCardAlgorithm loyaltyCardAlgorithm = movieGoer.loyaltyCard();
+        loyaltyCardAlgorithm.addSeatsToCard(numberOfSeats);
+        int seatsToPayFor = numberOfSeats - loyaltyCardAlgorithm.loyaltySeats();
+        BigDecimal amountPaid = this.seatPrice.multiply(new BigDecimal(seatsToPayFor));
 
         return new Booking(
                 movieGoer.getUserId(),
@@ -75,7 +75,7 @@ public class MovieProgram {
                 scheduleDate,
                 scheduleId,
                 numberOfSeats,
-                bookingPrice);
+                amountPaid, loyaltyCardAlgorithm.updatedLoyaltyPoints());
     }
 
     public BigDecimal price() {

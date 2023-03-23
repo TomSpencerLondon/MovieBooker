@@ -16,8 +16,8 @@
                 <input type="hidden" th:name="scheduleDate" th:value="*{scheduleDate}"/>
                 <input type="hidden" th:name="scheduleId" th:value="*{scheduleId}"/>
                 <input type="hidden" th:name="numberOfSeats" th:value="*{numberOfSeats}"/>
-                <input type="hidden" th:name="price" th:value="*{price}"/>
-                <input type="hidden" th:name="loyaltyPointCost" th:value="*{loyaltyPointCost}"/>
+                <input type="hidden" th:name="amountToPay" th:value="*{amountToPay}"/>
+                <input type="hidden" th:name="updatedLoyaltyPoints" th:value="*{updatedLoyaltyPoints}"/>
                 <div
                         class="grid grid-cols-1 justify-items-center px-20 py-10 bg-white rounded-b-lg  shadow-2xl">
                     <div>
@@ -53,7 +53,7 @@
                                 <div class="flex flex-col">
                                     <div class="lg:text-lg md:text-sm font-medium text-gray-600 flex justify-center">Points Available</div>
                                     <div class="text-sm text-gray-500 flex justify-center"
-                                         th:text="${bookingForm.getLoyaltyPointCost()}"
+                                         th:text="${bookingForm.getUpdatedLoyaltyPoints()}"
                                     ></div>
                                 </div>
                             </th:block>

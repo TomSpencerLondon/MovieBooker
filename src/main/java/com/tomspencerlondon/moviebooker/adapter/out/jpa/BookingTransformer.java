@@ -43,8 +43,8 @@ public class BookingTransformer {
         );
         bookingDbo.setMovieProgram(movieProgramDbo);
         bookingDbo.setNumberOfSeatsBooked(booking.numberOfSeatsBooked());
-        bookingDbo.setPrice(booking.price());
-        bookingDbo.setLoyaltyPointCost(booking.loyaltyPointsUpdated());
+        bookingDbo.setAmountPaid(booking.price());
+        bookingDbo.setUpdatedLoyaltyPoints(booking.loyaltyPointsUpdated());
         bookingDbo.setUserId(booking.movieGoerId());
         return bookingDbo;
     }
@@ -58,8 +58,9 @@ public class BookingTransformer {
                 movieProgramDbo.getMovie().getMovieName(),
                 movieProgramDbo.getScheduleDate(),
                 movieProgramDbo.getScheduleId(),
-                bookingDbo.getNumberOfSeatsBooked(),
-                new Price(bookingDbo.getLoyaltyPointCost(), bookingDbo.getPrice()));
+                bookingDbo.getNumberOfSeatsBooked(), bookingDbo.getAmountPaid(),
+                bookingDbo.getUpdatedLoyaltyPoints()
+        );
         booking.setBookingId(bookingId);
         return booking;
     }

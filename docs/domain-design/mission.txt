@@ -1,0 +1,10 @@
+### Mission
+
+### Decouple payments from bookings
+- Multiple payments against same booking
+- calculation of free seats is separate from price
+
+
+### Future tasks
+- Move film name and booking time out of the Booking and use movieProgram
+

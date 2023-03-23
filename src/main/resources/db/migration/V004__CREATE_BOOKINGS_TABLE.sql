@@ -4,8 +4,8 @@ CREATE TABLE bookings
     schedule_id            BIGINT  NOT NULL,
     user_id                BIGINT  NOT NULL,
     number_of_seats_booked INT     NOT NULL,
-    price                  DECIMAL NOT NULL,
-    loyalty_point_cost     INT     NOT NULL,
+    amount_paid             DECIMAL NOT NULL,
+    updated_loyalty_points INT     NOT NULL,
     CONSTRAINT pk_bookings PRIMARY KEY (booking_id)
 );
 

@@ -7,20 +7,24 @@ public class Booking {
     private Long bookingId;
     private Long scheduleId;
     private int numberOfSeatsBooked;
-    private Price price;
+    private final BigDecimal amountToPay;
+    private final int updatedLoyaltyPoints;
 
     private Long movieGoerId;
     private final String filmName;
     private final LocalDateTime bookingTime;
 
+    // TODO: Move film name and booking time out and use movieProgram
     public Booking(Long movieGoerId, String filmName, LocalDateTime bookingTime,
-                   Long scheduleId, int numberOfSeatsBooked, Price price) {
+                   Long scheduleId, int numberOfSeatsBooked,
+                   BigDecimal amountToPay, int updatedLoyaltyPoints) {
         this.movieGoerId = movieGoerId;
         this.filmName = filmName;
         this.bookingTime = bookingTime;
         this.scheduleId = scheduleId;
         this.numberOfSeatsBooked = numberOfSeatsBooked;
-        this.price = price;
+        this.amountToPay = amountToPay;
+        this.updatedLoyaltyPoints = updatedLoyaltyPoints;
     }
 
     public Long movieGoerId() {
@@ -52,10 +56,10 @@ public class Booking {
     }
 
     public BigDecimal price() {
-        return price.amountPaid();
+        return amountToPay;
     }
 
     public int loyaltyPointsUpdated() {
-        return price.loyaltyPointsUpdate();
+        return updatedLoyaltyPoints;
     }
 }

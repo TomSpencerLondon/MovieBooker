@@ -65,11 +65,15 @@ public class MovieGoer {
         return askedForLoyalty;
     }
 
-    public PriceCalculation priceCalculation() {
+    public LoyaltyCardAlgorithm loyaltyCard() {
         if (this.isLoyaltyUser) {
-            return new LoyaltyPriceCalculation(this.loyaltyPoints);
+            return new LoyaltyCard(this);
         }
 
-        return new NonLoyaltyPriceCalculation();
+        return new NonLoyaltyLoyaltyCardAlgorithm();
+    }
+
+    public void updateLoyaltyPoints(int runningLoyaltyPoints) {
+        this.loyaltyPoints = runningLoyaltyPoints;
     }
 }

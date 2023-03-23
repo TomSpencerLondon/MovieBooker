@@ -22,9 +22,9 @@ public class BookingDbo {
 
     private Integer numberOfSeatsBooked;
 
-    private BigDecimal price;
+    private BigDecimal amountPaid;
 
-    private Integer loyaltyPointCost;
+    private Integer updatedLoyaltyPoints;
 
     public void setBookingId(Long id) {
         this.bookingId = id;
@@ -58,19 +58,19 @@ public class BookingDbo {
         this.userId = userId;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public BigDecimal getAmountPaid() {
+        return amountPaid;
     }
 
-    public void setPrice(BigDecimal pricePaid) {
-        this.price = pricePaid;
+    public void setAmountPaid(BigDecimal pricePaid) {
+        this.amountPaid = pricePaid;
     }
 
-    public void setLoyaltyPointCost(int loyaltyPointCost) {
-        this.loyaltyPointCost = loyaltyPointCost;
+    public void setUpdatedLoyaltyPoints(int updatedLoyaltyPoints) {
+        this.updatedLoyaltyPoints = updatedLoyaltyPoints;
     }
 
-    public Integer getLoyaltyPointCost() {
-        return loyaltyPointCost;
+    public Integer getUpdatedLoyaltyPoints() {
+        return updatedLoyaltyPoints;
     }
 }
