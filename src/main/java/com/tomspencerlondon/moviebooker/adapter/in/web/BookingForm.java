@@ -1,6 +1,7 @@
 package com.tomspencerlondon.moviebooker.adapter.in.web;
 
 import com.tomspencerlondon.moviebooker.hexagon.domain.Booking;
+import com.tomspencerlondon.moviebooker.hexagon.domain.Payment;
 
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
@@ -32,15 +33,15 @@ public class BookingForm {
     private int updatedLoyaltyPoints;
 
 
-    public static BookingForm from(Booking booking) {
+    public static BookingForm from(Booking booking, Payment payment) {
         BookingForm bookingForm = new BookingForm();
         bookingForm.setMovieGoerId(booking.movieGoerId());
         bookingForm.setMovieName(booking.filmName());
         bookingForm.setScheduleDate(booking.bookingTime());
         bookingForm.setScheduleId(booking.scheduleId());
         bookingForm.setNumberOfSeats(booking.numberOfSeatsBooked());
-        bookingForm.setAmountToPay(booking.price());
-        bookingForm.setUpdatedLoyaltyPoints(booking.loyaltyPointsUpdated());
+        bookingForm.setAmountToPay(payment.amountPaid());
+        bookingForm.setUpdatedLoyaltyPoints(payment.updatedLoyaltyPoints());
         return bookingForm;
     }
 
@@ -55,6 +56,10 @@ public class BookingForm {
                 bookingForm.getUpdatedLoyaltyPoints()
                 );
         return booking;
+    }
+
+    public static Payment toPayment(BookingForm bookingForm) {
+        return new Payment(bookingForm.getMovieGoerId(), bookingForm.amountToPay(), bookingForm.getUpdatedLoyaltyPoints(), LocalDateTime.now());
     }
 
     public Long getMovieGoerId() {

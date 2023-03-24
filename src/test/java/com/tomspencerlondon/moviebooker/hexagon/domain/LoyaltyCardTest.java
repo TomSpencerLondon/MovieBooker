@@ -2,8 +2,6 @@ package com.tomspencerlondon.moviebooker.hexagon.domain;
 
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 class LoyaltyCardTest {
@@ -34,7 +32,7 @@ class LoyaltyCardTest {
         MovieGoer movieGoer = new MovieGoer("moviegoer", "password", movieGoerStartLoyaltyPoints, true, true);
 
 
-        LoyaltyCardAlgorithm loyaltyPriceCalculation = new LoyaltyCard(movieGoer);
+        LoyaltyDevice loyaltyPriceCalculation = new LoyaltyCard(movieGoer);
         loyaltyPriceCalculation.addSeatsToCard(numberOfSeatsPurchased);
 
         assertThat(loyaltyPriceCalculation.updatedLoyaltyPoints())

@@ -1,8 +1,6 @@
 package com.tomspencerlondon.moviebooker.hexagon.domain;
 
-import java.math.BigDecimal;
-
-public class NonLoyaltyLoyaltyCardAlgorithm implements LoyaltyCardAlgorithm {
+public class NonLoyaltyLoyaltyCard implements LoyaltyDevice {
 
     @Override
     public void addSeatsToCard(int seats) {

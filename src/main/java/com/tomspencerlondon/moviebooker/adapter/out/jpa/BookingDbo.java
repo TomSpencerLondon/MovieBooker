@@ -4,6 +4,8 @@ package com.tomspencerlondon.moviebooker.adapter.out.jpa;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "bookings")

@@ -40,14 +40,14 @@ public class MovieGoer {
         return loyaltyPoints;
     }
 
-    public void confirmBooking(Booking booking) {
-        requireBookingIsForUser(booking);
+    public void confirmPayment(Payment payment) {
+        requirePaymentIsForUser(payment);
 
-        this.loyaltyPoints = booking.loyaltyPointsUpdated();
+        this.loyaltyPoints = payment.updatedLoyaltyPoints();
     }
 
-    private void requireBookingIsForUser(Booking booking) {
-        if (booking.movieGoerId() != this.userId) {
+    private void requirePaymentIsForUser(Payment payment) {
+        if (payment.movieGoerId() != this.userId) {
             throw new IllegalArgumentException();
         }
     }
@@ -65,12 +65,12 @@ public class MovieGoer {
         return askedForLoyalty;
     }
 
-    public LoyaltyCardAlgorithm loyaltyCard() {
+    public LoyaltyDevice loyaltyCard() {
         if (this.isLoyaltyUser) {
             return new LoyaltyCard(this);
         }
 
-        return new NonLoyaltyLoyaltyCardAlgorithm();
+        return new NonLoyaltyLoyaltyCard();
     }
 
     public void updateLoyaltyPoints(int runningLoyaltyPoints) {

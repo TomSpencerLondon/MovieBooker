@@ -5,6 +5,7 @@ import com.tomspencerlondon.moviebooker.hexagon.application.MovieGoerService;
 import com.tomspencerlondon.moviebooker.hexagon.application.MovieService;
 import com.tomspencerlondon.moviebooker.hexagon.domain.Booking;
 import com.tomspencerlondon.moviebooker.hexagon.domain.MovieGoer;
+import com.tomspencerlondon.moviebooker.hexagon.domain.Payment;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -80,7 +81,8 @@ public class MovieController {
         MovieGoerView movieGoerView = movieGoerView();
         if (movieGoerView.isAskedForLoyalty()) {
             Booking booking = bookingService.createBooking(movieGoerView.getUserName(), movieProgramId, numberOfSeats);
-            BookingForm bookingForm = BookingForm.from(booking);
+            Payment payment = booking.payment();
+            BookingForm bookingForm = BookingForm.from(booking, payment);
             model.addAttribute("bookingForm", bookingForm);
             model.addAttribute("movieGoer", movieGoerView);
             return "bookings/book";
@@ -92,6 +94,8 @@ public class MovieController {
     @PostMapping("/book")
     public String makeBooking(@ModelAttribute("bookingForm") BookingForm bookingForm) {
         Booking booking = BookingForm.to(bookingForm);
+        Payment payment = BookingForm.toPayment(bookingForm);
+        booking.addPayment(payment);
         bookingService.save(booking);
         return "redirect:/bookings";
     }

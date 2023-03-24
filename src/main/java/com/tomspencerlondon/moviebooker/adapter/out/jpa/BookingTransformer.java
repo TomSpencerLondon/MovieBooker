@@ -41,11 +41,14 @@ public class BookingTransformer {
         movieProgramDbo.setMovie(
                 movieDbo
         );
+
         bookingDbo.setMovieProgram(movieProgramDbo);
         bookingDbo.setNumberOfSeatsBooked(booking.numberOfSeatsBooked());
-        bookingDbo.setAmountPaid(booking.price());
+        bookingDbo.setAmountPaid(booking.paymentAmount());
         bookingDbo.setUpdatedLoyaltyPoints(booking.loyaltyPointsUpdated());
         bookingDbo.setUserId(booking.movieGoerId());
+
+
         return bookingDbo;
     }
 

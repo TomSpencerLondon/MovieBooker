@@ -13,6 +13,7 @@ public class Booking {
     private Long movieGoerId;
     private final String filmName;
     private final LocalDateTime bookingTime;
+    private Payment payment;
 
     // TODO: Move film name and booking time out and use movieProgram
     public Booking(Long movieGoerId, String filmName, LocalDateTime bookingTime,
@@ -55,11 +56,19 @@ public class Booking {
         return numberOfSeatsBooked;
     }
 
-    public BigDecimal price() {
+    public BigDecimal paymentAmount() {
         return amountToPay;
     }
 
     public int loyaltyPointsUpdated() {
         return updatedLoyaltyPoints;
+    }
+
+    public void addPayment(Payment payment) {
+        this.payment = payment;
+    }
+
+    public Payment payment() {
+        return payment;
     }
 }

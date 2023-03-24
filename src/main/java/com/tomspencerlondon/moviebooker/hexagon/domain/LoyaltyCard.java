@@ -1,16 +1,12 @@
 package com.tomspencerlondon.moviebooker.hexagon.domain;
 
-import java.math.BigDecimal;
-
-public class LoyaltyCard implements LoyaltyCardAlgorithm {
+public class LoyaltyCard implements LoyaltyDevice {
     public static final int LOYALTY_POINTS_PER_SEAT = 5;
-    private final MovieGoer movieGoer;
 
     private int updatedLoyaltyPoints;
     private int loyaltySeats;
 
     public LoyaltyCard(MovieGoer movieGoer) {
-        this.movieGoer = movieGoer;
         this.updatedLoyaltyPoints = movieGoer.loyaltyPoints();
         loyaltySeats = 0;
     }

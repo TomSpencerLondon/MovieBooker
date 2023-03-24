@@ -36,6 +36,11 @@ public class BookingRepositoryJpaAdapter implements BookingRepository {
         BookingDbo savedBookingDbo = bookingJpaRepository
                 .save(bookingDbo);
 
+        // TODO: Complete saving of payment
+        PaymentDbo paymentDbo = new PaymentTransformer().toPaymentDbo(booking.payment());
+        paymentDbo.setBooking(savedBookingDbo);
+
+
         return bookingTransformer.toBooking(savedBookingDbo);
     }
 
