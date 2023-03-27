@@ -3,23 +3,22 @@ package com.tomspencerlondon.moviebooker.hexagon.domain;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 public class MovieProgram {
     private Long scheduleId;
     private final LocalDateTime scheduleDate;
     private final Integer totalSeats;
     private Movie movie;
-    private List<Booking> bookings;
 
+    private final int seatsBooked;
     private final BigDecimal seatPrice;
 
-    public MovieProgram(Long scheduleId, LocalDateTime scheduleDate, Integer totalSeats, Movie movie, List<Booking> bookings, BigDecimal seatPrice) {
+    public MovieProgram(Long scheduleId, LocalDateTime scheduleDate, Integer totalSeats, Movie movie, int seatsBooked, BigDecimal seatPrice) {
         this.scheduleId = scheduleId;
         this.scheduleDate = scheduleDate;
         this.totalSeats = totalSeats;
         this.movie = movie;
-        this.bookings = bookings;
+        this.seatsBooked = seatsBooked;
         this.seatPrice = seatPrice;
     }
 
@@ -44,6 +43,7 @@ public class MovieProgram {
         return totalSeats;
     }
 
+    // TODO: This should not be in the domain - it is view logic
     public String seatsText() {
         return availableSeats() > 0 ? availableSeats() + " available" : "Sold Out!";
     }
@@ -53,10 +53,7 @@ public class MovieProgram {
     }
 
     public int availableSeats() {
-        int total = bookings.stream()
-                .mapToInt(Booking::numberOfSeatsBooked)
-                .sum();
-        return totalSeats - total;
+        return totalSeats - seatsBooked;
     }
 
     public boolean canBook() {
@@ -64,23 +61,11 @@ public class MovieProgram {
     }
 
     public Booking createBooking(MovieGoer movieGoer, int numberOfSeats) {
-        LoyaltyDevice loyaltyDevice = movieGoer.loyaltyCard();
-        loyaltyDevice.addSeatsToCard(numberOfSeats);
-        int seatsToPayFor = numberOfSeats - loyaltyDevice.loyaltySeats();
-        BigDecimal amountPaid = this.seatPrice.multiply(new BigDecimal(seatsToPayFor));
-
-        Payment payment = new Payment(movieGoer.getUserId(), amountPaid, loyaltyDevice.updatedLoyaltyPoints(), LocalDateTime.now());
-
-        Booking booking = new Booking(
+        return new Booking(
                 movieGoer.getUserId(),
-                movie.movieName(),
-                scheduleDate,
-                scheduleId,
+                this,
                 numberOfSeats,
-                amountPaid, loyaltyDevice.updatedLoyaltyPoints());
-        booking.addPayment(payment);
-
-        return booking;
+                this.seatPrice);
     }
 
     public BigDecimal price() {

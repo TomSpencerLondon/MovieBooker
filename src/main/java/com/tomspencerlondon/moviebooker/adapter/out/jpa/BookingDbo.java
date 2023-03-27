@@ -4,8 +4,6 @@ package com.tomspencerlondon.moviebooker.adapter.out.jpa;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "bookings")
@@ -15,18 +13,16 @@ public class BookingDbo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bookingId;
 
-    @ManyToOne
+
     @JoinColumn(name = "schedule_id")
-    private MovieProgramDbo movieProgram;
+    private Long scheduleId;
 
     @Column(name = "user_id")
     private Long userId;
 
     private Integer numberOfSeatsBooked;
 
-    private BigDecimal amountPaid;
-
-    private Integer updatedLoyaltyPoints;
+    private BigDecimal seatPrice;
 
     public void setBookingId(Long id) {
         this.bookingId = id;
@@ -36,12 +32,12 @@ public class BookingDbo {
         return bookingId;
     }
 
-    public MovieProgramDbo getMovieProgram() {
-        return movieProgram;
+    public Long getScheduleId() {
+        return scheduleId;
     }
 
-    public void setMovieProgram(MovieProgramDbo scheduleId) {
-        this.movieProgram = scheduleId;
+    public void setScheduleId(Long scheduleId) {
+        this.scheduleId = scheduleId;
     }
 
     public int getNumberOfSeatsBooked() {
@@ -60,19 +56,11 @@ public class BookingDbo {
         this.userId = userId;
     }
 
-    public BigDecimal getAmountPaid() {
-        return amountPaid;
+    public BigDecimal getSeatPrice() {
+        return seatPrice;
     }
 
-    public void setAmountPaid(BigDecimal pricePaid) {
-        this.amountPaid = pricePaid;
-    }
-
-    public void setUpdatedLoyaltyPoints(int updatedLoyaltyPoints) {
-        this.updatedLoyaltyPoints = updatedLoyaltyPoints;
-    }
-
-    public Integer getUpdatedLoyaltyPoints() {
-        return updatedLoyaltyPoints;
+    public void setSeatPrice(BigDecimal seatPrice) {
+        this.seatPrice = seatPrice;
     }
 }

@@ -5,27 +5,17 @@ import java.time.LocalDateTime;
 
 public class Booking {
     private Long bookingId;
-    private Long scheduleId;
     private int numberOfSeatsBooked;
-    private final BigDecimal amountToPay;
-    private final int updatedLoyaltyPoints;
+    private final BigDecimal seatPrice;
 
     private Long movieGoerId;
-    private final String filmName;
-    private final LocalDateTime bookingTime;
-    private Payment payment;
+    private final MovieProgram movieProgram;
 
-    // TODO: Move film name and booking time out and use movieProgram
-    public Booking(Long movieGoerId, String filmName, LocalDateTime bookingTime,
-                   Long scheduleId, int numberOfSeatsBooked,
-                   BigDecimal amountToPay, int updatedLoyaltyPoints) {
+    public Booking(Long movieGoerId, MovieProgram movieProgram, int numberOfSeats, BigDecimal seatPrice) {
         this.movieGoerId = movieGoerId;
-        this.filmName = filmName;
-        this.bookingTime = bookingTime;
-        this.scheduleId = scheduleId;
-        this.numberOfSeatsBooked = numberOfSeatsBooked;
-        this.amountToPay = amountToPay;
-        this.updatedLoyaltyPoints = updatedLoyaltyPoints;
+        this.movieProgram = movieProgram;
+        this.numberOfSeatsBooked = numberOfSeats;
+        this.seatPrice = seatPrice;
     }
 
     public Long movieGoerId() {
@@ -41,34 +31,27 @@ public class Booking {
     }
 
     public Long scheduleId() {
-        return scheduleId;
+        return movieProgram.getScheduleId();
     }
 
+    // TODO: Possible refactoring - rule of Demeter
     public String filmName() {
-        return filmName;
+        return movieProgram.movie().movieName();
     }
 
     public LocalDateTime bookingTime() {
-        return bookingTime;
+        return movieProgram.scheduleDate();
     }
 
     public int numberOfSeatsBooked() {
         return numberOfSeatsBooked;
     }
 
-    public BigDecimal paymentAmount() {
-        return amountToPay;
+    public BigDecimal seatPrice() {
+        return seatPrice;
     }
 
-    public int loyaltyPointsUpdated() {
-        return updatedLoyaltyPoints;
-    }
-
-    public void addPayment(Payment payment) {
-        this.payment = payment;
-    }
-
-    public Payment payment() {
-        return payment;
+    public MovieProgram movieProgram() {
+        return movieProgram;
     }
 }

@@ -17,11 +17,14 @@ public class BookingRepositoryJpaAdapter implements BookingRepository {
     private final BookingJpaRepository bookingJpaRepository;
 
     private final BookingTransformer bookingTransformer;
+    private final PaymentJpaRepository paymentJpaRepository;
 
-    public BookingRepositoryJpaAdapter(MovieProgramRepository movieProgramRepository, BookingJpaRepository bookingJpaRepository, BookingTransformer bookingTransformer) {
+    public BookingRepositoryJpaAdapter(MovieProgramRepository movieProgramRepository, BookingJpaRepository bookingJpaRepository, BookingTransformer bookingTransformer,
+                                       PaymentJpaRepository paymentJpaRepository) {
         this.movieProgramRepository = movieProgramRepository;
         this.bookingJpaRepository = bookingJpaRepository;
         this.bookingTransformer = bookingTransformer;
+        this.paymentJpaRepository = paymentJpaRepository;
     }
 
 
@@ -35,11 +38,6 @@ public class BookingRepositoryJpaAdapter implements BookingRepository {
 
         BookingDbo savedBookingDbo = bookingJpaRepository
                 .save(bookingDbo);
-
-        // TODO: Complete saving of payment
-        PaymentDbo paymentDbo = new PaymentTransformer().toPaymentDbo(booking.payment());
-        paymentDbo.setBooking(savedBookingDbo);
-
 
         return bookingTransformer.toBooking(savedBookingDbo);
     }

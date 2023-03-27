@@ -11,6 +11,7 @@ public class PaymentDbo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private int loyaltyPoints;
 
     public Long getId() {
         return id;
@@ -20,19 +21,19 @@ public class PaymentDbo {
         this.id = id;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "booking_id")
-    private BookingDbo booking;
+    @Column(name = "booking_id")
+    private Long bookingId;
 
     private BigDecimal amount;
     private LocalDateTime date;
 
-    public BookingDbo getBooking() {
-        return booking;
+
+    public Long getBookingId() {
+        return bookingId;
     }
 
-    public void setBooking(BookingDbo booking) {
-        this.booking = booking;
+    public void setBookingId(Long bookingId) {
+        this.bookingId = bookingId;
     }
 
     public BigDecimal getAmount() {
@@ -49,5 +50,13 @@ public class PaymentDbo {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    public void setLoyaltyPoints(int updatedLoyaltyPoints) {
+        this.loyaltyPoints = updatedLoyaltyPoints;
+    }
+
+    public int getLoyaltyPoints() {
+        return loyaltyPoints;
     }
 }

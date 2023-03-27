@@ -41,15 +41,7 @@ public class MovieGoer {
     }
 
     public void confirmPayment(Payment payment) {
-        requirePaymentIsForUser(payment);
-
         this.loyaltyPoints = payment.updatedLoyaltyPoints();
-    }
-
-    private void requirePaymentIsForUser(Payment payment) {
-        if (payment.movieGoerId() != this.userId) {
-            throw new IllegalArgumentException();
-        }
     }
 
     public void askForLoyalty(boolean isLoyaltyUser) {

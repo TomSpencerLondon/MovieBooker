@@ -1,6 +1,7 @@
 package com.tomspencerlondon.moviebooker.adapter.in.web;
 
 import com.tomspencerlondon.moviebooker.hexagon.domain.Booking;
+import com.tomspencerlondon.moviebooker.hexagon.domain.MovieProgram;
 import com.tomspencerlondon.moviebooker.hexagon.domain.Payment;
 
 import javax.validation.constraints.NotBlank;
@@ -32,6 +33,9 @@ public class BookingForm {
     @NotBlank
     private int updatedLoyaltyPoints;
 
+    @NotBlank
+    private BigDecimal seatPrice;
+
 
     public static BookingForm from(Booking booking, Payment payment) {
         BookingForm bookingForm = new BookingForm();
@@ -41,25 +45,23 @@ public class BookingForm {
         bookingForm.setScheduleId(booking.scheduleId());
         bookingForm.setNumberOfSeats(booking.numberOfSeatsBooked());
         bookingForm.setAmountToPay(payment.amountPaid());
+        bookingForm.setSeatPrice(booking.seatPrice());
         bookingForm.setUpdatedLoyaltyPoints(payment.updatedLoyaltyPoints());
         return bookingForm;
     }
 
-    public static Booking to(BookingForm bookingForm) {
+    public static Booking to(BookingForm bookingForm, MovieProgram movieProgram) {
         Booking booking = new Booking(
                 bookingForm.getMovieGoerId(),
-                bookingForm.getMovieName(),
-                bookingForm.getScheduleDate(),
-                bookingForm.getScheduleId(),
+                movieProgram,
                 bookingForm.getNumberOfSeats(),
-                bookingForm.amountToPay(),
-                bookingForm.getUpdatedLoyaltyPoints()
-                );
+                bookingForm.getSeatPrice()
+        );
         return booking;
     }
 
     public static Payment toPayment(BookingForm bookingForm) {
-        return new Payment(bookingForm.getMovieGoerId(), bookingForm.amountToPay(), bookingForm.getUpdatedLoyaltyPoints(), LocalDateTime.now());
+        return new Payment(bookingForm.amountToPay(), bookingForm.getUpdatedLoyaltyPoints(), LocalDateTime.now());
     }
 
     public Long getMovieGoerId() {
@@ -125,5 +127,17 @@ public class BookingForm {
 
     public void setUpdatedLoyaltyPoints(int updatedLoyaltyPoints) {
         this.updatedLoyaltyPoints = updatedLoyaltyPoints;
+    }
+
+    public BigDecimal getAmountToPay() {
+        return amountToPay;
+    }
+
+    public BigDecimal getSeatPrice() {
+        return seatPrice;
+    }
+
+    public void setSeatPrice(BigDecimal seatPrice) {
+        this.seatPrice = seatPrice;
     }
 }

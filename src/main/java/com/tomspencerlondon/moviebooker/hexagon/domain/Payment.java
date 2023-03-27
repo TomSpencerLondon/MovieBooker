@@ -7,13 +7,12 @@ public class Payment {
     private BigDecimal amountPaid;
     private final int updatedLoyaltyPoints;
     private LocalDateTime paymentDate;
-    private Long movieGoerId;
+    private Long bookingId;
 
-    public Payment(Long movieGoerId, BigDecimal amountPaid, int updatedLoyaltyPoints, LocalDateTime paymentDate) {
+    public Payment(BigDecimal amountPaid, int updatedLoyaltyPoints, LocalDateTime paymentDate) {
         this.amountPaid = amountPaid;
         this.updatedLoyaltyPoints = updatedLoyaltyPoints;
         this.paymentDate = paymentDate;
-        this.movieGoerId = movieGoerId;
     }
 
     public BigDecimal amountPaid() {
@@ -28,7 +27,11 @@ public class Payment {
         return updatedLoyaltyPoints;
     }
 
-    public Long movieGoerId() {
-        return movieGoerId;
+    public void associateBooking(Booking booking) {
+        this.bookingId = booking.getBookingId();
+    }
+
+    public Long bookingId() {
+        return bookingId;
     }
 }

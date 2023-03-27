@@ -27,10 +27,6 @@ public class MovieProgramDbo {
 
     private Integer seats;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "schedule_id")
-    private List<BookingDbo> bookings = new ArrayList<>();
-
     @ManyToOne
     @JoinColumn(name = "movie_id")
     private MovieDbo movie;
@@ -49,14 +45,6 @@ public class MovieProgramDbo {
 
     public void setSeats(Integer seats) {
         this.seats = seats;
-    }
-
-    public List<BookingDbo> getBookings() {
-        return bookings;
-    }
-
-    public void setBookings(List<BookingDbo> bookings) {
-        this.bookings = bookings;
     }
 
     public MovieDbo getMovie() {

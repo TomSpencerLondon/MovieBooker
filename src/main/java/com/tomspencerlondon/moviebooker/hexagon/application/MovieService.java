@@ -41,4 +41,8 @@ public class MovieService {
     public MovieProgram saveMovieProgram(MovieProgram movieProgram) {
         return movieProgramRepository.save(movieProgram);
     }
+
+    public MovieProgram findMovieProgramBy(Long scheduleId) {
+        return movieProgramRepository.findById(scheduleId).orElseThrow(IllegalArgumentException::new);
+    }
 }

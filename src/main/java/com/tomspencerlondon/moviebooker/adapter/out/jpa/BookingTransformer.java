@@ -1,6 +1,7 @@
 package com.tomspencerlondon.moviebooker.adapter.out.jpa;
 
 import com.tomspencerlondon.moviebooker.hexagon.application.port.MovieGoerRepository;
+import com.tomspencerlondon.moviebooker.hexagon.application.port.MovieProgramRepository;
 import com.tomspencerlondon.moviebooker.hexagon.domain.*;
 import org.springframework.stereotype.Service;
 
@@ -9,8 +10,13 @@ public class BookingTransformer {
 
     private final MovieGoerRepository movieGoerRepository;
 
-    public BookingTransformer(MovieGoerRepository movieGoerRepository) {
+    private final MovieProgramTransformer movieProgramTransformer;
+    private final MovieProgramRepository movieProgramRepository;
+
+    public BookingTransformer(MovieGoerRepository movieGoerRepository, MovieProgramTransformer movieProgramTransformer, MovieProgramRepository movieProgramRepository) {
         this.movieGoerRepository = movieGoerRepository;
+        this.movieProgramTransformer = movieProgramTransformer;
+        this.movieProgramRepository = movieProgramRepository;
     }
 
     public BookingDbo toBookingDbo(Booking booking, MovieProgram movieProgram) {
@@ -20,6 +26,7 @@ public class BookingTransformer {
                 .findById(booking.movieGoerId())
                 .orElseThrow(UnsupportedOperationException::new);
 
+        // TODO: Is this required - we are not saving MovieGoer at this point
         MovieGoerDbo movieGoerDbo = new MovieGoerDbo();
         movieGoerDbo.setUserId(movieGoer.getUserId());
         movieGoerDbo.setUserName(movieGoer.userName());
@@ -42,27 +49,25 @@ public class BookingTransformer {
                 movieDbo
         );
 
-        bookingDbo.setMovieProgram(movieProgramDbo);
+        bookingDbo.setScheduleId(movieProgramDbo.getScheduleId());
         bookingDbo.setNumberOfSeatsBooked(booking.numberOfSeatsBooked());
-        bookingDbo.setAmountPaid(booking.paymentAmount());
-        bookingDbo.setUpdatedLoyaltyPoints(booking.loyaltyPointsUpdated());
         bookingDbo.setUserId(booking.movieGoerId());
-
+        bookingDbo.setSeatPrice(booking.seatPrice());
 
         return bookingDbo;
     }
 
     public Booking toBooking(BookingDbo bookingDbo) {
-        MovieProgramDbo movieProgramDbo = bookingDbo.getMovieProgram();
+        Long scheduleId = bookingDbo.getScheduleId();
         Long bookingId = bookingDbo.getBookingId();
         Long movieGoerId = bookingDbo.getUserId();
+
+        MovieProgram movieProgram = movieProgramRepository.findById(scheduleId).orElseThrow(IllegalArgumentException::new);
+
         Booking booking = new Booking(
                 movieGoerId,
-                movieProgramDbo.getMovie().getMovieName(),
-                movieProgramDbo.getScheduleDate(),
-                movieProgramDbo.getScheduleId(),
-                bookingDbo.getNumberOfSeatsBooked(), bookingDbo.getAmountPaid(),
-                bookingDbo.getUpdatedLoyaltyPoints()
+                movieProgram,
+                bookingDbo.getNumberOfSeatsBooked(), bookingDbo.getSeatPrice()
         );
         booking.setBookingId(bookingId);
         return booking;
