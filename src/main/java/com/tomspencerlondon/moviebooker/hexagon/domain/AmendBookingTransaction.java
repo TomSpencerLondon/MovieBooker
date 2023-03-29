@@ -25,4 +25,8 @@ public class AmendBookingTransaction {
 
         return new Payment(amountPaid, loyaltyDevice.updatedLoyaltyPoints(), transactionTime);
     }
+
+    public Booking booking() {
+        return booking;
+    }
 }

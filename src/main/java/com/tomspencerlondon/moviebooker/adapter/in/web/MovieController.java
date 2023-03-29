@@ -3,10 +3,7 @@ package com.tomspencerlondon.moviebooker.adapter.in.web;
 import com.tomspencerlondon.moviebooker.hexagon.application.BookingService;
 import com.tomspencerlondon.moviebooker.hexagon.application.MovieGoerService;
 import com.tomspencerlondon.moviebooker.hexagon.application.MovieService;
-import com.tomspencerlondon.moviebooker.hexagon.domain.Booking;
-import com.tomspencerlondon.moviebooker.hexagon.domain.MovieGoer;
-import com.tomspencerlondon.moviebooker.hexagon.domain.MovieProgram;
-import com.tomspencerlondon.moviebooker.hexagon.domain.Payment;
+import com.tomspencerlondon.moviebooker.hexagon.domain.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -90,6 +87,14 @@ public class MovieController {
         } else {
             return "redirect:/loyalty-signup?programId=" + movieProgramId + "&numberOfSeats=" + numberOfSeats;
         }
+    }
+
+    @GetMapping("/amendBooking")
+    public String amendBooking(Model model, @RequestParam(value = "bookingId") Long bookingId, @RequestParam(value = "numberOfSeats") int numberOfSeats) {
+        AmendBookingTransaction amendTransaction = bookingService.createAmendTransaction(bookingId, numberOfSeats);
+        BookingForm.from(amendTransaction.booking(), amendTransaction.payment());
+
+        return "bookings/book";
     }
 
     @PostMapping("/book")

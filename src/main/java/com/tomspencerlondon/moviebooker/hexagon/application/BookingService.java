@@ -56,4 +56,20 @@ public class BookingService {
         return bookingTransaction.payment();
     }
 
+    public boolean canAmendBooking(Long bookingId, int extraSeats) {
+        Booking booking = bookingRepository.findById(bookingId).orElseThrow(IllegalArgumentException::new);
+        return booking.canAddSeats(extraSeats);
+    }
+
+    public AmendBookingTransaction createAmendTransaction(Long bookingId, int extraSeats) {
+        Booking booking = bookingRepository.findById(bookingId).orElseThrow(IllegalArgumentException::new);
+        MovieGoer movieGoer = movieGoerRepository.findById(booking.movieGoerId())
+                .orElseThrow(IllegalArgumentException::new);
+
+        return new AmendBookingTransaction(
+                booking, movieGoer,
+                extraSeats,
+                LocalDateTime.now());
+    }
+
 }
