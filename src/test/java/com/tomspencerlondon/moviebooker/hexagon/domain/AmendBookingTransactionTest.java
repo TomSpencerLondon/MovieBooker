@@ -13,10 +13,7 @@ class AmendBookingTransactionTest {
     void amendBookingCreatesPaymentWithUpdatedLoyaltyPoints() {
 
         Booking booking = createBooking(2, 2);
-        MovieGoer movieGoer = new MovieGoer(
-                "Tom", "password",
-                2, true,
-                true);
+        MovieGoer movieGoer = createMovieGoer(2);
         int extraSeats = 2;
         AmendBookingTransaction amendBooking = new AmendBookingTransaction(booking, movieGoer, extraSeats, LocalDateTime.now());
 
@@ -26,6 +23,29 @@ class AmendBookingTransactionTest {
                 .isEqualTo(new BigDecimal(10));
         assertThat(payment.updatedLoyaltyPoints())
                 .isEqualTo(4);
+    }
+
+    @Test
+    void amendBookingUsesLoyaltyPointsForFreeSeat() {
+        Booking booking = createBooking(2, 2);
+        MovieGoer movieGoer = createMovieGoer(5);
+
+        int extraSeats = 2;
+        AmendBookingTransaction amendBooking = new AmendBookingTransaction(booking, movieGoer, extraSeats, LocalDateTime.now());
+
+        Payment payment = amendBooking.payment();
+
+        assertThat(payment.amountPaid())
+                .isEqualTo(new BigDecimal(5));
+        assertThat(payment.updatedLoyaltyPoints())
+                .isEqualTo(1);
+    }
+
+    private static MovieGoer createMovieGoer(int loyaltyPoints) {
+        return new MovieGoer(
+                "Tom", "password",
+                loyaltyPoints, true,
+                true);
     }
 
     private Booking createBooking(int seatsAvailable, int numberOfSeats) {
