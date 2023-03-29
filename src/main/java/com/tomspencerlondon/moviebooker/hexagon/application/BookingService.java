@@ -6,7 +6,6 @@ import com.tomspencerlondon.moviebooker.hexagon.application.port.MovieProgramRep
 import com.tomspencerlondon.moviebooker.hexagon.application.port.PaymentRepository;
 import com.tomspencerlondon.moviebooker.hexagon.domain.*;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -53,12 +52,8 @@ public class BookingService {
         MovieGoer movieGoer = movieGoerRepository.findById(booking.movieGoerId())
                 .orElseThrow(IllegalArgumentException::new);
 
-        LoyaltyDevice loyaltyDevice = movieGoer.loyaltyCard();
-        int numberOfSeats = booking.numberOfSeatsBooked();
-        loyaltyDevice.addSeatsToCard(numberOfSeats);
-        int seatsToPayFor = numberOfSeats - loyaltyDevice.loyaltySeats();
-        BigDecimal amountPaid = booking.seatPrice().multiply(new BigDecimal(seatsToPayFor));
-
-        return new Payment(amountPaid, loyaltyDevice.updatedLoyaltyPoints(), LocalDateTime.now());
+        BookingTransaction bookingTransaction = new BookingTransaction(booking, movieGoer, LocalDateTime.now());
+        return bookingTransaction.payment();
     }
+
 }
