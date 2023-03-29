@@ -54,4 +54,12 @@ public class Booking {
     public MovieProgram movieProgram() {
         return movieProgram;
     }
+
+    public void addSeats(int extraSeats) {
+        numberOfSeatsBooked += extraSeats;
+    }
+
+    public boolean canAddSeats(int extraSeats) {
+        return movieProgram().availableSeats() >= extraSeats;
+    }
 }
