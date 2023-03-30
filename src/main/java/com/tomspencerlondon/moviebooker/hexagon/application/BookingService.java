@@ -83,4 +83,8 @@ public class BookingService {
         payment.associateBooking(savedBooking);
         paymentRepository.save(payment);
     }
+
+    public Booking findBooking(Long bookingId) {
+        return bookingRepository.findById(bookingId).orElseThrow(IllegalArgumentException::new);
+    }
 }

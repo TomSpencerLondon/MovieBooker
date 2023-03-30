@@ -38,15 +38,21 @@ public class BookingForm {
 
 
     public static BookingForm from(Booking booking, Payment payment) {
+        BookingForm bookingForm = from(booking);
+        bookingForm.setAmountToPay(payment.amountPaid());
+        bookingForm.setUpdatedLoyaltyPoints(payment.updatedLoyaltyPoints());
+        return bookingForm;
+    }
+
+    public static BookingForm from(Booking booking) {
         BookingForm bookingForm = new BookingForm();
         bookingForm.setMovieGoerId(booking.movieGoerId());
         bookingForm.setMovieName(booking.filmName());
         bookingForm.setScheduleDate(booking.bookingTime());
         bookingForm.setScheduleId(booking.scheduleId());
         bookingForm.setNumberOfSeats(booking.numberOfSeatsBooked());
-        bookingForm.setAmountToPay(payment.amountPaid());
         bookingForm.setSeatPrice(booking.seatPrice());
-        bookingForm.setUpdatedLoyaltyPoints(payment.updatedLoyaltyPoints());
+
         return bookingForm;
     }
 

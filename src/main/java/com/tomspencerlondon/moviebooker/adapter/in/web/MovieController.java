@@ -120,8 +120,17 @@ public class MovieController {
 
             return "redirect:/bookings";
         } else {
-            return "redirect:/seatsNotAvailable";
+            return "redirect:/seatsNotAvailable?bookingId=" + bookingId;
         }
+    }
+
+    @GetMapping("/seatsNotAvailable")
+    public String seatsNotAvailable(Model model, @RequestParam(value = "bookingId") Long bookingId) {
+        Booking booking = bookingService.findBooking(bookingId);
+        BookingForm bookingForm = BookingForm.from(booking);
+        model.addAttribute("bookingForm", bookingForm);
+        model.addAttribute("movieGoer", movieGoerView());
+        return "/bookings/seatsNotAvailable";
     }
 
     @PostMapping("/bookings")
