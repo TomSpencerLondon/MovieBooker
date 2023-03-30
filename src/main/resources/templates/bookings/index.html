@@ -48,9 +48,8 @@
                                     </td>
                                     <th:block th:if="${booking.movieProgram().canBook()}">
                                         <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                            <form th:method="post" th:a
-                                                  ction="@{/bookings}">
-                                                <input type="hidden" th:name="programId" th:value="${booking.movieProgram().getScheduleId()}"/>
+                                            <form th:method="GET" th:action="@{/amendBooking}">
+                                                <input type="hidden" th:name="bookingId" th:value="${booking.getBookingId()}"/>
                                                 <select field="*{numberOfSeats}" th:name="numberOfSeats">
                                                     <option th:each="i : ${#numbers.sequence(1, booking.movieProgram().availableSeats())}" th:value="${i}" th:text="${i}">
                                                     </option>

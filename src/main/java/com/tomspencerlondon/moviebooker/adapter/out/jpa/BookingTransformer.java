@@ -49,6 +49,7 @@ public class BookingTransformer {
                 movieDbo
         );
 
+        bookingDbo.setBookingId(booking.getBookingId());
         bookingDbo.setScheduleId(movieProgramDbo.getScheduleId());
         bookingDbo.setNumberOfSeatsBooked(booking.numberOfSeatsBooked());
         bookingDbo.setUserId(booking.movieGoerId());
@@ -67,7 +68,8 @@ public class BookingTransformer {
         Booking booking = new Booking(
                 movieGoerId,
                 movieProgram,
-                bookingDbo.getNumberOfSeatsBooked(), bookingDbo.getSeatPrice()
+                bookingDbo.getNumberOfSeatsBooked(),
+                bookingDbo.getSeatPrice()
         );
         booking.setBookingId(bookingId);
         return booking;

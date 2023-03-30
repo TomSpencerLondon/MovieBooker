@@ -6,6 +6,7 @@
 - created AmendBookingTransaction and BookingTransaction
     - these return the payment for the booking
 - Now the bookingService has:
+
 ```java
 public class BookingService {
     public Payment calculatePayment(Booking booking) {

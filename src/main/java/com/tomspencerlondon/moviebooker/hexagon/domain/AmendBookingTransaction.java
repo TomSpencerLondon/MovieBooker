@@ -16,6 +16,9 @@ public class AmendBookingTransaction {
         this.transactionTime = transactionTime;
     }
 
+    public int extraSeats() {
+        return extraSeats;
+    }
 
     public Payment payment() {
         LoyaltyDevice loyaltyDevice = movieGoer.loyaltyCard();

@@ -89,14 +89,6 @@ public class MovieController {
         }
     }
 
-    @GetMapping("/amendBooking")
-    public String amendBooking(Model model, @RequestParam(value = "bookingId") Long bookingId, @RequestParam(value = "numberOfSeats") int numberOfSeats) {
-        AmendBookingTransaction amendTransaction = bookingService.createAmendTransaction(bookingId, numberOfSeats);
-        BookingForm.from(amendTransaction.booking(), amendTransaction.payment());
-
-        return "bookings/book";
-    }
-
     @PostMapping("/book")
     public String makeBooking(@ModelAttribute("bookingForm") BookingForm bookingForm) {
         MovieProgram movieProgram = movieService.findMovieProgramBy(bookingForm.getScheduleId());
@@ -104,6 +96,32 @@ public class MovieController {
         Payment payment = BookingForm.toPayment(bookingForm);
         bookingService.save(booking, payment);
         return "redirect:/bookings";
+    }
+
+    @GetMapping("/amendBooking")
+    public String amendBooking(Model model, @RequestParam(value = "bookingId") Long bookingId, @RequestParam(value = "numberOfSeats") int numberOfSeats) {
+        AmendBookingTransaction amendTransaction = bookingService.createAmendTransaction(bookingId, numberOfSeats);
+        AmendBookingForm amendBookingForm = AmendBookingForm.from(amendTransaction, amendTransaction.payment());
+        MovieGoerView movieGoerView = movieGoerView();
+        model.addAttribute("amendBookingForm", amendBookingForm);
+        model.addAttribute("movieGoer", movieGoerView);
+
+        return "bookings/amend";
+    }
+
+    @PostMapping("/amendBooking")
+    public String makeAmendBooking(@ModelAttribute("amendBookingForm") AmendBookingForm amendBookingForm,
+                                   @RequestParam("bookingId") Long bookingId,
+                                   @RequestParam("additionalSeats") int additionalSeats) {
+        Payment payment = AmendBookingForm.toPayment(amendBookingForm);
+
+        if(bookingService.canAmendBooking(bookingId, additionalSeats)) {
+            bookingService.amendBooking(bookingId, additionalSeats, payment);
+
+            return "redirect:/bookings";
+        } else {
+            return "redirect:/seatsNotAvailable";
+        }
     }
 
     @PostMapping("/bookings")
