@@ -79,3 +79,31 @@ public class BookingForm {
 
 ```
 - created issue for handling concurrency for normal booking
+
+### 31/3/23
+- resolved issues for handling concurrency
+- noticed logic in the Controller and discussed possibility of making the service adaptable for API as well as MVC
+- Looked ways to move more logic into the domain
+
+```java
+@Controller
+public class MovieController {
+  @PostMapping("/book")
+  public String makeBooking(@ModelAttribute("bookingForm") BookingForm bookingForm) {
+    MovieProgram movieProgram = movieService.findMovieProgramBy(bookingForm.getScheduleId());
+    Booking booking = BookingForm.to(bookingForm, movieProgram);
+    Payment payment = BookingForm.toPayment(bookingForm);
+    BookingOutcome bookingOutcome = bookingService.save(booking, payment);
+
+    if (bookingOutcome.isSuccess()) {
+      return "redirect:/bookings";
+    } else {
+      return "redirect:/seatsNotAvailable";
+    }
+  }
+}
+```
+- Can we remove references to the repositories in the controller
+- Is there any opportunity for refactoring?
+- Are things in the right place?
+- Can we add an API instead of using MVC?
