@@ -38,7 +38,13 @@ public class BookingService {
         return movieProgram.createBooking(movieGoer, numberOfSeats);
     }
 
-    public void save(Booking booking, Payment payment) {
+    public BookingOutcome save(Booking booking, Payment payment) {
+        MovieProgram movieProgram = booking.movieProgram();
+
+        if (!movieProgram.seatsAvailableFor(booking.numberOfSeatsBooked())) {
+            return new BookingOutcome(false);
+        }
+
         MovieGoer movieGoer = movieGoerRepository.findById(booking.movieGoerId())
                 .orElseThrow(IllegalArgumentException::new);
         movieGoer.confirmPayment(payment);
@@ -46,6 +52,8 @@ public class BookingService {
         Booking savedBooking = bookingRepository.save(booking);
         payment.associateBooking(savedBooking);
         paymentRepository.save(payment);
+
+        return new BookingOutcome(true);
     }
 
     public Payment calculatePayment(Booking booking) {
@@ -54,11 +62,6 @@ public class BookingService {
 
         BookingTransaction bookingTransaction = new BookingTransaction(booking, movieGoer, LocalDateTime.now());
         return bookingTransaction.payment();
-    }
-
-    public boolean canAmendBooking(Long bookingId, int extraSeats) {
-        Booking booking = bookingRepository.findById(bookingId).orElseThrow(IllegalArgumentException::new);
-        return booking.canAddSeats(extraSeats);
     }
 
     public AmendBookingTransaction createAmendTransaction(Long bookingId, int extraSeats) {

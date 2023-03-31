@@ -72,4 +72,7 @@ public class MovieProgram {
         return seatPrice;
     }
 
+    public boolean seatsAvailableFor(int additionalSeats) {
+        return availableSeats() >= additionalSeats;
+    }
 }

@@ -1,6 +1,6 @@
 package com.tomspencerlondon.moviebooker.adapter.in.web;
 
-import com.tomspencerlondon.moviebooker.hexagon.application.BookingService;
+import com.tomspencerlondon.moviebooker.hexagon.application.BookingOutcome;import com.tomspencerlondon.moviebooker.hexagon.application.BookingService;
 import com.tomspencerlondon.moviebooker.hexagon.application.MovieGoerService;
 import com.tomspencerlondon.moviebooker.hexagon.application.MovieService;
 import com.tomspencerlondon.moviebooker.hexagon.domain.*;
@@ -94,9 +94,16 @@ public class MovieController {
         MovieProgram movieProgram = movieService.findMovieProgramBy(bookingForm.getScheduleId());
         Booking booking = BookingForm.to(bookingForm, movieProgram);
         Payment payment = BookingForm.toPayment(bookingForm);
-        bookingService.save(booking, payment);
-        return "redirect:/bookings";
+        BookingOutcome bookingOutcome = bookingService.save(booking, payment);
+
+        if (bookingOutcome.isSuccess()) {
+            return "redirect:/bookings";
+        } else {
+            return "redirect:/seatsNotAvailable";
+        }
     }
+
+
 
     @GetMapping("/amendBooking")
     public String amendBooking(Model model, @RequestParam(value = "bookingId") Long bookingId, @RequestParam(value = "numberOfSeats") int numberOfSeats) {
@@ -114,8 +121,7 @@ public class MovieController {
                                    @RequestParam("bookingId") Long bookingId,
                                    @RequestParam("additionalSeats") int additionalSeats) {
         Payment payment = AmendBookingForm.toPayment(amendBookingForm);
-
-        if(bookingService.canAmendBooking(bookingId, additionalSeats)) {
+        if(movieService.areSeatsAvailable(amendBookingForm.getScheduleId(), additionalSeats)) {
             bookingService.amendBooking(bookingId, additionalSeats, payment);
 
             return "redirect:/bookings";
@@ -125,10 +131,13 @@ public class MovieController {
     }
 
     @GetMapping("/seatsNotAvailable")
-    public String seatsNotAvailable(Model model, @RequestParam(value = "bookingId") Long bookingId) {
-        Booking booking = bookingService.findBooking(bookingId);
-        BookingForm bookingForm = BookingForm.from(booking);
-        model.addAttribute("bookingForm", bookingForm);
+    public String seatsNotAvailable(Model model, @RequestParam(value = "bookingId", defaultValue = "-1") Long bookingId) {
+        if (bookingId != -1) {
+            Booking booking = bookingService.findBooking(bookingId);
+            BookingForm bookingForm = BookingForm.from(booking);
+            model.addAttribute("bookingForm", bookingForm);
+        }
+
         model.addAttribute("movieGoer", movieGoerView());
         return "/bookings/seatsNotAvailable";
     }

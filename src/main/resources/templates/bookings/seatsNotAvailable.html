@@ -16,32 +16,34 @@
                     <h1 class="lg:text-xl sm:text-sm">Seats No Longer Available</h1>
                     <p>Your additional seats have been booked by another customer. Your original booking remains unchanged.</p>
                 </div>
-                <div class="lg:mb-5 lg:mt-5 sm:mt-2 sm:mb-2">
-                    <div class="flex lg:flex-row md:flex-col lg:gap-4 md:gap-1">
-                        <div class="flex flex-col">
-                            <div class="lg:text-lg md:text-sm font-medium text-gray-600 flex justify-center">Film</div>
-                            <div class="text-sm text-gray-500 flex justify-center"
-                                 th:text="${bookingForm.getMovieName()}"
-                            >Godfather
+                <th:block th:unless="${bookingForm == null}">
+                    <div class="lg:mb-5 lg:mt-5 sm:mt-2 sm:mb-2">
+                        <div class="flex lg:flex-row md:flex-col lg:gap-4 md:gap-1">
+                            <div class="flex flex-col">
+                                <div class="lg:text-lg md:text-sm font-medium text-gray-600 flex justify-center">Film</div>
+                                <div class="text-sm text-gray-500 flex justify-center"
+                                     th:text="${bookingForm.getMovieName()}"
+                                >Godfather
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex flex-col">
-                            <div class="lg:text-lg md:text-sm font-medium text-gray-600 flex justify-center">Showing
+                            <div class="flex flex-col">
+                                <div class="lg:text-lg md:text-sm font-medium text-gray-600 flex justify-center">Showing
+                                </div>
+                                <div class="text-sm text-gray-500 flex justify-center"
+                                     th:text="${bookingForm.getScheduleDateText()}"
+                                >Date
+                                </div>
                             </div>
-                            <div class="text-sm text-gray-500 flex justify-center"
-                                 th:text="${bookingForm.getScheduleDateText()}"
-                            >Date
-                            </div>
-                        </div>
-                        <div class="flex flex-col">
-                            <div class="lg:text-lg md:text-sm font-medium text-gray-600 flex justify-center">Seats</div>
-                            <div class="text-sm text-gray-500 flex justify-center"
-                                 th:text="${bookingForm.getNumberOfSeats()}"
-                            >Current number of seats
+                            <div class="flex flex-col">
+                                <div class="lg:text-lg md:text-sm font-medium text-gray-600 flex justify-center">Seats</div>
+                                <div class="text-sm text-gray-500 flex justify-center"
+                                     th:text="${bookingForm.getNumberOfSeats()}"
+                                >Current number of seats
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </th:block>
                 <div id="cancel">
                     <a href="#" class="text-sm text-gray-700">Cancel Order</a>
                 </div>

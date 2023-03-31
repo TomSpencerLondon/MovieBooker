@@ -34,7 +34,8 @@ public class BookingTest {
     void assertWhenSeatsAvailable(int seatsAvailable, int extraSeats, boolean expectedResult) {
         Booking booking = createBooking(seatsAvailable, 2);
 
-        assertThat(booking.canAddSeats(extraSeats))
+        // TODO: refactor test
+        assertThat(booking.movieProgram().seatsAvailableFor(extraSeats))
                 .isEqualTo(expectedResult);
     }
 

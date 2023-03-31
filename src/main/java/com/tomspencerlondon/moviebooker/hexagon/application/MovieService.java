@@ -45,4 +45,10 @@ public class MovieService {
     public MovieProgram findMovieProgramBy(Long scheduleId) {
         return movieProgramRepository.findById(scheduleId).orElseThrow(IllegalArgumentException::new);
     }
+
+    public boolean areSeatsAvailable(Long scheduleId, int additionalSeats) {
+        MovieProgram movieProgram = findMovieProgramBy(scheduleId);
+
+        return movieProgram.seatsAvailableFor(additionalSeats);
+    }
 }

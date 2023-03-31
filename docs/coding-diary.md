@@ -27,3 +27,55 @@ Questions:
 - Can we reuse the BookingForm?
 - Can we reuse the same Booking screen?
 
+### 30/3/23
+- we implemented amend booking
+- realised booking form didn't work perfectly
+- we had to pass in the bookingId and additionalSeats as separate parameters
+```java
+
+@Controller
+public class MovieController {
+  @PostMapping("/amendBooking")
+  public String makeAmendBooking(@ModelAttribute("amendBookingForm") AmendBookingForm amendBookingForm,
+                                 @RequestParam("bookingId") Long bookingId,
+                                 @RequestParam("additionalSeats") int additionalSeats) {
+    Payment payment = AmendBookingForm.toPayment(amendBookingForm);
+
+    if (bookingService.canAmendBooking(bookingId, additionalSeats)) {
+      bookingService.amendBooking(bookingId, additionalSeats, payment);
+
+      return "redirect:/bookings";
+    } else {
+      return "redirect:/seatsNotAvailable?bookingId=" + bookingId;
+    }
+  }
+}
+```
+- added seatsNotAvailable page for situation where there is concurrent users
+- realised we needed to cover the same situation for a normal booking
+- refactored booking form factory to remove duplication between amendments and booking
+
+```java
+public class BookingForm {
+  public static BookingForm from(Booking booking, Payment payment) {
+    BookingForm bookingForm = from(booking);
+    bookingForm.setAmountToPay(payment.amountPaid());
+    bookingForm.setUpdatedLoyaltyPoints(payment.updatedLoyaltyPoints());
+    return bookingForm;
+  }
+
+  public static BookingForm from(Booking booking) {
+    BookingForm bookingForm = new BookingForm();
+    bookingForm.setMovieGoerId(booking.movieGoerId());
+    bookingForm.setMovieName(booking.filmName());
+    bookingForm.setScheduleDate(booking.bookingTime());
+    bookingForm.setScheduleId(booking.scheduleId());
+    bookingForm.setNumberOfSeats(booking.numberOfSeatsBooked());
+    bookingForm.setSeatPrice(booking.seatPrice());
+
+    return bookingForm;
+  }
+}
+
+```
+- created issue for handling concurrency for normal booking
