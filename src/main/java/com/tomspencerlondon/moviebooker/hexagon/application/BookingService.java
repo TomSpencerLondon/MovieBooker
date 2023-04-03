@@ -38,7 +38,7 @@ public class BookingService {
         return movieProgram.createBooking(movieGoer, numberOfSeats);
     }
 
-    public Notification tryToPayForBooking(Booking booking, Payment payment) {
+    public Notification payForBooking(Booking booking, Payment payment) {
         MovieProgram movieProgram = booking.movieProgram();
         Notification notification = new Notification();
         if (!movieProgram.seatsAvailableFor(booking.numberOfSeatsBooked())) {
