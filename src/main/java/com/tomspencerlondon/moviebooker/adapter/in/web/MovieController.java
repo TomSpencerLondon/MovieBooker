@@ -1,6 +1,6 @@
 package com.tomspencerlondon.moviebooker.adapter.in.web;
 
-import com.tomspencerlondon.moviebooker.hexagon.application.BookingOutcome;import com.tomspencerlondon.moviebooker.hexagon.application.BookingService;
+import com.tomspencerlondon.moviebooker.hexagon.application.Notification;import com.tomspencerlondon.moviebooker.hexagon.application.BookingService;
 import com.tomspencerlondon.moviebooker.hexagon.application.MovieGoerService;
 import com.tomspencerlondon.moviebooker.hexagon.application.MovieService;
 import com.tomspencerlondon.moviebooker.hexagon.domain.*;
@@ -50,12 +50,14 @@ public class MovieController {
 
     @PostMapping("/register")
     public String register(@ModelAttribute("movieGoerRegistrationForm") MovieGoerRegistrationForm movieGoerRegistrationForm, Model model) {
+        // TODO: is the right place for the passwordEncoder? Should the passwordEncoder be used in the SecurityConfig
         MovieGoer movieGoer = new MovieGoer(
                 movieGoerRegistrationForm.getUserName(),
                 passwordEncoder.encode(movieGoerRegistrationForm.getPassword()),
                 0, false, false);
         try {
             movieGoerService.save(movieGoer);
+            // TODO: We could change this to a more specific exception
         } catch (RuntimeException e) {
             model.addAttribute("movieGoerRegistrationForm", movieGoerRegistrationForm);
             return "registration";
@@ -78,6 +80,7 @@ public class MovieController {
     Long movieProgramId, @RequestParam(value = "numberOfSeats") int numberOfSeats) {
         MovieGoerView movieGoerView = movieGoerView();
         if (movieGoerView.isAskedForLoyalty()) {
+            // TODO: should these functions be combined in the BookingService? - Perhaps as a BookingTransaction
             Booking booking = bookingService.createBooking(movieGoerView.getUserName(), movieProgramId, numberOfSeats);
             Payment payment = bookingService.calculatePayment(booking);
             BookingForm bookingForm = BookingForm.from(booking, payment);
@@ -94,9 +97,9 @@ public class MovieController {
         MovieProgram movieProgram = movieService.findMovieProgramBy(bookingForm.getScheduleId());
         Booking booking = BookingForm.to(bookingForm, movieProgram);
         Payment payment = BookingForm.toPayment(bookingForm);
-        BookingOutcome bookingOutcome = bookingService.save(booking, payment);
+        Notification notification = bookingService.tryToPayForBooking(booking, payment);
 
-        if (bookingOutcome.isSuccess()) {
+        if (notification.isSuccess()) {
             return "redirect:/bookings";
         } else {
             return "redirect:/seatsNotAvailable";
@@ -132,6 +135,7 @@ public class MovieController {
 
     @GetMapping("/seatsNotAvailable")
     public String seatsNotAvailable(Model model, @RequestParam(value = "bookingId", defaultValue = "-1") Long bookingId) {
+        // TODO: We could add a BookingId class which would contain validation
         if (bookingId != -1) {
             Booking booking = bookingService.findBooking(bookingId);
             BookingForm bookingForm = BookingForm.from(booking);
@@ -168,7 +172,12 @@ public class MovieController {
     public String loyaltySignUp(@RequestParam(value = "optIn") boolean optIn,
                                 @RequestParam(value = "programId") Long programId,
                                 @RequestParam(value = "numberOfSeats") int numberOfSeats) {
-        movieGoerService.askForLoyalty(movieGoerView().getUserName(), optIn);
+        MovieGoerView movieGoerView = movieGoerView();
+        if (optIn) {
+            movieGoerService.optIntoLoyaltyScheme(movieGoerView.getUserName());
+        } else {
+            movieGoerService.optOutOfLoyaltyScheme(movieGoerView.getUserName());
+        }
 
         return "redirect:/book?movieProgramId=" + programId + "&numberOfSeats=" + numberOfSeats;
     }
@@ -176,7 +185,7 @@ public class MovieController {
     @PostMapping("/loyalty-signup-confirmation")
     public String loyaltySignUp(Model model) {
         MovieGoerView movieGoerView = movieGoerView();
-        movieGoerService.askForLoyalty(movieGoerView.getUserName(), true);
+        movieGoerService.optIntoLoyaltyScheme(movieGoerView.getUserName());
         model.addAttribute("movieGoer", movieGoerView);
 
         return "redirect:/loyalty-signup-confirmation";

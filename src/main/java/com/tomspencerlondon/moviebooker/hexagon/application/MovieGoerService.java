@@ -12,7 +12,15 @@ public class MovieGoerService {
         this.movierGoerRepository = movierGoerRepository;
     }
 
-    public void askForLoyalty(String userName, boolean optIn) {
+    public void optIntoLoyaltyScheme(String userName) {
+        askForLoyalty(userName, true);
+    }
+
+    public void optOutOfLoyaltyScheme(String userName) {
+        askForLoyalty(userName, false);
+    }
+
+    private void askForLoyalty(String userName, boolean optIn) {
         MovieGoer movieGoer = findByUserName(userName);
         movieGoer.askForLoyalty(optIn);
 

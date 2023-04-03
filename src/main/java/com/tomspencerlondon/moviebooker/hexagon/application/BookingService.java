@@ -38,11 +38,12 @@ public class BookingService {
         return movieProgram.createBooking(movieGoer, numberOfSeats);
     }
 
-    public BookingOutcome save(Booking booking, Payment payment) {
+    public Notification tryToPayForBooking(Booking booking, Payment payment) {
         MovieProgram movieProgram = booking.movieProgram();
-
+        Notification notification = new Notification();
         if (!movieProgram.seatsAvailableFor(booking.numberOfSeatsBooked())) {
-            return new BookingOutcome(false);
+            notification.addError("No seats available");
+            return notification;
         }
 
         MovieGoer movieGoer = movieGoerRepository.findById(booking.movieGoerId())
@@ -53,7 +54,7 @@ public class BookingService {
         payment.associateBooking(savedBooking);
         paymentRepository.save(payment);
 
-        return new BookingOutcome(true);
+        return notification;
     }
 
     public Payment calculatePayment(Booking booking) {

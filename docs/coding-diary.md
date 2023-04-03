@@ -93,9 +93,9 @@ public class MovieController {
     MovieProgram movieProgram = movieService.findMovieProgramBy(bookingForm.getScheduleId());
     Booking booking = BookingForm.to(bookingForm, movieProgram);
     Payment payment = BookingForm.toPayment(bookingForm);
-    BookingOutcome bookingOutcome = bookingService.save(booking, payment);
+    BookingOutcome notification = bookingService.save(booking, payment);
 
-    if (bookingOutcome.isSuccess()) {
+    if (notification.isSuccess()) {
       return "redirect:/bookings";
     } else {
       return "redirect:/seatsNotAvailable";
