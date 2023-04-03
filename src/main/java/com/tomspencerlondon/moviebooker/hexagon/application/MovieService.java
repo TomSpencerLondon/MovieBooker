@@ -46,9 +46,4 @@ public class MovieService {
         return movieProgramRepository.findById(scheduleId).orElseThrow(IllegalArgumentException::new);
     }
 
-    public boolean areSeatsAvailable(Long scheduleId, int additionalSeats) {
-        MovieProgram movieProgram = findMovieProgramBy(scheduleId);
-
-        return movieProgram.seatsAvailableFor(additionalSeats);
-    }
 }

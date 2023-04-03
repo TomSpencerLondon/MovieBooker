@@ -76,8 +76,17 @@ public class BookingService {
                 LocalDateTime.now());
     }
 
-    public void amendBooking(Long bookingId, int additionalSeats, Payment payment) {
+    public Notification amendBooking(Long bookingId, int additionalSeats, Payment payment) {
+        Notification notification = new Notification();
+
         Booking booking = bookingRepository.findById(bookingId).orElseThrow(IllegalArgumentException::new);
+        boolean seatsAvailable = booking.movieProgram().seatsAvailableFor(additionalSeats);
+
+        if (!seatsAvailable) {
+            notification.addError("Seats not available");
+            return notification;
+        }
+
         booking.addSeats(additionalSeats);
         MovieGoer movieGoer = movieGoerRepository.findById(booking.movieGoerId())
                 .orElseThrow(IllegalArgumentException::new);
@@ -86,6 +95,8 @@ public class BookingService {
         Booking savedBooking = bookingRepository.save(booking);
         payment.associateBooking(savedBooking);
         paymentRepository.save(payment);
+
+        return notification;
     }
 
     public Booking findBooking(Long bookingId) {

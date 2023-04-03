@@ -124,9 +124,9 @@ public class MovieController {
                                    @RequestParam("bookingId") Long bookingId,
                                    @RequestParam("additionalSeats") int additionalSeats) {
         Payment payment = AmendBookingForm.toPayment(amendBookingForm);
-        if(movieService.areSeatsAvailable(amendBookingForm.getScheduleId(), additionalSeats)) {
-            bookingService.amendBooking(bookingId, additionalSeats, payment);
+        Notification notification = bookingService.amendBooking(bookingId, additionalSeats, payment);
 
+        if(notification.isSuccess()) {
             return "redirect:/bookings";
         } else {
             return "redirect:/seatsNotAvailable?bookingId=" + bookingId;

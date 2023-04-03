@@ -107,3 +107,117 @@ public class MovieController {
 - Is there any opportunity for refactoring?
 - Are things in the right place?
 - Can we add an API instead of using MVC?
+
+### 1/4/23
+- Interesting discussion about Command Query Separation (CQS)
+- We wanted to move decision logic into the service layer so that it could be shared between MVC and SPA type approaches
+  - this required returning a result or notification from operations
+  - we spoke about whether this violated the CQS rule
+  - we discussed the approach of using exceptions as an alternative
+  - Martin Fowler article was helpful to show errors in a notification result
+    - https://martinfowler.com/articles/replaceThrowWithNotification.html
+  - we used this approach for our problem
+
+```java
+@Controller
+public class MovieController {
+  @PostMapping("/book")
+  public String makeBooking(@ModelAttribute("bookingForm") BookingForm bookingForm) {
+    MovieProgram movieProgram = movieService.findMovieProgramBy(bookingForm.getScheduleId());
+    Booking booking = BookingForm.to(bookingForm, movieProgram);
+    Payment payment = BookingForm.toPayment(bookingForm);
+    Notification notification = bookingService.payForBooking(booking, payment);
+
+    if (notification.isSuccess()) {
+      return "redirect:/bookings";
+    } else {
+      return "redirect:/seatsNotAvailable";
+    }
+  }
+
+  @PostMapping("/amendBooking")
+  public String makeAmendBooking(@ModelAttribute("amendBookingForm") AmendBookingForm amendBookingForm,
+                                 @RequestParam("bookingId") Long bookingId,
+                                 @RequestParam("additionalSeats") int additionalSeats) {
+    Payment payment = AmendBookingForm.toPayment(amendBookingForm);
+    Notification notification = bookingService.amendBooking(bookingId, additionalSeats, payment);
+
+    if(notification.isSuccess()) {
+      return "redirect:/bookings";
+    } else {
+      return "redirect:/seatsNotAvailable?bookingId=" + bookingId;
+    }
+  }
+}
+```
+The BookingService functions:
+```java
+public class BookingService {
+  public Notification payForBooking(Booking booking, Payment payment) {
+    MovieProgram movieProgram = booking.movieProgram();
+    Notification notification = new Notification();
+    if (!movieProgram.seatsAvailableFor(booking.numberOfSeatsBooked())) {
+      notification.addError("No seats available");
+      return notification;
+    }
+
+    MovieGoer movieGoer = movieGoerRepository.findById(booking.movieGoerId())
+            .orElseThrow(IllegalArgumentException::new);
+    movieGoer.confirmPayment(payment);
+    movieGoerRepository.save(movieGoer);
+    Booking savedBooking = bookingRepository.save(booking);
+    payment.associateBooking(savedBooking);
+    paymentRepository.save(payment);
+
+    return notification;
+  }
+  
+  public Notification amendBooking(Long bookingId, int additionalSeats, Payment payment) {
+    Notification notification = new Notification();
+
+    Booking booking = bookingRepository.findById(bookingId).orElseThrow(IllegalArgumentException::new);
+    boolean seatsAvailable = booking.movieProgram().seatsAvailableFor(additionalSeats);
+
+    if (!seatsAvailable) {
+      notification.addError("Seats not available");
+      return notification;
+    }
+
+    booking.addSeats(additionalSeats);
+    MovieGoer movieGoer = movieGoerRepository.findById(booking.movieGoerId())
+            .orElseThrow(IllegalArgumentException::new);
+    movieGoer.confirmPayment(payment);
+    movieGoerRepository.save(movieGoer);
+    Booking savedBooking = bookingRepository.save(booking);
+    payment.associateBooking(savedBooking);
+    paymentRepository.save(payment);
+
+    return notification;
+  }
+  
+}
+
+```
+
+In the next session we want to add custom Id types with validation:
+```java
+@Controller
+public class MovieController {
+  @GetMapping("/seatsNotAvailable")
+  public String seatsNotAvailable(Model model, @RequestParam(value = "bookingId", defaultValue = "-1") Long bookingId) {
+    // TODO: We could add a BookingId class which would contain validation
+    if (bookingId != -1) {
+      Booking booking = bookingService.findBooking(bookingId);
+      BookingForm bookingForm = BookingForm.from(booking);
+      model.addAttribute("bookingForm", bookingForm);
+    }
+
+    model.addAttribute("movieGoer", movieGoerView());
+    return "/bookings/seatsNotAvailable";
+  }
+}
+```
+
+
+
+
