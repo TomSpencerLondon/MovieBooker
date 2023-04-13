@@ -1,3 +1,5 @@
+#### Diary entries (Dmitri Bontoft + Tom Spencer)
+
 ### 29/3/23
 - started amendBooking
 - decided to do TDD to start out on amendBooking
@@ -218,6 +220,13 @@ public class MovieController {
 }
 ```
 
-
-
-
+### 13/4/23 
+- Discussed bounded contexts and how to split the admin and moviegoer bounded contexts
+- Spring is outside in moviebooker
+- There are now separate folders for moviegoer and admin bounded context
+- We have decided not to use microservices or separate projects for the moment.
+- There may be some duplication of classes and we haven't decided how to deal with this
+- Choices include:
+  - expose functionality from one bounded context to the other
+  - two separate ways of reading from the database for each context
+- 
