@@ -32,20 +32,20 @@ public class MovieController {
     public String home(Model model) {
         model.addAttribute("movieGoer", movieGoerView());
         model.addAttribute("movies", movieService.findAll());
-        return "start";
+        return "moviegoer/start";
     }
 
     @GetMapping("/login")
     public String loginForm(@RequestParam(value = "error", defaultValue = "false") boolean error, Model model) {
         model.addAttribute("error", error);
-        return "login";
+        return "moviegoer/login";
     }
 
     @GetMapping("/register")
     public String register(Model model) {
         MovieGoerRegistrationForm movieGoerRegistrationForm = new MovieGoerRegistrationForm();
         model.addAttribute("movieGoerRegistrationForm", movieGoerRegistrationForm);
-        return "registration";
+        return "moviegoer/registration";
     }
 
     @PostMapping("/register")
@@ -60,7 +60,7 @@ public class MovieController {
             // TODO: We could change this to a more specific exception
         } catch (RuntimeException e) {
             model.addAttribute("movieGoerRegistrationForm", movieGoerRegistrationForm);
-            return "registration";
+            return "moviegoer/registration";
         }
         return "redirect:/";
     }
@@ -72,7 +72,7 @@ public class MovieController {
         model.addAttribute("movie", movieService.findById(filmIdLong));
         model.addAttribute("moviePrograms", movieService.programsForFilm(filmIdLong));
         model.addAttribute("numberOfSeats", 1);
-        return "movie/index";
+        return "moviegoer/movie/index";
     }
 
     @GetMapping("/book")
@@ -86,7 +86,7 @@ public class MovieController {
             BookingForm bookingForm = BookingForm.from(booking, payment);
             model.addAttribute("bookingForm", bookingForm);
             model.addAttribute("movieGoer", movieGoerView);
-            return "bookings/book";
+            return "moviegoer/bookings/book";
         } else {
             return "redirect:/loyalty-signup?programId=" + movieProgramId + "&numberOfSeats=" + numberOfSeats;
         }
@@ -116,7 +116,7 @@ public class MovieController {
         model.addAttribute("amendBookingForm", amendBookingForm);
         model.addAttribute("movieGoer", movieGoerView);
 
-        return "bookings/amend";
+        return "moviegoer/bookings/amend";
     }
 
     @PostMapping("/amendBooking")
@@ -143,7 +143,7 @@ public class MovieController {
         }
 
         model.addAttribute("movieGoer", movieGoerView());
-        return "/bookings/seatsNotAvailable";
+        return "moviegoer/bookings/seatsNotAvailable";
     }
 
     @PostMapping("/bookings")
@@ -156,7 +156,7 @@ public class MovieController {
     public String bookings(Model model) {
         model.addAttribute("bookings", bookingService.findAllBookingsFor(movieGoerView().getUserName()));
         model.addAttribute("movieGoer", movieGoerView());
-        return "bookings/index";
+        return "moviegoer/bookings/index";
     }
 
     @GetMapping("/loyalty-signup")
@@ -165,7 +165,7 @@ public class MovieController {
         model.addAttribute("movieGoer", movieGoerView());
         model.addAttribute("programId", programId);
         model.addAttribute("numberOfSeats", numberOfSeats);
-        return "loyalty/signup";
+        return "moviegoer/loyalty/signup";
     }
 
     @PostMapping("/loyalty-signup")
@@ -196,7 +196,7 @@ public class MovieController {
         MovieGoerView movieGoerView = movieGoerView();
         model.addAttribute("movieGoer", movieGoerView);
 
-        return "loyalty/signup-confirmation";
+        return "moviegoer/loyalty/signup-confirmation";
     }
 
     private MovieGoerView movieGoerView() {

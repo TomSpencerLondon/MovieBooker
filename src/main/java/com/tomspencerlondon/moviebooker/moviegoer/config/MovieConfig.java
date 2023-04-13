@@ -1,4 +1,4 @@
-package com.tomspencerlondon.moviebooker;
+package com.tomspencerlondon.moviebooker.moviegoer.config;
 
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.BookingService;
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.CustomUserDetailsService;

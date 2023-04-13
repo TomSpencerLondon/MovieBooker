@@ -1,4 +1,4 @@
-package com.tomspencerlondon.moviebooker;
+package com.tomspencerlondon.moviebooker.moviegoer.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

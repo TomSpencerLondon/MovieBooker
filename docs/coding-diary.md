@@ -229,4 +229,6 @@ public class MovieController {
 - Choices include:
   - expose functionality from one bounded context to the other
   - two separate ways of reading from the database for each context
-- 
+
+### 13/4/23 - Tom
+Aim: Create page for listing movie programs for Admin

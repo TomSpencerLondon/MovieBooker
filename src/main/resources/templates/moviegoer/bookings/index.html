@@ -1,11 +1,9 @@
-<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/layout}">
+      layout:decorate="~{/moviegoer/layout/layout}">
 <div layout:fragment="content"
-        class="min-h-full">
-    <div th:insert="fragments/movie-fragments :: movie-input(${movie}, ${false})"></div>
+     class="min-h-full">
     <div class="px-4 sm:px-6 lg:px-8">
         <div class="mt-8 flex flex-col">
             <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -18,39 +16,45 @@
                                     Cinema
                                 </th>
                                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                    Film
+                                </th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                     Date
                                 </th>
                                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                    Seats
-                                </th>
-                                <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                                    <span class="sr-only">Edit</span>
+                                    Seats booked
                                 </th>
                             </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200 bg-white">
-                            <th:block th:each="program : ${moviePrograms}">
+                            <th:block th:each="booking : ${bookings}">
                                 <tr>
                                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                         Clapham Common
                                     </td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-blue-800"
+                                    >
+                                        <a th:text="${booking.filmName()}"
+                                           th:href="@{/movie(filmId=${booking.getBookingId()})}"
+                                           />
+                                    </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
-                                        th:text="${program.scheduleDateText()}"
+                                        th:text="${booking.bookingTime()}"
                                     >
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
-                                        th:text="${program.seatsText()}"
+                                        th:text="${booking.numberOfSeatsBooked()}"
                                     >
                                     </td>
-                                    <th:block th:if="${program.canBook()}">
+                                    <th:block th:if="${booking.movieProgram().canBook()}">
                                         <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                            <form th:method="post" th:action="@{/bookings}">
-                                                <input type="hidden" th:name="programId" th:value="${program.getScheduleId()}"/>
+                                            <form th:method="GET" th:action="@{/amendBooking}">
+                                                <input type="hidden" th:name="bookingId" th:value="${booking.getBookingId()}"/>
                                                 <select field="*{numberOfSeats}" th:name="numberOfSeats">
-                                                    <option th:each="i : ${#numbers.sequence(1, program.availableSeats())}" th:value="${i}" th:text="${i}">
+                                                    <option th:each="i : ${#numbers.sequence(1, booking.movieProgram().availableSeats())}" th:value="${i}" th:text="${i}">
                                                     </option>
                                                 </select>
-                                                <button class="text-indigo-600 hover:text-indigo-900">Book</button>
+                                                <button class="text-indigo-600 hover:text-indigo-900">Add</button>
                                             </form>
                                         </td>
                                     </th:block>
