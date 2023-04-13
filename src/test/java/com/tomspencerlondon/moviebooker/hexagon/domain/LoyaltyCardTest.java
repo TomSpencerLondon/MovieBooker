@@ -1,5 +1,8 @@
 package com.tomspencerlondon.moviebooker.hexagon.domain;
 
+import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.LoyaltyCard;
+import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.LoyaltyDevice;
+import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.MovieGoer;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

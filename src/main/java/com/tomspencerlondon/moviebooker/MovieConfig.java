@@ -1,10 +1,10 @@
 package com.tomspencerlondon.moviebooker;
 
-import com.tomspencerlondon.moviebooker.hexagon.application.BookingService;
-import com.tomspencerlondon.moviebooker.hexagon.application.CustomUserDetailsService;
-import com.tomspencerlondon.moviebooker.hexagon.application.MovieGoerService;
-import com.tomspencerlondon.moviebooker.hexagon.application.MovieService;
-import com.tomspencerlondon.moviebooker.hexagon.application.port.*;
+import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.BookingService;
+import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.CustomUserDetailsService;
+import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.MovieGoerService;
+import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.MovieService;
+import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.port.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

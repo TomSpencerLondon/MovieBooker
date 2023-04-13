@@ -1,5 +1,6 @@
 package com.tomspencerlondon.moviebooker.hexagon.domain;
 
+import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.*;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
