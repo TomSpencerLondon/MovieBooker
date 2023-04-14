@@ -3,6 +3,7 @@ package com.tomspencerlondon.moviebooker.admin.adapter.in.web;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class AddProgramForm {
 
@@ -10,6 +11,7 @@ public class AddProgramForm {
     private LocalDateTime scheduleDate;
     private Integer seats;
     private Long movieId;
+    private List<AdminMovieView> adminMovies;
 
     public BigDecimal getPrice() {
         return price;
@@ -41,6 +43,14 @@ public class AddProgramForm {
 
     public void setMovieId(Long movieId) {
         this.movieId = movieId;
+    }
+
+    public void setAdminMovies(List<AdminMovieView> adminMovies) {
+        this.adminMovies = adminMovies;
+    }
+
+    public List<AdminMovieView> getAdminMovies() {
+        return adminMovies;
     }
 }
 

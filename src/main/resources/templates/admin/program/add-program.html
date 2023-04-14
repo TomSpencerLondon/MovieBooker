@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/moviegoer/layout/layout}">
+      layout:decorate="~{/admin/layout/layout}">
 
 <div layout:fragment="content"
      class="min-h-full">
@@ -19,37 +19,38 @@
                     <div class="lg:mb-5 lg:mt-5 sm:mt-2 sm:mb-2">
                         <div class="flex lg:flex-row md:flex-col lg:gap-4 md:gap-1">
                             <div class="flex flex-col">
-                                <div class="lg:text-lg md:text-sm font-medium text-gray-600 flex justify-center">Film</div>
+                                <div class="lg:text-lg md:text-sm font-medium text-gray-600 flex justify-center">Cinema</div>
                                 <div class="text-sm text-gray-500 flex justify-center"
-                                     th:text="${addProgramForm.getPrice()}"
-                                >Godfather</div>
+                                >Clapham Common</div>
                             </div>
                             <div class="flex flex-col">
-                                <div class="lg:text-lg md:text-sm font-medium text-gray-600 flex justify-center">Showing</div>
+                                <div class="lg:text-lg md:text-sm font-medium text-gray-600 flex justify-center">Schedule Date</div>
                                 <div class="text-sm text-gray-500 flex justify-center"
-                                     th:text="${addProgramForm.getScheduleDateText()}"
+                                     th:text="${addProgramForm.getScheduleDate()}"
                                 >Godfather</div>
                             </div>
                             <div class="flex flex-col">
                                 <div class="lg:text-lg md:text-sm font-medium text-gray-600 flex justify-center">Price</div>
                                 <div class="text-sm text-gray-500 flex justify-center"
-                                     th:text="${addProgramForm.getPriceText()}"
-                                >Godfather</div>
+                                     th:text="${addProgramForm.getPrice()}"
+                                >Price</div>
                             </div>
                             <div class="flex flex-col">
-                                <div class="lg:text-lg md:text-sm font-medium text-gray-600 flex justify-center">Tickets</div>
+                                <div class="lg:text-lg md:text-sm font-medium text-gray-600 flex justify-center">Number of seats</div>
                                 <div class="text-sm text-gray-500 flex justify-center"
-                                     th:text="${addProgramForm.getNumberOfSeats()}"
-                                >Godfather</div>
+                                     th:text="${addProgramForm.getSeats()}"
+                                ></div>
                             </div>
-                            <th:block th:if="${movieGoer.isLoyaltyUser()}">
-                                <div class="flex flex-col">
-                                    <div class="lg:text-lg md:text-sm font-medium text-gray-600 flex justify-center">Points Available</div>
-                                    <div class="text-sm text-gray-500 flex justify-center"
-                                         th:text="${addProgramForm.getUpdatedLoyaltyPoints()}"
-                                    ></div>
+                            <div class="flex flex-col">
+                                <div class="lg:text-lg md:text-sm font-medium text-gray-600 flex justify-center">Movie</div>
+                                <div class="text-sm text-gray-500 flex justify-center"
+                                >
+                                    <select th:name="movie">
+                                        <option th:each="movie : ${addProgramForm.getAdminMovies()}" th:value="${movie.getMovieId()}" th:text="${movie.getMovieName()}">
+                                        </option>
+                                    </select>
                                 </div>
-                            </th:block>
+                            </div>
                         </div>
                     </div>
                     <button type="submit"
