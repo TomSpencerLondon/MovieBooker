@@ -1,7 +1,10 @@
 package com.tomspencerlondon.moviebooker.moviegoer.adapter.out.jpa;
 
-import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.port.BookingRepository;
-import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.port.MovieProgramRepository;
+import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.BookingDbo;
+import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.BookingJpaRepository;
+import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.PaymentJpaRepository;
+import com.tomspencerlondon.moviebooker.common.hexagon.application.port.BookingRepository;
+import com.tomspencerlondon.moviebooker.common.hexagon.application.port.MovieProgramRepository;
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.Booking;
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.MovieProgram;
 import org.springframework.stereotype.Repository;

@@ -1,15 +1,16 @@
 package com.tomspencerlondon.moviebooker.admin.adapter.out.jpa;
 
 
-import com.tomspencerlondon.moviebooker.admin.hexagon.domain.Program;
-import com.tomspencerlondon.moviebooker.moviegoer.adapter.out.jpa.MovieDbo;
+import com.tomspencerlondon.moviebooker.admin.hexagon.domain.AdminProgram;
+import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.MovieDbo;
+import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.MovieProgramDbo;
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.Movie;
 import org.springframework.stereotype.Service;
 
 @Service("jpaAdminProgramTransformer")
 public class ProgramTransformer {
 
-    public Program toMovieProgram(AdminProgramDbo adminProgramDbo) {
+    public AdminProgram toMovieProgram(MovieProgramDbo adminProgramDbo) {
         MovieDbo movieDbo = adminProgramDbo.getMovie();
         Movie movie = new Movie(
                 movieDbo.getMovieId(),
@@ -18,7 +19,7 @@ public class ProgramTransformer {
                 movieDbo.getReleaseDate(),
                 movieDbo.getDescription());
 
-        return new Program(
+        return new AdminProgram(
                 adminProgramDbo.getScheduleId(),
                 adminProgramDbo.getScheduleDate(),
                 adminProgramDbo.getSeats(),

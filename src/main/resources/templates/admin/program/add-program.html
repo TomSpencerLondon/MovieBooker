@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/moviegoer/layout/layout}">
+
+<div layout:fragment="content"
+     class="min-h-full">
+    <div class="h-screen grid grid-cols-1 md:grid-cols-3 tracking-wide mt-5">
+        <div class="h-full col-start-2 py-15 place-self-center items-center md: py-3 px-3">
+            <div class="bg-white rounded-t-lg">
+                <img src="img/book/illustration-hero.svg" alt="" srcset="" class="w-full rounded-t-lg">
+            </div>
+            <form th:action="@{/add-program}" th:object="${addProgramForm}" method="POST">
+                <div
+                        class="grid grid-cols-1 justify-items-center px-20 py-10 bg-white rounded-b-lg  shadow-2xl">
+                    <div>
+                        <h1 class="lg:text-xl sm:text-sm">Order Summary</h1>
+                    </div>
+                    <div class="lg:mb-5 lg:mt-5 sm:mt-2 sm:mb-2">
+                        <div class="flex lg:flex-row md:flex-col lg:gap-4 md:gap-1">
+                            <div class="flex flex-col">
+                                <div class="lg:text-lg md:text-sm font-medium text-gray-600 flex justify-center">Film</div>
+                                <div class="text-sm text-gray-500 flex justify-center"
+                                     th:text="${addProgramForm.getPrice()}"
+                                >Godfather</div>
+                            </div>
+                            <div class="flex flex-col">
+                                <div class="lg:text-lg md:text-sm font-medium text-gray-600 flex justify-center">Showing</div>
+                                <div class="text-sm text-gray-500 flex justify-center"
+                                     th:text="${addProgramForm.getScheduleDateText()}"
+                                >Godfather</div>
+                            </div>
+                            <div class="flex flex-col">
+                                <div class="lg:text-lg md:text-sm font-medium text-gray-600 flex justify-center">Price</div>
+                                <div class="text-sm text-gray-500 flex justify-center"
+                                     th:text="${addProgramForm.getPriceText()}"
+                                >Godfather</div>
+                            </div>
+                            <div class="flex flex-col">
+                                <div class="lg:text-lg md:text-sm font-medium text-gray-600 flex justify-center">Tickets</div>
+                                <div class="text-sm text-gray-500 flex justify-center"
+                                     th:text="${addProgramForm.getNumberOfSeats()}"
+                                >Godfather</div>
+                            </div>
+                            <th:block th:if="${movieGoer.isLoyaltyUser()}">
+                                <div class="flex flex-col">
+                                    <div class="lg:text-lg md:text-sm font-medium text-gray-600 flex justify-center">Points Available</div>
+                                    <div class="text-sm text-gray-500 flex justify-center"
+                                         th:text="${addProgramForm.getUpdatedLoyaltyPoints()}"
+                                    ></div>
+                                </div>
+                            </th:block>
+                        </div>
+                    </div>
+                    <button type="submit"
+                            class="mb-4 flex w-full justify-center rounded-md border border-transparent bg-blue-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                        Pay
+                    </button>
+                    <div id="cancel">
+                        <a href="#" class="text-sm text-gray-700">Cancel Order</a>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

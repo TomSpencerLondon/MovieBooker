@@ -232,3 +232,14 @@ public class MovieController {
 
 ### 13/4/23 - Tom
 Aim: Create page for listing movie programs for Admin
+Completed admin page for listing programs
+
+### 14/4/23
+- Show movie name on list of programs
+- button for add new program
+  - validation: for movie, chosen time etc.
+- later: list of movies
+  - form for a new movie
+- Ideas:
+  - 15 minutes between movies
+  - what is already scheduled?

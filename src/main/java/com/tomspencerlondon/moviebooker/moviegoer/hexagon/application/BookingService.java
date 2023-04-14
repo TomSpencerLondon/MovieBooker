@@ -1,9 +1,9 @@
 package com.tomspencerlondon.moviebooker.moviegoer.hexagon.application;
 
-import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.port.BookingRepository;
-import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.port.MovieGoerRepository;
-import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.port.MovieProgramRepository;
-import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.port.PaymentRepository;
+import com.tomspencerlondon.moviebooker.common.hexagon.application.port.BookingRepository;
+import com.tomspencerlondon.moviebooker.common.hexagon.application.port.MovieGoerRepository;
+import com.tomspencerlondon.moviebooker.common.hexagon.application.port.MovieProgramRepository;
+import com.tomspencerlondon.moviebooker.common.hexagon.application.port.PaymentRepository;
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.*;
 
 import java.time.LocalDateTime;

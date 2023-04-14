@@ -1,7 +1,7 @@
 package com.tomspencerlondon.moviebooker.moviegoer.hexagon.application;
 
-import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.port.MovieProgramRepository;
-import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.port.MovieRepository;
+import com.tomspencerlondon.moviebooker.common.hexagon.application.port.MovieProgramRepository;
+import com.tomspencerlondon.moviebooker.common.hexagon.application.port.MovieRepository;
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.Movie;
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.MovieProgram;
 

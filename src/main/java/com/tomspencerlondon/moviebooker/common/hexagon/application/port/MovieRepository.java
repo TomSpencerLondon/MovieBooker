@@ -1,7 +1,9 @@
-package com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.port;
+package com.tomspencerlondon.moviebooker.common.hexagon.application.port;
 
 import java.util.List;
 import java.util.Optional;
+
+import com.tomspencerlondon.moviebooker.admin.hexagon.domain.AdminMovie;
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.Movie;
 
 public interface MovieRepository {

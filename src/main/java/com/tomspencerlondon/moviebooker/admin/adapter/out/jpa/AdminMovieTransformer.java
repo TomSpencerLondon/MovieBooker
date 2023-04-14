@@ -1,14 +1,14 @@
-package com.tomspencerlondon.moviebooker.moviegoer.adapter.out.jpa;
+package com.tomspencerlondon.moviebooker.admin.adapter.out.jpa;
 
+import com.tomspencerlondon.moviebooker.admin.hexagon.domain.AdminMovie;
 import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.MovieDbo;
-import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.Movie;
 import org.springframework.stereotype.Service;
 
-@Service("jpaMovieTransformer")
-public class MovieTransformer {
+@Service("jpaAdminMovieTransformer")
+public class AdminMovieTransformer {
 
-    public Movie toMovie(MovieDbo movieDbo) {
-        return new Movie(
+    public AdminMovie toMovie(MovieDbo movieDbo) {
+        return new AdminMovie(
                 movieDbo.getMovieId(),
                 movieDbo.getMovieName(),
                 movieDbo.getMovieImage(),
@@ -17,7 +17,7 @@ public class MovieTransformer {
         );
     }
 
-    public MovieDbo toMovieDbo(Movie movie) {
+    public MovieDbo toMovieDbo(AdminMovie movie) {
         MovieDbo movieDbo = new MovieDbo();
         movieDbo.setMovieId(movie.getId());
         movieDbo.setMovieName(movie.movieName());
@@ -28,3 +28,4 @@ public class MovieTransformer {
         return movieDbo;
     }
 }
+

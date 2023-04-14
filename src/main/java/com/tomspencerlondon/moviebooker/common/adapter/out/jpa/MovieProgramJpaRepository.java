@@ -1,5 +1,6 @@
-package com.tomspencerlondon.moviebooker.moviegoer.adapter.out.jpa;
+package com.tomspencerlondon.moviebooker.common.adapter.out.jpa;
 
+import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.MovieProgramDbo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

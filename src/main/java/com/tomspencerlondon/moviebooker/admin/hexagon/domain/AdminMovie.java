@@ -3,7 +3,7 @@ package com.tomspencerlondon.moviebooker.admin.hexagon.domain;
 
 import java.time.LocalDate;
 
-public class Movie {
+public class AdminMovie {
 
     private Long id;
     private final String movieName;
@@ -11,7 +11,7 @@ public class Movie {
     private final LocalDate releaseDate;
     private final String description;
 
-    public Movie(Long id, String movieName, String image, LocalDate releaseDate, String description) {
+    public AdminMovie(Long id, String movieName, String image, LocalDate releaseDate, String description) {
         this.id = id;
         this.movieName = movieName;
         this.image = image;

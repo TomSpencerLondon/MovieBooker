@@ -1,6 +1,6 @@
 package com.tomspencerlondon.moviebooker.moviegoer.hexagon.application;
 
-import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.port.MovieGoerRepository;
+import com.tomspencerlondon.moviebooker.common.hexagon.application.port.MovieGoerRepository;
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.MovieGoer;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

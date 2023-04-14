@@ -1,4 +1,4 @@
-package com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.port;
+package com.tomspencerlondon.moviebooker.common.hexagon.application.port;
 
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.Payment;
 

@@ -1,5 +1,6 @@
-package com.tomspencerlondon.moviebooker.moviegoer.adapter.out.jpa;
+package com.tomspencerlondon.moviebooker.common.adapter.out.jpa;
 
+import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.MovieDbo;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;

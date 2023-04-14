@@ -1,5 +1,5 @@
 package com.tomspencerlondon.moviebooker.moviegoer.hexagon.application;
-import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.port.MovieGoerRepository;
+import com.tomspencerlondon.moviebooker.common.hexagon.application.port.MovieGoerRepository;
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.MovieGoer;
 
 import java.util.Optional;

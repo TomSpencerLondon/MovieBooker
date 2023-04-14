@@ -1,5 +1,6 @@
 package com.tomspencerlondon.moviebooker.moviegoer.adapter.out.jpa;
 
+import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.MovieGoerDbo;
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.MovieGoer;
 import org.springframework.stereotype.Service;
 
