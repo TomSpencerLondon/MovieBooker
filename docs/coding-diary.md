@@ -247,3 +247,4 @@ Completed admin page for listing programs
 ### 17/4/23
 - Added movie name and price to list of programs
 - button for add new program (style)
+- button for add new program - added get mapping

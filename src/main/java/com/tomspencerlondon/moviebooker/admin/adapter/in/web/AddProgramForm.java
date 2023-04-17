@@ -8,7 +8,7 @@ import java.util.List;
 public class AddProgramForm {
 
     private BigDecimal price;
-    private LocalDateTime scheduleDate;
+    private String scheduleDate;
     private Integer seats;
     private Long movieId;
     private List<AdminMovieView> adminMovies;
@@ -21,11 +21,11 @@ public class AddProgramForm {
         this.price = price;
     }
 
-    public LocalDateTime getScheduleDate() {
+    public String getScheduleDate() {
         return scheduleDate;
     }
 
-    public void setScheduleDate(LocalDateTime scheduleDate) {
+    public void setScheduleDate(String scheduleDate) {
         this.scheduleDate = scheduleDate;
     }
 
