@@ -32,7 +32,7 @@ public class AdminController {
         return "admin/program/programs";
     }
 
-    @GetMapping("/add-programs")
+    @GetMapping("/add-program")
     public String addPrograms(Model model) {
         AddProgramForm addProgramForm = new AddProgramForm();
         List<AdminMovieView> adminMovieViews = adminMovieService
