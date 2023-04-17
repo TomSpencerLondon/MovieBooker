@@ -46,7 +46,7 @@
                                 <div class="text-sm text-gray-500 flex justify-center"
                                 >
                                     <select th:name="movie">
-                                        <option th:each="movie : ${addProgramForm.getAdminMovies()}" th:value="${movie.getMovieId()}" th:text="${movie.getMovieName()}">
+                                        <option th:each="movie : ${addProgramForm.getAdminMovie()}" th:value="${movie.getMovieId()}" th:text="${movie.getMovieName()}">
                                         </option>
                                     </select>
                                 </div>

@@ -11,10 +11,10 @@ public class AdminProgram {
     private Long scheduleId;
     private final LocalDateTime scheduleDate;
     private final Integer totalSeats;
-    private Movie movie;
+    private AdminMovie movie;
     private final BigDecimal seatPrice;
 
-    public AdminProgram(Long scheduleId, LocalDateTime scheduleDate, Integer totalSeats, Movie movie, BigDecimal seatPrice) {
+    public AdminProgram(Long scheduleId, LocalDateTime scheduleDate, Integer totalSeats, AdminMovie movie, BigDecimal seatPrice) {
         this.scheduleId = scheduleId;
         this.scheduleDate = scheduleDate;
         this.totalSeats = totalSeats;
@@ -43,7 +43,7 @@ public class AdminProgram {
         return totalSeats;
     }
 
-    public Movie movie() {
+    public AdminMovie movie() {
         return movie;
     }
 

@@ -1,6 +1,7 @@
 package com.tomspencerlondon.moviebooker.admin.adapter.out.jpa;
 
 
+import com.tomspencerlondon.moviebooker.admin.hexagon.domain.AdminMovie;
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.AdminProgram;
 import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.MovieDbo;
 import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.MovieProgramDbo;
@@ -12,7 +13,7 @@ public class ProgramTransformer {
 
     public AdminProgram toMovieProgram(MovieProgramDbo adminProgramDbo) {
         MovieDbo movieDbo = adminProgramDbo.getMovie();
-        Movie movie = new Movie(
+        AdminMovie movie = new AdminMovie(
                 movieDbo.getMovieId(),
                 movieDbo.getMovieName(),
                 movieDbo.getMovieImage(),
