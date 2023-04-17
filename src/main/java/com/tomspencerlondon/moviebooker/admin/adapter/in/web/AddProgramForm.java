@@ -1,16 +1,25 @@
 package com.tomspencerlondon.moviebooker.admin.adapter.in.web;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class AddProgramForm {
 
+    @NotNull
     private BigDecimal price;
+
+    @NotBlank
     private String scheduleDate;
+
+    @NotNull
     private Integer seats;
+
+    @NotNull
     private Long movieId;
+
     private List<AdminMovieView> adminMovies;
 
     public BigDecimal getPrice() {

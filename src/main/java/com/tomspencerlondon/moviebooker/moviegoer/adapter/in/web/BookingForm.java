@@ -4,7 +4,7 @@ import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.Booking;
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.MovieProgram;
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.Payment;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

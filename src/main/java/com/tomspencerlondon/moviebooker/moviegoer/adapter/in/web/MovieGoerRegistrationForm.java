@@ -1,6 +1,6 @@
 package com.tomspencerlondon.moviebooker.moviegoer.adapter.in.web;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 public class MovieGoerRegistrationForm {
 

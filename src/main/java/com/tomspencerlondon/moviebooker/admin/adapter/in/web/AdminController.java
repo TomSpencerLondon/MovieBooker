@@ -7,11 +7,14 @@ import com.tomspencerlondon.moviebooker.admin.hexagon.domain.AdminProgram;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -51,7 +54,14 @@ public class AdminController {
     }
 
     @PostMapping("/add-program")
-    public String addProgram(@ModelAttribute("AddProgramForm") AddProgramForm addProgramForm) {
+    public String addProgram(@Valid @ModelAttribute("addProgramForm") AddProgramForm addProgramForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            List<AdminMovieView> adminMovieViews = adminMovieService
+                    .findAll().stream().map(AdminMovieView::from).toList();
+            addProgramForm.setAdminMovies(adminMovieViews);
+            return "/admin/program/add-program";
+        }
+
         AdminMovie adminMovie = adminMovieService.findById(addProgramForm.getMovieId());
         DateTimeFormatter formatter = DateTimeFormatter
                 .ofPattern("MMM d, yyyy h:m a", Locale.US);

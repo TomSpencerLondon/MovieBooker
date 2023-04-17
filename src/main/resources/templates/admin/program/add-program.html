@@ -39,6 +39,7 @@
                                             type="text"
                                             id="datetime"
                                             data-input
+                                            required
                                             placeholder="Select.."
                                             class="block w-full px-2 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-l-md shadow-sm"
                                             th:field="*{scheduleDate}"
@@ -56,6 +57,10 @@
                                 </div>
 
                             </div>
+                            <p
+                               class="mt-2 text-sm text-red-600"
+                               th:if="${#fields.hasErrors('scheduleDate')}"
+                               th:text="${#strings.listJoin(#fields.errors('scheduleDate'), ', ')}"></p>
                         </div>
                         <div class="mb-6">
                             <label class="block text-sm text-gray-600"
