@@ -18,4 +18,8 @@ public class AdminProgramService {
     public List<AdminProgram> findAll() {
         return movieProgramRepository.findAll();
     }
+
+    public void save(AdminProgram adminProgram) {
+        movieProgramRepository.save(adminProgram);
+    }
 }

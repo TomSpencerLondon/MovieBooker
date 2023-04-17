@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface AdminMovieProgramRepository {
     List<AdminProgram> findAll();
+
+    void save(AdminProgram adminProgram);
 }

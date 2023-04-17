@@ -31,5 +31,11 @@ public class AdminMovieRepositoryJpaAdapter implements AdminMovieRepository {
                 .map(adminMovieTransformer::toMovie)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Optional<AdminMovie> findById(Long movieId) {
+        return movieJpaRepository.findById(movieId)
+                .map(adminMovieTransformer::toMovie);
+    }
 }
 

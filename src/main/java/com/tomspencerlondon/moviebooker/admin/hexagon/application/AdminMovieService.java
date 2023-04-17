@@ -19,4 +19,9 @@ public class AdminMovieService {
     public List<AdminMovie> findAll() {
         return adminMovieRepository.findAll();
     }
+
+    public AdminMovie findById(Long movieId) {
+        return adminMovieRepository.findById(movieId)
+                .orElseThrow(UnsupportedOperationException::new);
+    }
 }

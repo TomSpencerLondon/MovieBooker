@@ -21,9 +21,13 @@ public class AdminProgramRepositoryJpaAdapter implements AdminMovieProgramReposi
 
     @Override
     public List<AdminProgram> findAll() {
-
         return programJpaRepository.findAll()
                 .stream().map(programTransformer::toMovieProgram).toList();
+    }
+
+    @Override
+    public void save(AdminProgram adminProgram) {
+        programJpaRepository.save(programTransformer.fromMovieProgram(adminProgram));
     }
 }
 

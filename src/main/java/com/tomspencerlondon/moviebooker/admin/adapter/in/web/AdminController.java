@@ -2,6 +2,7 @@ package com.tomspencerlondon.moviebooker.admin.adapter.in.web;
 
 import com.tomspencerlondon.moviebooker.admin.hexagon.application.AdminMovieService;
 import com.tomspencerlondon.moviebooker.admin.hexagon.application.AdminProgramService;
+import com.tomspencerlondon.moviebooker.admin.hexagon.domain.AdminMovie;
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.AdminProgram;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +12,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/admin")
@@ -48,7 +52,19 @@ public class AdminController {
 
     @PostMapping("/add-program")
     public String addProgram(@ModelAttribute("AddProgramForm") AddProgramForm addProgramForm) {
+        AdminMovie adminMovie = adminMovieService.findById(addProgramForm.getMovieId());
+        DateTimeFormatter formatter = DateTimeFormatter
+                .ofPattern("MMM d, yyyy h:m a", Locale.US);
 
-        return "redirect:/movie-programs";
+        LocalDateTime scheduleDate = LocalDateTime.parse(addProgramForm.getScheduleDate(), formatter);
+        AdminProgram adminProgram = new AdminProgram(null,
+                scheduleDate,
+                addProgramForm.getSeats(),
+                adminMovie,
+                addProgramForm.getPrice());
+
+        adminProgramService.save(adminProgram);
+
+        return "redirect:/admin/movie-programs";
     }
 }
