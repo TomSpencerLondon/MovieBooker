@@ -248,3 +248,9 @@ Completed admin page for listing programs
 - Added movie name and price to list of programs
 - button for add new program (style)
 - button for add new program - added get mapping
+
+### 18/4/23 Dmitri - Tom
+- Added validation
+- Now add list of movies
+  - form for a new movie
+
