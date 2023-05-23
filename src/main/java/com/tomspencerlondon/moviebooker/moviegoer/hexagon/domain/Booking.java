@@ -59,4 +59,8 @@ public class Booking {
         numberOfSeatsBooked += extraSeats;
     }
 
+    public Long filmId() {
+        return movieProgram.movie().getId();
+    }
+
 }
