@@ -4,17 +4,16 @@ import com.tomspencerlondon.moviebooker.admin.hexagon.application.AdminMovieServ
 import com.tomspencerlondon.moviebooker.admin.hexagon.application.AdminProgramService;
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.AdminMovie;
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.AdminProgram;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import jakarta.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -24,12 +23,13 @@ import java.util.Locale;
 @RequestMapping("/admin")
 public class AdminController {
 
-
-    @Autowired
     private AdminProgramService adminProgramService;
-
-    @Autowired
     private AdminMovieService adminMovieService;
+
+    public AdminController(AdminProgramService adminProgramService, AdminMovieService adminMovieService) {
+        this.adminProgramService = adminProgramService;
+        this.adminMovieService = adminMovieService;
+    }
 
     @GetMapping("/movie-programs")
     public String allPrograms(Model model) {

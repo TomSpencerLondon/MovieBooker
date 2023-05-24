@@ -48,7 +48,7 @@
                                     >
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
-                                        th:text="${program.getScheduleDate()}"
+                                        th:text="${#temporals.format(program.getScheduleDate(), 'yyyy-MM-dd HH:mm')}"
                                     >
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
