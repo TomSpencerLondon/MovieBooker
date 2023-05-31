@@ -3,6 +3,7 @@ package com.tomspencerlondon.moviebooker.admin.adapter.in.web;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
@@ -11,7 +12,7 @@ public class AddMovieForm {
     private String movieName;
 
     @NotNull
-    private String movieImage;
+    private MultipartFile movieImage;
 
     @NotNull
     private LocalDate releaseDate;
@@ -27,11 +28,11 @@ public class AddMovieForm {
         this.movieName = movieName;
     }
 
-    public String getMovieImage() {
+    public MultipartFile getMovieImage() {
         return movieImage;
     }
 
-    public void setMovieImage(String movieImage) {
+    public void setMovieImage(MultipartFile movieImage) {
         this.movieImage = movieImage;
     }
 

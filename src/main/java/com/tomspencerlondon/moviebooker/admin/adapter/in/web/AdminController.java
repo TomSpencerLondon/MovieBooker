@@ -1,11 +1,11 @@
 package com.tomspencerlondon.moviebooker.admin.adapter.in.web;
 
+import com.tomspencerlondon.moviebooker.admin.hexagon.application.AdminImageUploadService;
 import com.tomspencerlondon.moviebooker.admin.hexagon.application.AdminMovieService;
 import com.tomspencerlondon.moviebooker.admin.hexagon.application.AdminProgramService;
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.AdminMovie;
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.AdminProgram;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -25,10 +27,12 @@ public class AdminController {
 
     private AdminProgramService adminProgramService;
     private AdminMovieService adminMovieService;
+    private AdminImageUploadService adminImageUploadService;
 
-    public AdminController(AdminProgramService adminProgramService, AdminMovieService adminMovieService) {
+    public AdminController(AdminProgramService adminProgramService, AdminMovieService adminMovieService, AdminImageUploadService adminImageUploadService) {
         this.adminProgramService = adminProgramService;
         this.adminMovieService = adminMovieService;
+        this.adminImageUploadService = adminImageUploadService;
     }
 
     @GetMapping("/movie-programs")
@@ -90,5 +94,21 @@ public class AdminController {
         model.addAttribute("addMovieForm", addMovieForm);
 
         return "admin/movie/add-movie";
+    }
+
+    @PostMapping("add-movie")
+    public String createMovie(@Valid @ModelAttribute("addMovieForm") AddMovieForm addMovieForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "redirect:/admin/add-movie";
+        }
+        MultipartFile movieImage = addMovieForm.getMovieImage();
+        try {
+            adminImageUploadService.uploadObjectToS3(movieImage.getOriginalFilename(), movieImage.getInputStream());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        return "redirect:/admin/movie-list";
     }
 }

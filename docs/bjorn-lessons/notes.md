@@ -94,5 +94,25 @@ public class LoyaltyCard implements LoyaltyDevice {
 ```
 Because the service method involves several entities and more high level business logic. The loyalty just concerns the loyalty card entity itself.
 
+### 31 May 2023
+- to upload an image we need type=file on the form input
+- we can use reset for cancel (input or button type reset)
+  https://www.baeldung.com/spring-boot-thymeleaf-image-upload
+- Java IO and Java next generation io
+- Stereotypes - Spring - extension of dependency injection
+  - @Component + autowire: @Service, @Controller, @Repository inherited from @Component
+  - Document source code - not generic @Component
+  - Spring also adds features at runtime
+  - @Repository - JPA looks for these + adds additional data access code at runtime
+    - Allows findByName orderBy method names to define SQL by method names
+- organize pom file: test, database
+- Lombok - @RequiredArgsConstructor = required arguments all defined as final
+- Try to finish upload for images + display uploaded image
 
-
+commands to list buckets and view objects in bucket:
+```bash
+tom@tom-ubuntu:~/Projects/MovieBooker/script/localstack/s3$ aws --endpoint-url=http://localhost:4566 --region=us-east-1 s3 ls
+2023-05-31 16:33:36 movie-images-s3-bucket
+tom@tom-ubuntu:~/Projects/MovieBooker/script/localstack/s3$ aws --endpoint-url=http://localhost:4566 --region=us-east-1 s3 ls movie-images-s3-bucket
+2023-05-31 16:34:21     182215 tom_spencer.jpg
+```
