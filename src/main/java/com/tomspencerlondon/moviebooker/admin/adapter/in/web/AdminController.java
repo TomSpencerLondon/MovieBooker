@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
+import com.tomspencerlondon.moviebooker.admin.hexagon.domain.File;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -102,12 +103,16 @@ public class AdminController {
             return "redirect:/admin/add-movie";
         }
         MultipartFile movieImage = addMovieForm.getMovieImage();
+        File uploadedFile;
         try {
-            adminImageUploadService.uploadObjectToS3(movieImage.getOriginalFilename(), movieImage.getInputStream());
+            uploadedFile = adminImageUploadService.uploadObjectToS3(movieImage.getOriginalFilename(), movieImage.getInputStream());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
+        AdminMovie adminMovie = new AdminMovie(null, addMovieForm.getMovieName(), uploadedFile.fileUrl(), addMovieForm.getReleaseDate(), addMovieForm.getDescription());
+
+        adminMovieService.save(adminMovie);
 
         return "redirect:/admin/movie-list";
     }

@@ -9,4 +9,6 @@ public interface AdminMovieRepository {
     List<AdminMovie> findAll();
 
     Optional<AdminMovie> findById(Long movieId);
+
+    AdminMovie save(AdminMovie adminMovie);
 }

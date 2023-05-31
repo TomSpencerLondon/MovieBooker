@@ -24,4 +24,8 @@ public class AdminMovieService {
         return adminMovieRepository.findById(movieId)
                 .orElseThrow(UnsupportedOperationException::new);
     }
+
+    public AdminMovie save(AdminMovie adminMovie) {
+        return adminMovieRepository.save(adminMovie);
+    }
 }

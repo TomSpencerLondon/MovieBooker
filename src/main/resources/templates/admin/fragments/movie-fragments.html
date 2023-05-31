@@ -17,14 +17,6 @@
                    th:text="${movie.description()}">
                 </p>
             </div>
-            <th:block th:if="${displayMoreInfo}">
-                <div class="button-container flex justify-between mb-2">
-                    <form th:method="get" th:action="@{/movie}">
-                        <input type="hidden" th:name="filmId" th:value="${movie.getId()}"/>
-                        <button class="text-lg mr-4 lg:text-sm text-gray-900">More Info</button>
-                    </form>
-                </div>
-            </th:block>
         </div>
     </div>
 </th:block>

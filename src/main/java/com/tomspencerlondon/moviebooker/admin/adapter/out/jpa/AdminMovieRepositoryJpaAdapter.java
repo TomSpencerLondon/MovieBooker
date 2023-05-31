@@ -2,6 +2,7 @@ package com.tomspencerlondon.moviebooker.admin.adapter.out.jpa;
 
 
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.AdminMovie;
+import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.MovieDbo;
 import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.MovieJpaRepository;
 import com.tomspencerlondon.moviebooker.common.hexagon.application.port.AdminMovieRepository;
 import com.tomspencerlondon.moviebooker.common.hexagon.application.port.MovieRepository;
@@ -36,6 +37,20 @@ public class AdminMovieRepositoryJpaAdapter implements AdminMovieRepository {
     public Optional<AdminMovie> findById(Long movieId) {
         return movieJpaRepository.findById(movieId)
                 .map(adminMovieTransformer::toMovie);
+    }
+
+    @Override
+    public AdminMovie save(AdminMovie adminMovie) {
+        MovieDbo movieDbo = adminMovieTransformer.toMovieDbo(adminMovie);
+        MovieDbo savedMovieDbo = movieJpaRepository.save(movieDbo);
+
+        return new AdminMovie(
+                savedMovieDbo.getMovieId(),
+                savedMovieDbo.getMovieName(),
+                savedMovieDbo.getMovieImage(),
+                savedMovieDbo.getReleaseDate(),
+                savedMovieDbo.getDescription()
+        );
     }
 }
 
