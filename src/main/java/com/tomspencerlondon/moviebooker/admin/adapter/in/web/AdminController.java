@@ -77,4 +77,18 @@ public class AdminController {
 
         return "redirect:/admin/movie-programs";
     }
+
+    @GetMapping("/movie-list")
+    public String home(Model model) {
+        model.addAttribute("movies", adminMovieService.findAll());
+        return "admin/movie/movie-list";
+    }
+
+    @GetMapping("/add-movie")
+    public String addMovie(Model model) {
+        AddMovieForm addMovieForm = new AddMovieForm();
+        model.addAttribute("addMovieForm", addMovieForm);
+
+        return "admin/movie/add-movie";
+    }
 }
