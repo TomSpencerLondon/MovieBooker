@@ -116,3 +116,8 @@ tom@tom-ubuntu:~/Projects/MovieBooker/script/localstack/s3$ aws --endpoint-url=h
 tom@tom-ubuntu:~/Projects/MovieBooker/script/localstack/s3$ aws --endpoint-url=http://localhost:4566 --region=us-east-1 s3 ls movie-images-s3-bucket
 2023-05-31 16:34:21     182215 tom_spencer.jpg
 ```
+download is similar:
+```bash
+tom@tom-ubuntu:~/Projects/MovieBooker/script/localstack/s3$ aws --endpoint-url=http://localhost:4566 --region=us-east-1 s3 cp s3://movie-images-s3-bucket/tom_spencer.jpg ~/Desktop/tom.jpg
+download: s3://movie-images-s3-bucket/tom_spencer.jpg to ../../../../../Desktop/tom.jpg
+```
