@@ -121,3 +121,6 @@ download is similar:
 tom@tom-ubuntu:~/Projects/MovieBooker/script/localstack/s3$ aws --endpoint-url=http://localhost:4566 --region=us-east-1 s3 cp s3://movie-images-s3-bucket/tom_spencer.jpg ~/Desktop/tom.jpg
 download: s3://movie-images-s3-bucket/tom_spencer.jpg to ../../../../../Desktop/tom.jpg
 ```
+This is a useful AWS link:
+https://docs.awspring.io/spring-cloud-aws/docs/3.0.1/reference/html/index.html#spring-cloud-aws-s3
+
