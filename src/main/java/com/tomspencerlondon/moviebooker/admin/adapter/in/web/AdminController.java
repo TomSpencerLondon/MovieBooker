@@ -102,6 +102,7 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "redirect:/admin/add-movie";
         }
+
         MultipartFile movieImage = addMovieForm.getMovieImage();
         File uploadedFile;
         try {

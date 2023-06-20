@@ -20,6 +20,7 @@ public class FileRepositoryJpaAdapter implements FileRepository {
         FileDbo fileDbo = new FileDbo();
         fileDbo.setFileName(file.fileName());
         fileDbo.setFileUrl(file.fileUrl());
+        fileDbo.setUploadSuccessFull(file.isUploadSuccessFull());
 
         FileDbo savedFileDbo = fileJpaRepository.save(fileDbo);
 

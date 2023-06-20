@@ -124,3 +124,48 @@ download: s3://movie-images-s3-bucket/tom_spencer.jpg to ../../../../../Desktop/
 This is a useful AWS link:
 https://docs.awspring.io/spring-cloud-aws/docs/3.0.1/reference/html/index.html#spring-cloud-aws-s3
 
+### 7 June 2023
+- Write a blog post describing the AWS s3 bucket upload using localstack
+
+```bash
+{
+  "Version":"2012-10-17",
+  "Statement":[
+    {
+      "Sid":"PublicRead",
+      "Effect":"Allow",
+      "Principal": "*",
+      "Action":["s3:GetObject"],
+      "Resource":["arn:aws:s3:::examplebucket/*"]
+    }
+  ]
+}
+```
+### Cinema
+#### Cinema table
+- Name
+- Location
+- Set of cinema rooms
+
+#### Rooms
+Cinema add rooms
+- Id
+- Room Number
+- Number of seats
+
+schedule date and seats not in movie_programs
+
+#### Schedule table
+- Many-to-many relationship between schedule and movie_program
+- Schedule reference to room and multiple schedule dates
+
+#### chatgpt
+- experiment with chatgpt
+
+Add V007 to update movie_programs - perhaps just not use them 
+(movie programs column to refer to schedule) - all other information
+in schedule table
+Add V008 create cinema table
+
+
+Wednesday 21 June - 2pm my time
