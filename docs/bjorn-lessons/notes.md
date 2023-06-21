@@ -169,3 +169,89 @@ Add V008 create cinema table
 
 
 Wednesday 21 June - 2pm my time
+
+
+### Bjorn notes - 21/6/23
+
+sudo systemctl stop mysql
+sudo service mysql start
+
+```sql
+create table public.film_category
+(
+film_id     integer                 not null
+references public.film
+on update cascade on delete restrict,
+category_id integer                 not null
+references public.category
+on update cascade on delete restrict,
+last_update timestamp default now() not null,
+primary key (film_id, category_id)
+);
+```
+
+- JPA Buddy license
+  - debug, work with database versioning in streamline fashion - reverse engineering (entities from database)
+- Schedule repo, Cinema repo
+
+Many to one: Many rooms for one cinema + one to many - one cinema has many rooms
+```sql
+CREATE TABLE rooms
+(
+    id BIGINT AUTO_INCREMENT NOT NULL,
+    room_number INT NOT NULL,
+    number_of_seats INT NOT NULL,
+    cinema_id BIGINT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (cinema_id) REFERENCES cinemas (id)
+);
+```
+
+Bidirectional:
+
+```java
+import jakarta.persistence.JoinColumn;
+import org.hibernate.annotations.ManyToAny;
+
+class Room {
+
+  @ManyToOne
+  @JoinColumn(name = "id")
+  private Cinema cinema;
+}
+```
+
+```java
+public class Cinema {
+    @OneToMany(mappedBy="cinemas")
+    private Set<Room> rooms;
+
+}
+
+```
+
+Still need to do schedule table - many to many relationship
+
+sudo systemctl stop mysql
+sudo service mysql start
+
+create table public.film_category
+(
+film_id     integer                 not null
+references public.film
+on update cascade on delete restrict,
+category_id integer                 not null
+references public.category
+on update cascade on delete restrict,
+last_update timestamp default now() not null,
+primary key (film_id, category_id)
+);
+
+https://stackoverflow.com/questions/2192280/how-to-use-the-keyword-references-in-mysql
+
+@Type(value = RatingType.class)
+@Column(length = 1000)
+
+https://www.baeldung.com/hibernate-one-to-many
+https://www.baeldung.com/hibernate-one-to-many#models
+https://www.baeldung.com/jpa-many-to-many

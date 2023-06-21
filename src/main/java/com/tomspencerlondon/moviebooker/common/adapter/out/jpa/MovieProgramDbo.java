@@ -22,29 +22,9 @@ public class MovieProgramDbo {
         return scheduleId;
     }
 
-    private LocalDateTime scheduleDate;
-
-    private Integer seats;
-
     @ManyToOne
     @JoinColumn(name = "movie_id")
     private MovieDbo movie;
-
-    public LocalDateTime getScheduleDate() {
-        return scheduleDate;
-    }
-
-    public void setScheduleDate(LocalDateTime scheduleDate) {
-        this.scheduleDate = scheduleDate;
-    }
-
-    public Integer getSeats() {
-        return seats;
-    }
-
-    public void setSeats(Integer seats) {
-        this.seats = seats;
-    }
 
     public MovieDbo getMovie() {
         return movie;

@@ -1,0 +1,7 @@
+CREATE TABLE schedules
+(
+    id BIGINT AUTO_INCREMENT NOT NULL,
+    day VARCHAR(3) NOT NULL,
+    hour INT NOT NULL,
+    PRIMARY KEY (id)
+);

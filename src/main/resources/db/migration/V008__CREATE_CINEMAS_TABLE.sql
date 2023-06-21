@@ -1,0 +1,7 @@
+CREATE TABLE cinemas
+(
+    id BIGINT AUTO_INCREMENT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    location VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+);
