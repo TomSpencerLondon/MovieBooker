@@ -24,7 +24,8 @@ public class MovieProgramDbo {
 
     private LocalDateTime scheduleDate;
 
-    private Integer seats;
+    @Column
+    private Long screenId;
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
@@ -38,12 +39,12 @@ public class MovieProgramDbo {
         this.scheduleDate = scheduleDate;
     }
 
-    public Integer getSeats() {
-        return seats;
+    public Long getScreenId() {
+        return screenId;
     }
 
-    public void setSeats(Integer seats) {
-        this.seats = seats;
+    public void setScreenId(Long screenId) {
+        this.screenId = screenId;
     }
 
     public MovieDbo getMovie() {

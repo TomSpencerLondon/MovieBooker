@@ -3,8 +3,10 @@ package com.tomspencerlondon.moviebooker.admin.adapter.in.web;
 import com.tomspencerlondon.moviebooker.admin.hexagon.application.AdminImageUploadService;
 import com.tomspencerlondon.moviebooker.admin.hexagon.application.AdminMovieService;
 import com.tomspencerlondon.moviebooker.admin.hexagon.application.AdminProgramService;
+import com.tomspencerlondon.moviebooker.admin.hexagon.application.ScreenService;
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.AdminMovie;
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.AdminProgram;
+import com.tomspencerlondon.moviebooker.admin.hexagon.domain.Screen;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,11 +31,13 @@ public class AdminController {
     private AdminProgramService adminProgramService;
     private AdminMovieService adminMovieService;
     private AdminImageUploadService adminImageUploadService;
+    private ScreenService screenService;
 
-    public AdminController(AdminProgramService adminProgramService, AdminMovieService adminMovieService, AdminImageUploadService adminImageUploadService) {
+    public AdminController(AdminProgramService adminProgramService, AdminMovieService adminMovieService, AdminImageUploadService adminImageUploadService, ScreenService screenService) {
         this.adminProgramService = adminProgramService;
         this.adminMovieService = adminMovieService;
         this.adminImageUploadService = adminImageUploadService;
+        this.screenService = screenService;
     }
 
     @GetMapping("/movie-programs")
@@ -48,10 +52,12 @@ public class AdminController {
 
     @GetMapping("/add-program")
     public String addPrograms(Model model) {
+        List<Screen> screens = screenService.findAll();
         AddProgramForm addProgramForm = new AddProgramForm();
         List<AdminMovieView> adminMovieViews = adminMovieService
                 .findAll().stream().map(AdminMovieView::from).toList();
         addProgramForm.setAdminMovies(adminMovieViews);
+        addProgramForm.setScreens(screens);
 
         model.addAttribute("addProgramForm", addProgramForm);
 
@@ -73,6 +79,7 @@ public class AdminController {
 
         LocalDateTime scheduleDate = LocalDateTime.parse(addProgramForm.getScheduleDate(), formatter);
         AdminProgram adminProgram = new AdminProgram(null,
+
                 scheduleDate,
                 addProgramForm.getSeats(),
                 adminMovie,

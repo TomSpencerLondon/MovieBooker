@@ -8,16 +8,16 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class AdminProgram {
+    private final Screen screen;
     private Long scheduleId;
     private final LocalDateTime scheduleDate;
-    private final Integer totalSeats;
     private AdminMovie movie;
     private final BigDecimal seatPrice;
 
-    public AdminProgram(Long scheduleId, LocalDateTime scheduleDate, Integer totalSeats, AdminMovie movie, BigDecimal seatPrice) {
+    public AdminProgram(Long scheduleId, LocalDateTime scheduleDate, Screen screen, AdminMovie movie, BigDecimal seatPrice) {
         this.scheduleId = scheduleId;
         this.scheduleDate = scheduleDate;
-        this.totalSeats = totalSeats;
+        this.screen = screen;
         this.movie = movie;
         this.seatPrice = seatPrice;
     }
@@ -40,7 +40,7 @@ public class AdminProgram {
     }
 
     public Integer totalSeats() {
-        return totalSeats;
+        return screen.numberOfSeats();
     }
 
     public AdminMovie movie() {

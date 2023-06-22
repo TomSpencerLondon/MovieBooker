@@ -1,5 +1,6 @@
 package com.tomspencerlondon.moviebooker.admin.adapter.in.web;
 
+import com.tomspencerlondon.moviebooker.admin.hexagon.domain.Screen;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -21,6 +22,7 @@ public class AddProgramForm {
     private Long movieId;
 
     private List<AdminMovieView> adminMovies;
+    private List<Screen> screens;
 
     public BigDecimal getPrice() {
         return price;
@@ -60,6 +62,14 @@ public class AddProgramForm {
 
     public List<AdminMovieView> getAdminMovies() {
         return adminMovies;
+    }
+
+    public void setScreens(List<Screen> screens) {
+        this.screens = screens;
+    }
+
+    public List<Screen> getScreens() {
+        return screens;
     }
 }
 
