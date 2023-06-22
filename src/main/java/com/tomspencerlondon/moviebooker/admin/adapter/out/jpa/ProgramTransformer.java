@@ -3,9 +3,10 @@ package com.tomspencerlondon.moviebooker.admin.adapter.out.jpa;
 
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.AdminMovie;
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.AdminProgram;
+import com.tomspencerlondon.moviebooker.admin.hexagon.domain.Screen;
 import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.MovieDbo;
 import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.MovieProgramDbo;
-import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.Movie;
+import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.ScreenDbo;
 import org.springframework.stereotype.Service;
 
 @Service("jpaAdminProgramTransformer")
@@ -17,7 +18,7 @@ public class ProgramTransformer {
         this.adminMovieTransformer = adminMovieTransformer;
     }
 
-    public AdminProgram toMovieProgram(MovieProgramDbo adminProgramDbo) {
+    public AdminProgram toMovieProgram(MovieProgramDbo adminProgramDbo, ScreenDbo screenDbo) {
         MovieDbo movieDbo = adminProgramDbo.getMovie();
         AdminMovie movie = new AdminMovie(
                 movieDbo.getMovieId(),
@@ -26,10 +27,12 @@ public class ProgramTransformer {
                 movieDbo.getReleaseDate(),
                 movieDbo.getDescription());
 
+        Screen screen = new Screen(screenDbo.getScreenId(), screenDbo.getNumberOfSeats());
+
         return new AdminProgram(
                 adminProgramDbo.getScheduleId(),
                 adminProgramDbo.getScheduleDate(),
-                adminProgramDbo.getSeats(),
+                screen,
                 movie,
                 adminProgramDbo.getPrice());
     }
@@ -41,7 +44,7 @@ public class ProgramTransformer {
         movieProgramDbo.setScheduleId(adminProgram.getScheduleId());
         movieProgramDbo.setMovie(movieDbo);
         movieProgramDbo.setScheduleDate(adminProgram.scheduleDate());
-        movieProgramDbo.setSeats(adminProgram.totalSeats());
+        movieProgramDbo.setScreenId(adminProgram.);
         movieProgramDbo.setPrice(adminProgram.price());
 
         return movieProgramDbo;
