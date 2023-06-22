@@ -145,7 +145,7 @@ https://docs.awspring.io/spring-cloud-aws/docs/3.0.1/reference/html/index.html#s
 #### Cinema table
 - Name
 - Location
-- Set of cinema rooms
+- Set of cinema rooms (1 to many join table)
 
 #### Rooms
 Cinema add rooms
@@ -156,7 +156,9 @@ Cinema add rooms
 schedule date and seats not in movie_programs
 
 #### Schedule table
-- Many-to-many relationship between schedule and movie_program
+- movie and movie program (movie at a specific time)
+  - join table for connecting the schedule dates with movie program
+  - schedule table = movie program connection and date (movie_program_id, dates) - 1 to many 
 - Schedule reference to room and multiple schedule dates
 
 #### chatgpt
@@ -169,3 +171,17 @@ Add V008 create cinema table
 
 
 Wednesday 21 June - 2pm my time
+
+### 11 July
+- Thymeleaf security - accessing roles and usernames in the thymeleaf template
+To replace:
+```java
+class MovieGoerController {
+  private MovieGoerView movieGoerView() {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
+    return MovieGoerView.from(movieGoerService.findByUserName(userPrincipal.getUsername()));
+  }
+}
+```
+- create cinema table

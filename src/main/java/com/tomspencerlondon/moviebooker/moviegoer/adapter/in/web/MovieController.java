@@ -1,8 +1,9 @@
 package com.tomspencerlondon.moviebooker.moviegoer.adapter.in.web;
 
-import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.Notification;import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.BookingService;
+import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.BookingService;
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.MovieGoerService;
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.MovieService;
+import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.Notification;
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/moviegoer")
 public class MovieController {
 
     private final MovieService movieService;
@@ -52,9 +54,11 @@ public class MovieController {
     public String register(@ModelAttribute("movieGoerRegistrationForm") MovieGoerRegistrationForm movieGoerRegistrationForm, Model model) {
         // TODO: is the right place for the passwordEncoder? Should the passwordEncoder be used in the SecurityConfig
         MovieGoer movieGoer = new MovieGoer(
-                movieGoerRegistrationForm.getUserName(),
+                null, movieGoerRegistrationForm.getUserName(),
                 passwordEncoder.encode(movieGoerRegistrationForm.getPassword()),
-                0, false, false);
+                0, false, false,
+                Role.USER
+        );
         try {
             movieGoerService.save(movieGoer);
             // TODO: We could change this to a more specific exception
@@ -62,7 +66,7 @@ public class MovieController {
             model.addAttribute("movieGoerRegistrationForm", movieGoerRegistrationForm);
             return "moviegoer/registration";
         }
-        return "redirect:/";
+        return "redirect:/moviegoer/";
     }
 
     @GetMapping("/movie")
@@ -88,7 +92,7 @@ public class MovieController {
             model.addAttribute("movieGoer", movieGoerView);
             return "moviegoer/bookings/book";
         } else {
-            return "redirect:/loyalty-signup?programId=" + movieProgramId + "&numberOfSeats=" + numberOfSeats;
+            return "redirect:/moviegoer/loyalty-signup?programId=" + movieProgramId + "&numberOfSeats=" + numberOfSeats;
         }
     }
 
@@ -100,9 +104,9 @@ public class MovieController {
         Notification notification = bookingService.payForBooking(booking, payment);
 
         if (notification.isSuccess()) {
-            return "redirect:/bookings";
+            return "redirect:/moviegoer/bookings";
         } else {
-            return "redirect:/seatsNotAvailable";
+            return "redirect:/moviegoer/seatsNotAvailable";
         }
     }
 
@@ -129,7 +133,7 @@ public class MovieController {
         if(notification.isSuccess()) {
             return "redirect:/bookings";
         } else {
-            return "redirect:/seatsNotAvailable?bookingId=" + bookingId;
+            return "redirect:/moviegoer/seatsNotAvailable?bookingId=" + bookingId;
         }
     }
 
@@ -149,7 +153,7 @@ public class MovieController {
     @PostMapping("/bookings")
     public String bookings(@RequestParam(value = "programId") Long programId,
                            @RequestParam(value = "numberOfSeats") int numberOfSeats) {
-        return "redirect:/book?movieProgramId=" + programId + "&numberOfSeats=" + numberOfSeats;
+        return "redirect:/moviegoer/book?movieProgramId=" + programId + "&numberOfSeats=" + numberOfSeats;
     }
 
     @GetMapping("/bookings")
@@ -179,7 +183,7 @@ public class MovieController {
             movieGoerService.optOutOfLoyaltyScheme(movieGoerView.getUserName());
         }
 
-        return "redirect:/book?movieProgramId=" + programId + "&numberOfSeats=" + numberOfSeats;
+        return "redirect:/moviegoer/book?movieProgramId=" + programId + "&numberOfSeats=" + numberOfSeats;
     }
 
     @PostMapping("/loyalty-signup-confirmation")
@@ -188,7 +192,7 @@ public class MovieController {
         movieGoerService.optIntoLoyaltyScheme(movieGoerView.getUserName());
         model.addAttribute("movieGoer", movieGoerView);
 
-        return "redirect:/loyalty-signup-confirmation";
+        return "redirect:/moviegoer/loyalty-signup-confirmation";
     }
 
     @GetMapping("/loyalty-signup-confirmation")

@@ -13,7 +13,7 @@
             <div
                     class="grid grid-cols-1 justify-items-center px-20 py-10 bg-white rounded-b-lg  shadow-2xl">
                 <div>
-                    <form th:action="@{/loyalty-signup}" th:object="${movieGoer}" method="POST">
+                    <form th:action="@{/moviegoer/loyalty-signup}" th:object="${movieGoer}" method="POST">
                         <input type="hidden" th:name="programId" th:value="${programId}"/>
                         <input type="hidden" th:name="numberOfSeats" th:value="${numberOfSeats}"/>
                         <button type="submit"

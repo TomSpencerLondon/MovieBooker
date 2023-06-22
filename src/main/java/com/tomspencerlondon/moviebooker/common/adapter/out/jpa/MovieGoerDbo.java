@@ -1,49 +1,29 @@
 package com.tomspencerlondon.moviebooker.common.adapter.out.jpa;
 
+import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.Role;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
-@Table(name = "moviegoers", uniqueConstraints = @UniqueConstraint(columnNames = "userName"))
+@Table(name = "moviegoer")
 public class MovieGoerDbo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
-
-    private String userName;
-
-    private String password;
-
+    private Long moviegoerId;
     private Integer loyaltyPoints;
     private Boolean isLoyaltyUser;
     private Boolean askedForLoyalty;
 
+    @Column(name = "user_id")
+    private Long userId;
 
-    public void setUserId(Long id) {
-        this.userId = id;
+
+    public void setMoviegoerId(Long id) {
+        this.moviegoerId = id;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public Long getMoviegoerId() {
+        return moviegoerId;
     }
 
     public Integer getLoyaltyPoints() {
@@ -68,5 +48,13 @@ public class MovieGoerDbo {
 
     public void setAskedForLoyalty(boolean askedForLoyalty) {
         this.askedForLoyalty = askedForLoyalty;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

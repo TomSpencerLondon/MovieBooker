@@ -6,6 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Movie Goer</title>
+  <link rel="shortcut icon" href="#" />
   <link rel="stylesheet"
   th:href="@{/css/application.css}"
   href="../../../../target/classes/static/css/application.css"
@@ -36,7 +37,7 @@
           <div class="hidden sm:ml-6 sm:block">
             <div class="flex space-x-4">
               <!-- Current: "bg-blue-900 text-white", Default: "text-gray-300 hover:bg-blue-700 hover:text-white" -->
-              <a th:href="@{/}" class="bg-blue-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Movie Goer</a>
+              <a th:href="@{/moviegoer/}" class="bg-blue-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Movie Goer</a>
             </div>
           </div>
         </div>
@@ -53,10 +54,10 @@
               <!-- Active: "bg-blue-100", Not Active: "" -->
               <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0" th:text="${movieGoer.getUserName()}">tomspencerlondon@gmail.com</a>
               <th:block th:if="${movieGoer.isLoyaltyUser()}">
-                <a th:href="@{/bookings}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-booking-1">Your bookings</a>
+                <a th:href="@{/moviegoer/bookings}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-booking-1">Your bookings</a>
               </th:block>
               <th:block th:unless="${movieGoer.isLoyaltyUser()}">
-                <form method="POST" th:action="@{/loyalty-signup-confirmation}"
+                <form method="POST" th:action="@{/moviegoer/loyalty-signup-confirmation}"
                 >
                   <button class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
                           type="submit" name="submit" value="value">Loyalty signup</button>

@@ -254,6 +254,11 @@ Completed admin page for listing programs
 - Now add list of movies
   - form for a new movie
 
+### 20/6/23 Dmitri - Tom
+Current issue with login
+- redirect goes to original inputted url or root
+- We need a default redirect from root to the correct url for accessing the application
+- We also need a 404 page for unsupported pages
 /home/tom/.jdks/temurin-19.0.2/bin/java 
 -XX:TieredStopAtLevel=1 
 -Dspring.output.ansi.enabled=always 

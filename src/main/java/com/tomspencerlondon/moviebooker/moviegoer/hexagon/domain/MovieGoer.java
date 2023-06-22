@@ -1,6 +1,8 @@
 package com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain;
 
-public class MovieGoer {
+import com.tomspencerlondon.moviebooker.common.hexagon.User;
+
+public class MovieGoer extends User {
     private Long userId;
 
     private String userName;
@@ -11,13 +13,17 @@ public class MovieGoer {
 
     private boolean isLoyaltyUser;
     private boolean askedForLoyalty;
+    private Role role;
 
-    public MovieGoer(String userName, String password, Integer loyaltyPoints, boolean isLoyaltyUser, boolean askedForLoyalty) {
+    public MovieGoer(Long userId, String userName, String password, Integer loyaltyPoints, boolean isLoyaltyUser, boolean askedForLoyalty,
+                     Role role) {
+        super(userId, userName, password, role);
         this.userName = userName;
         this.password = password;
         this.loyaltyPoints = loyaltyPoints;
         this.isLoyaltyUser = isLoyaltyUser;
         this.askedForLoyalty = askedForLoyalty;
+        this.role = role;
     }
 
     public Long getUserId() {
@@ -67,5 +73,9 @@ public class MovieGoer {
 
     public void updateLoyaltyPoints(int runningLoyaltyPoints) {
         this.loyaltyPoints = runningLoyaltyPoints;
+    }
+
+    public Role role() {
+        return role;
     }
 }

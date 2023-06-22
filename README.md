@@ -6,6 +6,12 @@
 ### Updated Design
 ![image](https://user-images.githubusercontent.com/27693622/226958765-a7f662da-0418-4c15-ab27-8713d1caf92b.png)
 
+
+```bash
+mvn clean install spring-boot:run
+and
+npm run build && npm run watch
+```
 #### Run with maven
 ```bash
 cd /docker/

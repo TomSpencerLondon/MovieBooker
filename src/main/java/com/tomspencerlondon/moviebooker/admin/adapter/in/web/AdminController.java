@@ -8,6 +8,9 @@ import com.tomspencerlondon.moviebooker.admin.hexagon.domain.AdminMovie;
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.AdminProgram;
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.Screen;
 import jakarta.validation.Valid;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,8 +18,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.File;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -38,6 +43,17 @@ public class AdminController {
         this.adminMovieService = adminMovieService;
         this.adminImageUploadService = adminImageUploadService;
         this.screenService = screenService;
+    }
+
+    @GetMapping("/login")
+    public String loginForm(@RequestParam(value = "error", defaultValue = "false") boolean error, Model model) {
+        model.addAttribute("error", error);
+        return "admin/login";
+    }
+
+    @PostMapping("/login")
+    public String loginForm() {
+        return "redirect:/admin/movie-programs";
     }
 
     @GetMapping("/movie-programs")

@@ -33,7 +33,7 @@
                     <div class="hidden sm:ml-6 sm:block">
                         <div class="flex space-x-4">
                             <!-- Current: "bg-blue-900 text-white", Default: "text-gray-300 hover:bg-blue-700 hover:text-white" -->
-                            <a th:href="@{/}" class="bg-blue-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Movie Goer</a>
+                            <a th:href="@{/moviegoer/}" class="bg-blue-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Movie Goer</a>
                         </div>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
 
                     <div class="mt-8">
                         <div class="mt-6">
-                            <form th:action="@{/register}" th:object="${movieGoerRegistrationForm}" method="POST" class="space-y-6">
+                            <form th:action="@{/moviegoer/register}" th:object="${movieGoerRegistrationForm}" method="POST" class="space-y-6">
                                 <div>
                                     <label for="email" class="block text-sm font-medium text-gray-700">Email
                                         address</label>
@@ -92,7 +92,7 @@
 
                                 <div class="grid justify-items-end">
                                     <div class="text-sm">
-                                        <a th:href="@{/login}" class="font-medium text-indigo-600 hover:text-indigo-500">Sign in</a>
+                                        <a th:href="@{/moviegoer/login}" class="font-medium text-indigo-600 hover:text-indigo-500">Sign in</a>
                                     </div>
                                 </div>
 
