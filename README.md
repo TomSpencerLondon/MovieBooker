@@ -5,3 +5,11 @@
 
 ### Updated Design
 ![image](https://user-images.githubusercontent.com/27693622/226958765-a7f662da-0418-4c15-ab27-8713d1caf92b.png)
+
+#### Run with maven
+```bash
+mvn clean install
+```
+```bash
+java -jar target/MovieBooker-0.0.1-SNAPSHOT.jar
+```
