@@ -31,9 +31,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) ->
                         authorize
                                 .requestMatchers("/register/**")
-
-                                .permitAll()
-                                .requestMatchers(toH2Console())
                                 .permitAll()
                                 .requestMatchers(
                         "/js/**",

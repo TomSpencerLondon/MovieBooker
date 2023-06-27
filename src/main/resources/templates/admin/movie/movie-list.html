@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{/admin/layout/layout}">
+      layout:decorate="~{admin/layout/layout}">
 <div layout:fragment="content"
      class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
   <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
@@ -13,7 +13,7 @@
     </form>
   </div>
   <div class="px-4 py-4 sm:px-0">
-    <th:block th:each="movie : ${movies}" th:insert="/admin/fragments/movie-fragments :: movie-input(movie, ${true})">
+    <th:block th:each="movie : ${movies}" th:insert="admin/fragments/movie-fragments :: movie-input(movie, ${true})">
     </th:block>
   </div>
 </div>
