@@ -8,6 +8,11 @@
 
 #### Run with maven
 ```bash
+cd /docker/
+docker-compose up -d
+```
+
+```bash
 mvn clean install
 ```
 ```bash
