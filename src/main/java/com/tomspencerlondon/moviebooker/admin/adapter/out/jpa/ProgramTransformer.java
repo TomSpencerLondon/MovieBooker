@@ -44,7 +44,7 @@ public class ProgramTransformer {
         movieProgramDbo.setScheduleId(adminProgram.getScheduleId());
         movieProgramDbo.setMovie(movieDbo);
         movieProgramDbo.setScheduleDate(adminProgram.scheduleDate());
-        movieProgramDbo.setScreenId(adminProgram.);
+        movieProgramDbo.setScreenId(adminProgram.getScreen().getId());
         movieProgramDbo.setPrice(adminProgram.price());
 
         return movieProgramDbo;

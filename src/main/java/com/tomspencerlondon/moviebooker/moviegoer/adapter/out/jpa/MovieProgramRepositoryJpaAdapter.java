@@ -1,5 +1,6 @@
 package com.tomspencerlondon.moviebooker.moviegoer.adapter.out.jpa;
 
+import com.tomspencerlondon.moviebooker.admin.hexagon.application.port.ScreenRepository;
 import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.BookingDboCollection;
 import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.BookingJpaRepository;
 import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.MovieProgramDbo;
@@ -21,6 +22,7 @@ public class MovieProgramRepositoryJpaAdapter implements MovieProgramRepository 
     private final MovieTransformer movieTransformer;
 
     private final BookingJpaRepository bookingJpaRepository;
+    private ScreenRepository screenRepository;
 
     public MovieProgramRepositoryJpaAdapter(MovieProgramJpaRepository movieProgramJpaRepository,
                                             MovieProgramTransformer movieProgramTransformer,
@@ -47,12 +49,20 @@ public class MovieProgramRepositoryJpaAdapter implements MovieProgramRepository 
 
     @Override
     public List<MovieProgram> findByMovieId(Long movieId) {
+
         return movieProgramJpaRepository.findMovieProgramDbosBy(movieId)
                 .stream().map(movieProgramDbo ->
-                        movieProgramTransformer.toMovieProgram(movieProgramDbo,
-                                new BookingDboCollection(bookingJpaRepository.findBookingsByProgramId(movieProgramDbo.getScheduleId()))
-                                        .totalSeatsBooked()))
+                {
+                    return getMovieProgram(movieProgramDbo);
+                })
                 .collect(Collectors.toList());
+    }
+
+    private MovieProgram getMovieProgram(MovieProgramDbo movieProgramDbo) {
+        int totalSeats = screenRepository.findById(movieProgramDbo.getScreenId()).numberOfSeats();
+        return movieProgramTransformer.toMovieProgram(movieProgramDbo,
+                new BookingDboCollection(bookingJpaRepository.findBookingsByProgramId(movieProgramDbo.getScheduleId()))
+                        .totalSeatsBooked(), totalSeats);
     }
 
     @Override
@@ -60,8 +70,9 @@ public class MovieProgramRepositoryJpaAdapter implements MovieProgramRepository 
         return movieProgramJpaRepository.findById(scheduleId)
                 .map(movieProgramDbo -> movieProgramTransformer.toMovieProgram(movieProgramDbo,
                         new BookingDboCollection(bookingJpaRepository.findBookingsByProgramId(movieProgramDbo.getScheduleId()))
-                                .totalSeatsBooked()));
+                                .totalSeatsBooked(), totalSeats));
     }
+
 
 
 }
