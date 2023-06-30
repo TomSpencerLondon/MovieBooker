@@ -51,5 +51,8 @@ public class AdminProgram {
         return seatPrice;
     }
 
+    public Screen getScreen() {
+        return this.screen;
+    }
 }
 

@@ -14,7 +14,7 @@ public class MovieProgramTransformer {
         this.movieTransformer = movieTransformer;
     }
 
-    public MovieProgram toMovieProgram(MovieProgramDbo movieProgramDbo, int seatsBooked) {
+    public MovieProgram toMovieProgram(MovieProgramDbo movieProgramDbo, int seatsBooked, int totalSeats) {
         MovieDbo movieDbo = movieProgramDbo.getMovie();
         Movie movie = new Movie(
                 movieDbo.getMovieId(),
@@ -26,7 +26,7 @@ public class MovieProgramTransformer {
         return new MovieProgram(
                 movieProgramDbo.getScheduleId(),
                 movieProgramDbo.getScheduleDate(),
-                movieProgramDbo.getSeats(),
+                totalSeats,
                 movie,
                 seatsBooked, movieProgramDbo.getPrice());
     }
@@ -38,7 +38,7 @@ public class MovieProgramTransformer {
                 movieTransformer.toMovieDbo(movieProgram.movie())
         );
         movieProgramDbo.setScheduleDate(movieProgram.scheduleDate());
-        movieProgramDbo.setSeats(movieProgram.totalSeats());
+        movieProgramDbo.setScreenId(movieProgram.getScreenId());
         movieProgramDbo.setPrice(movieProgram.price());
 
         return movieProgramDbo;
