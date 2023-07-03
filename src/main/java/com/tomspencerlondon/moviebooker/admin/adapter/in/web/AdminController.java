@@ -79,9 +79,8 @@ public class AdminController {
 
         LocalDateTime scheduleDate = LocalDateTime.parse(addProgramForm.getScheduleDate(), formatter);
         AdminProgram adminProgram = new AdminProgram(null,
-
                 scheduleDate,
-                addProgramForm.getSeats(),
+                new Screen(null, addProgramForm.getSeats()),
                 adminMovie,
                 addProgramForm.getPrice());
 

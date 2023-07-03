@@ -1,9 +1,8 @@
 package com.tomspencerlondon.moviebooker.common.adapter.out.jpa;
 
 import com.tomspencerlondon.moviebooker.admin.hexagon.application.port.ScreenRepository;
-import com.tomspencerlondon.moviebooker.admin.hexagon.application.port.ScreenTransformer;
+import com.tomspencerlondon.moviebooker.admin.adapter.out.jpa.ScreenTransformer;
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.Screen;
-import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.ScreenJpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

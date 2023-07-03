@@ -17,8 +17,6 @@ public class BookingDboBuilder {
     private BigDecimal seatPrice;
 
     private Long movieGoerId;
-    private MovieProgram movieProgram;
-    private MovieGoer movieGoer;
 
 
     public BookingDboBuilder from(Booking booking) {
@@ -26,43 +24,14 @@ public class BookingDboBuilder {
         numberOfSeatsBooked = booking.numberOfSeatsBooked();
         seatPrice = booking.seatPrice();
         movieGoerId = booking.movieGoerId();
-        movieProgram = booking.movieProgram();
 
-        return this;
-    }
-
-    public BookingDboBuilder with(MovieGoer movieGoer) {
-        this.movieGoer = movieGoer;
         return this;
     }
 
     public BookingDbo build() {
         BookingDbo bookingDbo = new BookingDbo();
-
-        MovieGoerDbo movieGoerDbo = new MovieGoerDbo();
-        movieGoerDbo.setUserId(movieGoer.getUserId());
-        movieGoerDbo.setUserName(movieGoer.userName());
-        movieGoerDbo.setPassword(movieGoer.password());
-        movieGoerDbo.setLoyaltyPoints(movieGoer.loyaltyPoints());
-
-        MovieProgramDbo movieProgramDbo = new MovieProgramDbo();
-        movieProgramDbo.setScheduleId(movieProgram.getScheduleId());
-        movieProgramDbo.setScheduleDate(movieProgram.scheduleDate());
-        movieProgramDbo.setSeats(movieProgram.totalSeats());
-
-        Movie movie = movieProgram.movie();
-        MovieDbo movieDbo = new MovieDbo();
-        movieDbo.setMovieId(movie.getId());
-        movieDbo.setMovieName(movie.movieName());
-        movieDbo.setDescription(movie.description());
-        movieDbo.setMovieImage(movie.image());
-        movieDbo.setReleaseDate(movie.releaseDate());
-        movieProgramDbo.setMovie(
-                movieDbo
-        );
-
         bookingDbo.setBookingId(bookingId);
-        bookingDbo.setScheduleId(movieProgramDbo.getScheduleId());
+        bookingDbo.setScheduleId(null);
         bookingDbo.setNumberOfSeatsBooked(numberOfSeatsBooked);
         bookingDbo.setUserId(movieGoerId);
         bookingDbo.setSeatPrice(seatPrice);

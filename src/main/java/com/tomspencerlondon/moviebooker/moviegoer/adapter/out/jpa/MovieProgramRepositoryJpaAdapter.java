@@ -19,32 +19,17 @@ public class MovieProgramRepositoryJpaAdapter implements MovieProgramRepository 
     private final MovieProgramJpaRepository movieProgramJpaRepository;
     private final MovieProgramTransformer movieProgramTransformer;
 
-    private final MovieTransformer movieTransformer;
-
     private final BookingJpaRepository bookingJpaRepository;
-    private ScreenRepository screenRepository;
+    private final ScreenRepository screenRepository;
 
     public MovieProgramRepositoryJpaAdapter(MovieProgramJpaRepository movieProgramJpaRepository,
                                             MovieProgramTransformer movieProgramTransformer,
-                                            MovieTransformer movieTransformer, BookingJpaRepository bookingJpaRepository) {
+        BookingJpaRepository bookingJpaRepository,
+        ScreenRepository screenRepository) {
         this.movieProgramJpaRepository = movieProgramJpaRepository;
         this.movieProgramTransformer = movieProgramTransformer;
-        this.movieTransformer = movieTransformer;
         this.bookingJpaRepository = bookingJpaRepository;
-    }
-
-    @Override
-    public MovieProgram save(MovieProgram movieProgram) {
-        MovieProgramDbo movieProgramDbo = movieProgramTransformer.toMovieProgramDbo(movieProgram);
-        MovieProgramDbo saved = movieProgramJpaRepository.save(movieProgramDbo);
-        BookingDboCollection bookingDboCollection = new BookingDboCollection(bookingJpaRepository.findBookingsByProgramId(movieProgramDbo.getScheduleId()));
-        return new MovieProgram(saved.getScheduleId(), saved.getScheduleDate(), saved.getSeats(),
-                movieTransformer.toMovie(saved.getMovie()), bookingDboCollection.totalSeatsBooked(), saved.getPrice());
-    }
-
-    @Override
-    public List<MovieProgram> findAll() {
-        return null;
+        this.screenRepository = screenRepository;
     }
 
     @Override

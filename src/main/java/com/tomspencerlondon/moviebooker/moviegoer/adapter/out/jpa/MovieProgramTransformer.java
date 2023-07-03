@@ -31,16 +31,4 @@ public class MovieProgramTransformer {
                 seatsBooked, movieProgramDbo.getPrice());
     }
 
-    public MovieProgramDbo toMovieProgramDbo(MovieProgram movieProgram) {
-        MovieProgramDbo movieProgramDbo = new MovieProgramDbo();
-        movieProgramDbo.setScheduleId(movieProgram.getScheduleId());
-        movieProgramDbo.setMovie(
-                movieTransformer.toMovieDbo(movieProgram.movie())
-        );
-        movieProgramDbo.setScheduleDate(movieProgram.scheduleDate());
-        movieProgramDbo.setScreenId(movieProgram.getScreenId());
-        movieProgramDbo.setPrice(movieProgram.price());
-
-        return movieProgramDbo;
-    }
 }

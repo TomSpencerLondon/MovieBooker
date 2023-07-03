@@ -22,6 +22,14 @@ public class ScreenRepositoryJpaAdapter implements ScreenRepository {
                 .stream().map(this::toScreen).toList();
     }
 
+    @Override
+    public Screen findById(Long id) {
+        ScreenDbo screenDbo = screenJpaRepository.findById(id)
+            .orElseThrow(UnsupportedOperationException::new);
+
+        return new Screen(screenDbo.getScreenId(), screenDbo.getNumberOfSeats());
+    }
+
     private Screen toScreen(ScreenDbo screenDbo) {
         return new Screen(screenDbo.getScreenId(), screenDbo.getNumberOfSeats());
     }

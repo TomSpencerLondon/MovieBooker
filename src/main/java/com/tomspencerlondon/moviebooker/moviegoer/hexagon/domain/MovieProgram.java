@@ -75,8 +75,4 @@ public class MovieProgram {
     public boolean seatsAvailableFor(int additionalSeats) {
         return availableSeats() >= additionalSeats;
     }
-
-    public Long getScreenId() {
-        return t;
-    }
 }
