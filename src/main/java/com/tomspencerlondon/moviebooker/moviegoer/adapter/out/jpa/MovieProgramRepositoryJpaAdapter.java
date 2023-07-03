@@ -52,9 +52,7 @@ public class MovieProgramRepositoryJpaAdapter implements MovieProgramRepository 
 
         return movieProgramJpaRepository.findMovieProgramDbosBy(movieId)
                 .stream().map(movieProgramDbo ->
-                {
-                    return getMovieProgram(movieProgramDbo);
-                })
+                        getMovieProgram(movieProgramDbo))
                 .collect(Collectors.toList());
     }
 
@@ -68,9 +66,7 @@ public class MovieProgramRepositoryJpaAdapter implements MovieProgramRepository 
     @Override
     public Optional<MovieProgram> findById(Long scheduleId) {
         return movieProgramJpaRepository.findById(scheduleId)
-                .map(movieProgramDbo -> movieProgramTransformer.toMovieProgram(movieProgramDbo,
-                        new BookingDboCollection(bookingJpaRepository.findBookingsByProgramId(movieProgramDbo.getScheduleId()))
-                                .totalSeatsBooked(), totalSeats));
+                .map(movieProgramDbo -> getMovieProgram(movieProgramDbo));
     }
 
 

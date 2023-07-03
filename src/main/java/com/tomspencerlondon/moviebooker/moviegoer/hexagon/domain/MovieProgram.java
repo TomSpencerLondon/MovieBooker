@@ -77,6 +77,6 @@ public class MovieProgram {
     }
 
     public Long getScreenId() {
-        return this.sc;
+        return t;
     }
 }
