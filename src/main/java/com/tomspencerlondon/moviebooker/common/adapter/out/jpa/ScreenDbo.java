@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Table(name = "screen")
 public class ScreenDbo {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "screen_id", nullable = false)
     private Long screenId;
 

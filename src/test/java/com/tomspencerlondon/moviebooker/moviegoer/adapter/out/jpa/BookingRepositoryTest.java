@@ -1,5 +1,7 @@
 package com.tomspencerlondon.moviebooker.moviegoer.adapter.out.jpa;
 
+import com.tomspencerlondon.moviebooker.admin.hexagon.application.AdminMovieService;
+import com.tomspencerlondon.moviebooker.admin.hexagon.application.AdminProgramService;
 import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.BookingDbo;
 import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.BookingJpaRepository;
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.MovieService;
@@ -31,10 +33,13 @@ public class BookingRepositoryTest extends TestContainerConfiguration {
     private BookingJpaRepository bookingJpaRepository;
 
     @MockBean
-    MovieService movieService;
+    AdminMovieService movieService;
+
+    @MockBean
+    AdminProgramService adminProgramService;
 
     @Test
-    void stores_and_retrieves_Questions() {
+    void stores_and_retrieves_booking() {
         Movie movie = new Movie(1L, "Godfather", "image", LocalDate.MIN, "description");
         MovieProgram movieProgram = new MovieProgram(
                 null,
@@ -50,8 +55,7 @@ public class BookingRepositoryTest extends TestContainerConfiguration {
                 new BigDecimal(5)
         );
 
-        MovieGoer movieGoer = new MovieGoer("moviegoer", "password", 5, true, true);
-        BookingDbo bookingDbo = new BookingDboBuilder().from(booking).with(movieGoer).build();
+        BookingDbo bookingDbo = new BookingDboBuilder().from(booking).build();
         BookingDbo savedBookingDbo = bookingJpaRepository.save(bookingDbo);
 
         bookingJpaRepository.delete(savedBookingDbo);

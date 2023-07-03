@@ -13,16 +13,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import org.springframework.context.annotation.Bean;
 
 
 @SpringBootApplication
 public class MovieBookerApplication implements CommandLineRunner {
-
     @Autowired
     AdminMovieService movieService;
 
     @Autowired
     AdminProgramService adminProgramService;
+
     public static void main(String[] args) {
         SpringApplication.run(MovieBookerApplication.class, args);
     }
@@ -46,7 +47,7 @@ public class MovieBookerApplication implements CommandLineRunner {
         var movieProgram = new AdminProgram(1L,
                 LocalDateTime.of(2023, 2, 14, 13, 0),
                 screen,
-                savedMovie, 0, new BigDecimal("5.00"));
+                savedMovie, new BigDecimal("5.00"));
 
         adminProgramService.save(movieProgram);
     }
