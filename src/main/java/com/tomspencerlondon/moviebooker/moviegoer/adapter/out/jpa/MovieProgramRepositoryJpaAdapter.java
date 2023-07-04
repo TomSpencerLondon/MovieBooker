@@ -1,6 +1,6 @@
 package com.tomspencerlondon.moviebooker.moviegoer.adapter.out.jpa;
 
-import com.tomspencerlondon.moviebooker.admin.hexagon.application.port.ScreenRepository;
+import com.tomspencerlondon.moviebooker.common.hexagon.application.port.ScreenRepository;
 import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.BookingDboCollection;
 import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.BookingJpaRepository;
 import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.MovieProgramDbo;
