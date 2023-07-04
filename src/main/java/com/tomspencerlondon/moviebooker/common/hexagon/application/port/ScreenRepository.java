@@ -1,4 +1,4 @@
-package com.tomspencerlondon.moviebooker.admin.hexagon.application.port;
+package com.tomspencerlondon.moviebooker.common.hexagon.application.port;
 
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.AdminProgram;
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.Screen;

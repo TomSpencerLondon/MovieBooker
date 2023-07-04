@@ -1,6 +1,6 @@
 package com.tomspencerlondon.moviebooker.admin.hexagon.application;
 
-import com.tomspencerlondon.moviebooker.admin.hexagon.application.port.ScreenRepository;
+import com.tomspencerlondon.moviebooker.common.hexagon.application.port.ScreenRepository;
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.Screen;
 import org.springframework.stereotype.Service;
 
