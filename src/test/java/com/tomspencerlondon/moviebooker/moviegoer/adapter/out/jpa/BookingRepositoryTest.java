@@ -2,6 +2,7 @@ package com.tomspencerlondon.moviebooker.moviegoer.adapter.out.jpa;
 
 import com.tomspencerlondon.moviebooker.admin.hexagon.application.AdminMovieService;
 import com.tomspencerlondon.moviebooker.admin.hexagon.application.AdminProgramService;
+import com.tomspencerlondon.moviebooker.admin.hexagon.application.ScreenService;
 import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.BookingDbo;
 import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.BookingJpaRepository;
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.MovieService;
@@ -11,6 +12,7 @@ import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.MovieGoer;
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.MovieProgram;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -37,6 +39,9 @@ public class BookingRepositoryTest extends TestContainerConfiguration {
 
     @MockBean
     AdminProgramService adminProgramService;
+
+    @MockBean
+    ScreenService screenService;
 
     @Test
     void stores_and_retrieves_booking() {

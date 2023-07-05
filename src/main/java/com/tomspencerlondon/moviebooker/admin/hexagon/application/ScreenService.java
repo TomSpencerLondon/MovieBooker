@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public class ScreenService {
 
     private final ScreenRepository screenRepository;
@@ -19,4 +18,7 @@ public class ScreenService {
         return screenRepository.findAll();
     }
 
+    public Screen save(Screen screen) {
+        return screenRepository.save(screen);
+    }
 }

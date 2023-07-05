@@ -10,4 +10,6 @@ public interface ScreenRepository {
     List<Screen> findAll();
 
     Screen findById(Long id);
+
+    Screen save(Screen screen);
 }
