@@ -15,6 +15,9 @@ docker-compose up -d
 ```bash
 mvn clean install
 ```
+
 ```bash
-java -jar target/MovieBooker-0.0.1-SNAPSHOT.jar
+mvn clean install spring-boot:run
+and
+npm run build && npm run watch
 ```

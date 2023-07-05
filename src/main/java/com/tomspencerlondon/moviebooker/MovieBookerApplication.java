@@ -2,6 +2,7 @@ package com.tomspencerlondon.moviebooker;
 
 import com.tomspencerlondon.moviebooker.admin.hexagon.application.AdminMovieService;
 import com.tomspencerlondon.moviebooker.admin.hexagon.application.AdminProgramService;
+import com.tomspencerlondon.moviebooker.admin.hexagon.application.ScreenService;
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.AdminMovie;
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.AdminProgram;
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.Screen;
@@ -24,6 +25,9 @@ public class MovieBookerApplication implements CommandLineRunner {
     @Autowired
     AdminProgramService adminProgramService;
 
+    @Autowired
+    ScreenService screenService;
+
     public static void main(String[] args) {
         SpringApplication.run(MovieBookerApplication.class, args);
     }
@@ -43,10 +47,12 @@ public class MovieBookerApplication implements CommandLineRunner {
 
         Screen screen = new Screen(null,20);
 
+        Screen savedScreen = screenService.save(screen);
+
         AdminMovie savedMovie = movieService.save(movie);
         var movieProgram = new AdminProgram(1L,
                 LocalDateTime.of(2023, 2, 14, 13, 0),
-                screen,
+                savedScreen,
                 savedMovie, new BigDecimal("5.00"));
 
         adminProgramService.save(movieProgram);
