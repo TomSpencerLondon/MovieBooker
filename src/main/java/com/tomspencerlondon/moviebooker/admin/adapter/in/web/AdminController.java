@@ -78,9 +78,12 @@ public class AdminController {
                 .ofPattern("MMM d, yyyy h:m a", Locale.US);
 
         LocalDateTime scheduleDate = LocalDateTime.parse(addProgramForm.getScheduleDate(), formatter);
+        Long selectedScreenId = addProgramForm.getSelectedScreenId();
+
+        Screen selectedScreen = screenService.findById(selectedScreenId);
         AdminProgram adminProgram = new AdminProgram(null,
                 scheduleDate,
-                new Screen(null, addProgramForm.getSeats()),
+                selectedScreen,
                 adminMovie,
                 addProgramForm.getPrice());
 

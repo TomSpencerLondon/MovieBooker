@@ -21,4 +21,8 @@ public class ScreenService {
     public Screen save(Screen screen) {
         return screenRepository.save(screen);
     }
+
+    public Screen findById(Long id) {
+        return screenRepository.findById(id);
+    }
 }

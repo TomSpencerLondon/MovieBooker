@@ -34,7 +34,7 @@ public class MovieBookerApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        bootstrapData();
+        bootstrapData();
     }
 
     private void bootstrapData() {
