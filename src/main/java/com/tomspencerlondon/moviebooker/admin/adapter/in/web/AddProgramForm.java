@@ -16,10 +16,10 @@ public class AddProgramForm {
     private String scheduleDate;
 
     @NotNull
-    private Integer seats;
+    private Long movieId;
 
     @NotNull
-    private Long movieId;
+    private Long selectedScreenId;
 
     private List<AdminMovieView> adminMovies;
     private List<Screen> screens;
@@ -38,14 +38,6 @@ public class AddProgramForm {
 
     public void setScheduleDate(String scheduleDate) {
         this.scheduleDate = scheduleDate;
-    }
-
-    public Integer getSeats() {
-        return seats;
-    }
-
-    public void setSeats(Integer seats) {
-        this.seats = seats;
     }
 
     public Long getMovieId() {
@@ -71,5 +63,14 @@ public class AddProgramForm {
     public List<Screen> getScreens() {
         return screens;
     }
+
+    public Long getSelectedScreenId() {
+        return selectedScreenId;
+    }
+
+    public void setSelectedScreenId(Long selectedScreenId) {
+        this.selectedScreenId = selectedScreenId;
+    }
+
 }
 
