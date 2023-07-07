@@ -30,6 +30,9 @@
                                     Date
                                 </th>
                                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                    Screen
+                                </th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                     Seats
                                 </th>
                                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
@@ -49,6 +52,10 @@
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
                                         th:text="${#temporals.format(program.getScheduleDate(), 'yyyy-MM-dd HH:mm')}"
+                                    >
+                                    </td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                                        th:text="${program.getScreenName()}"
                                     >
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"

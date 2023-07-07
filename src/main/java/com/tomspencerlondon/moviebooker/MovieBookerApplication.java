@@ -14,7 +14,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import org.springframework.context.annotation.Bean;
 
 
 @SpringBootApplication
@@ -45,7 +44,7 @@ public class MovieBookerApplication implements CommandLineRunner {
                 LocalDate.of(1975, 8, 24)
                 , description);
 
-        Screen screen = new Screen(null,20);
+        Screen screen = new Screen(null,20, "Screen 1");
 
         Screen savedScreen = screenService.save(screen);
 
