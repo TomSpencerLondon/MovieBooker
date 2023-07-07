@@ -84,7 +84,7 @@
                                 th:field="*{selectedScreenId}"
                             >
                                 <option th:each="screen : ${addProgramForm.getScreens()}"
-                                        th:value="${screen.getId()}" th:text="${screen.numberOfSeats()}">
+                                        th:value="${screen.getId()}" th:text="| ${screen.name()} - Seats: ${screen.numberOfSeats()}|">
                                 </option>
                             </select>
                         </div>

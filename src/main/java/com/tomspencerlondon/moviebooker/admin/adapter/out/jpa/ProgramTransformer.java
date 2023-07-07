@@ -27,7 +27,7 @@ public class ProgramTransformer {
                 movieDbo.getReleaseDate(),
                 movieDbo.getDescription());
 
-        Screen screen = new Screen(screenDbo.getScreenId(), screenDbo.getNumberOfSeats());
+        Screen screen = new Screen(screenDbo.getScreenId(), screenDbo.getNumberOfSeats(), screenDbo.getName());
 
         return new AdminProgram(
                 adminProgramDbo.getScheduleId(),

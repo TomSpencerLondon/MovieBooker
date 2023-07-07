@@ -12,6 +12,8 @@ public class ScreenDbo {
 
     private int numberOfSeats;
 
+    private String name;
+
     public Long getScreenId() {
         return screenId;
     }
@@ -26,5 +28,13 @@ public class ScreenDbo {
 
     public void setNumberOfSeats(int numberOfSeats) {
         this.numberOfSeats = numberOfSeats;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

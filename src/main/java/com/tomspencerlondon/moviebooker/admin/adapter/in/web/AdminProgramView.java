@@ -14,6 +14,7 @@ public class AdminProgramView {
     private Integer totalSeats;
     private AdminMovieView movie;
     private BigDecimal seatPrice;
+    private String screenName;
 
     public static AdminProgramView from(AdminProgram adminProgram) {
         AdminProgramView adminProgramView = new AdminProgramView();
@@ -22,6 +23,7 @@ public class AdminProgramView {
         adminProgramView.setTotalSeats(adminProgram.totalSeats());
         adminProgramView.setMovie(AdminMovieView.from(adminProgram.movie()));
         adminProgramView.setSeatPrice(adminProgram.price());
+        adminProgramView.setScreenName(adminProgram.getScreen().name());
         return adminProgramView;
     }
 
@@ -35,6 +37,14 @@ public class AdminProgramView {
 
     public LocalDateTime getScheduleDate() {
         return scheduleDate;
+    }
+
+    public String getScreenName() {
+        return screenName;
+    }
+
+    public void setScreenName(String screenName) {
+        this.screenName = screenName;
     }
 
     public void setScheduleDate(LocalDateTime scheduleDate) {
