@@ -54,6 +54,18 @@ public class SecurityConfig {
                                 .permitAll()
                 );
 
+        http.authorizeHttpRequests()
+            .requestMatchers("/admin/**")
+            .hasRole("ADMIN")
+            .and()
+            .formLogin()
+            .loginPage("/admin/login")
+                .and()
+                    .logout()
+                        .logoutUrl("/admin/logout")
+                            .logoutSuccessUrl("/");
+
+
         http.headers().frameOptions().disable();
 
         return http.build();

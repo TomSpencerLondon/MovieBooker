@@ -46,7 +46,7 @@ class AmendBookingTransactionTest {
         return new MovieGoer(
                 "Tom", "password",
                 loyaltyPoints, true,
-                true);
+                true, Role.USER);
     }
 
     private Booking createBooking(int seatsAvailable, int numberOfSeats) {

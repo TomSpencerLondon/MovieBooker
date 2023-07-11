@@ -1,31 +1,33 @@
 package com.tomspencerlondon.moviebooker.moviegoer.adapter.out.jpa;
 
-import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.MovieGoerDbo;
+import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.UserDbo;
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.MovieGoer;
 import org.springframework.stereotype.Service;
 
 @Service("jpaMovieGoerTransformer")
 public class MovieGoerTransformer {
-    public MovieGoerDbo toMovieGoerDbo(MovieGoer movieGoer) {
-        MovieGoerDbo movieGoerDbo = new MovieGoerDbo();
-        movieGoerDbo.setUserId(movieGoer.getUserId());
-        movieGoerDbo.setUserName(movieGoer.userName());
-        movieGoerDbo.setPassword(movieGoer.password());
-        movieGoerDbo.setLoyaltyPoints(movieGoer.loyaltyPoints());
-        movieGoerDbo.setIsLoyaltyUser(movieGoer.isLoyaltyUser());
-        movieGoerDbo.setAskedForLoyalty(movieGoer.isAskedForLoyalty());
-        return movieGoerDbo;
+    public UserDbo toMovieGoerDbo(MovieGoer movieGoer) {
+        UserDbo userDbo = new UserDbo();
+        userDbo.setUserId(movieGoer.getUserId());
+        userDbo.setUserName(movieGoer.userName());
+        userDbo.setPassword(movieGoer.password());
+        userDbo.setLoyaltyPoints(movieGoer.loyaltyPoints());
+        userDbo.setIsLoyaltyUser(movieGoer.isLoyaltyUser());
+        userDbo.setAskedForLoyalty(movieGoer.isAskedForLoyalty());
+        userDbo.setRole(movieGoer.role());
+        return userDbo;
     }
 
-    public MovieGoer toMovieGoer(MovieGoerDbo movieGoerDbo) {
+    public MovieGoer toMovieGoer(UserDbo userDbo) {
         MovieGoer movieGoer = new MovieGoer(
-                movieGoerDbo.getUserName(),
-                movieGoerDbo.getPassword(),
-                movieGoerDbo.getLoyaltyPoints(),
-                movieGoerDbo.getIsLoyaltyUser(),
-                movieGoerDbo.getAskedForLoyalty());
+                userDbo.getUserName(),
+                userDbo.getPassword(),
+                userDbo.getLoyaltyPoints(),
+                userDbo.getIsLoyaltyUser(),
+                userDbo.getAskedForLoyalty(),
+                userDbo.getRole());
 
-        movieGoer.setUserId(movieGoerDbo.getUserId());
+        movieGoer.setUserId(userDbo.getUserId());
 
         return movieGoer;
     }

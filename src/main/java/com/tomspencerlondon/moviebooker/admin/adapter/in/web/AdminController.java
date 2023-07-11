@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.File;
 
@@ -38,6 +39,12 @@ public class AdminController {
         this.adminMovieService = adminMovieService;
         this.adminImageUploadService = adminImageUploadService;
         this.screenService = screenService;
+    }
+
+    @GetMapping("/login")
+    public String loginForm(@RequestParam(value = "error", defaultValue = "false") boolean error, Model model) {
+        model.addAttribute("error", error);
+        return "admin/login";
     }
 
     @GetMapping("/movie-programs")

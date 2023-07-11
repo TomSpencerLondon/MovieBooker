@@ -1,13 +1,11 @@
 package com.tomspencerlondon.moviebooker.common.adapter.out.jpa;
 
+import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.Role;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
-@Table(name = "moviegoers", uniqueConstraints = @UniqueConstraint(columnNames = "userName"))
-public class MovieGoerDbo {
+@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "userName"))
+public class UserDbo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +18,9 @@ public class MovieGoerDbo {
     private Integer loyaltyPoints;
     private Boolean isLoyaltyUser;
     private Boolean askedForLoyalty;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
 
     public void setUserId(Long id) {
@@ -68,5 +69,13 @@ public class MovieGoerDbo {
 
     public void setAskedForLoyalty(boolean askedForLoyalty) {
         this.askedForLoyalty = askedForLoyalty;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

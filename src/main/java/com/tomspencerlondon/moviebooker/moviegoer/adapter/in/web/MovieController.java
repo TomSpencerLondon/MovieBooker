@@ -54,7 +54,9 @@ public class MovieController {
         MovieGoer movieGoer = new MovieGoer(
                 movieGoerRegistrationForm.getUserName(),
                 passwordEncoder.encode(movieGoerRegistrationForm.getPassword()),
-                0, false, false);
+                0, false, false,
+            Role.USER
+        );
         try {
             movieGoerService.save(movieGoer);
             // TODO: We could change this to a more specific exception

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-white">
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Goer Admin</title>
+  <link rel="stylesheet"
+        th:href="@{/css/application.css}"
+        href="../../../../../target/classes/static/css/application.css"
+  >
+</head>
+<body class="h-full">
+<div class="min-h-full">
+  <main>
+    <div class="flex min-h-full">
+      <div class="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
+        <div class="mx-auto w-full max-w-sm lg:w-96">
+          <div>
+            <img class="h-12 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=blue&shade=400"
+                 alt="Your Company">
+            <h2 class="mt-6 text-3xl font-bold tracking-tight text-gray-900">Login</h2>
+          </div>
+
+          <div class="mt-8">
+            <div class="mt-6">
+              <form th:action="@{/admin/login}"
+                    method="POST"
+                    class="space-y-6"
+                    role="form"
+              >
+                <div th:replace="~{/common/fragments/login_form_inputs :: login_form_inputs}"></div>
+
+                <div>
+                  <button type="submit"
+                          class="flex w-full justify-center rounded-md border border-transparent bg-blue-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    Login
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="relative hidden w-0 flex-1 lg:block">
+        <img class="absolute inset-0 h-full w-full object-cover"
+             src="https://images.unsplash.com/photo-1505904267569-f02eaeb45a4c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1908&q=80"
+             alt="">
+        <img class="absolute inset-0 h-full w-full object-cover"
+             th:src="@{{path}(path='/img/cinema.jpg')}"
+             alt="A Quiet Place movie poster"/>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<th:block th:fragment="login_form_inputs">
+  <th:block th:if="${error}">
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+         role="alert">
+      <strong class="font-bold">Error</strong>
+      <span class="block sm:inline">User name and email don't match</span>
+    </div>
+  </th:block>
+  <div>
+    <label for="username" class="block text-sm font-medium text-gray-700">Email
+      address</label>
+    <div class="mt-1">
+      <input type="text"
+             id="username"
+             name="username"
+             placeholder="Email"
+             class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm">
+    </div>
+  </div>
+
+  <div class="space-y-1">
+    <label for="password"
+           class="block text-sm font-medium text-gray-700">Password</label>
+    <div class="mt-1">
+      <input type="password"
+             id="password"
+             name="password"
+             placeholder="Password"
+             class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm">
+    </div>
+  </div>
+</th:block>
+</html>

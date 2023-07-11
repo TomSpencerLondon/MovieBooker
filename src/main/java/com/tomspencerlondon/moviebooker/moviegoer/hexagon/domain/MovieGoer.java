@@ -11,13 +11,16 @@ public class MovieGoer {
 
     private boolean isLoyaltyUser;
     private boolean askedForLoyalty;
+    private Role role;
 
-    public MovieGoer(String userName, String password, Integer loyaltyPoints, boolean isLoyaltyUser, boolean askedForLoyalty) {
+    public MovieGoer(String userName, String password, Integer loyaltyPoints, boolean isLoyaltyUser, boolean askedForLoyalty,
+        Role role) {
         this.userName = userName;
         this.password = password;
         this.loyaltyPoints = loyaltyPoints;
         this.isLoyaltyUser = isLoyaltyUser;
         this.askedForLoyalty = askedForLoyalty;
+        this.role = role;
     }
 
     public Long getUserId() {
@@ -67,5 +70,9 @@ public class MovieGoer {
 
     public void updateLoyaltyPoints(int runningLoyaltyPoints) {
         this.loyaltyPoints = runningLoyaltyPoints;
+    }
+
+    public Role role() {
+        return role;
     }
 }

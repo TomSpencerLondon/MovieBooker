@@ -1,9 +1,10 @@
 package com.tomspencerlondon.moviebooker.moviegoer.adapter.out.jpa;
 
-import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.MovieGoerDbo;
+import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.UserDbo;
 import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.MovieGoerJpaRepository;
 import com.tomspencerlondon.moviebooker.common.hexagon.application.port.MovieGoerRepository;
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.MovieGoer;
+import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.Role;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -20,13 +21,13 @@ public class MovieGoerRepositoryJpaAdapter implements MovieGoerRepository {
 
     @Override
     public MovieGoer save(MovieGoer movieGoer) {
-        MovieGoerDbo movieGoerDbo = movieGoerTransformer.toMovieGoerDbo(movieGoer);
-        MovieGoerDbo saved = movieGoerJpaRepository.save(movieGoerDbo);
+        UserDbo userDbo = movieGoerTransformer.toMovieGoerDbo(movieGoer);
+        UserDbo saved = movieGoerJpaRepository.save(userDbo);
         return new MovieGoer(
                 saved.getUserName(),
                 saved.getPassword(),
                 saved.getLoyaltyPoints(),
-                saved.getIsLoyaltyUser(), saved.getAskedForLoyalty());
+                saved.getIsLoyaltyUser(), saved.getAskedForLoyalty(), Role.USER);
     }
 
     @Override
