@@ -2,6 +2,7 @@ package com.tomspencerlondon.moviebooker.moviegoer.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -26,6 +27,7 @@ public class SecurityConfig {
     }
 
     @Bean
+    @Order(1)
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests((authorize) ->
@@ -38,15 +40,15 @@ public class SecurityConfig {
                                 .requestMatchers(
                         "/js/**",
                         "/css/**",
-                        "/img/**")
+                        "/img/**", "/admin/**")
                                 .permitAll()
-                                .requestMatchers("/**")
+                                .requestMatchers("/moviegoer/**")
                                 .hasRole("USER")
                 ).formLogin(
                         form -> form
-                                .loginPage("/login")
-                                .loginProcessingUrl("/login")
-                                .failureUrl("/login?error=true")
+                                .loginPage("/moviegoer/login")
+                                .loginProcessingUrl("/moviegoer/login")
+                                .failureUrl("/moviegoer/login?error=true")
                                 .permitAll()
                 ).logout(
                         logout -> logout
@@ -54,19 +56,29 @@ public class SecurityConfig {
                                 .permitAll()
                 );
 
+
+        http.headers().frameOptions().disable();
+
+        return http.build();
+    }
+
+    @Bean
+    @Order(2)
+    public SecurityFilterChain filterChain2(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
             .requestMatchers("/admin/**")
             .hasRole("ADMIN")
             .and()
             .formLogin()
             .loginPage("/admin/login")
-                .and()
-                    .logout()
-                        .logoutUrl("/admin/logout")
-                            .logoutSuccessUrl("/");
-
-
-        http.headers().frameOptions().disable();
+            .loginProcessingUrl("/admin/login")
+            .failureUrl("/admin/login?error=true")
+            .permitAll()
+            .and()
+            .logout()
+            .logoutUrl("/admin/logout")
+            .logoutSuccessUrl("/")
+            .permitAll();
 
         return http.build();
     }

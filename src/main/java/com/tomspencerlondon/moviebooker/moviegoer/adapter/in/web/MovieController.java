@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/moviegoer")
 public class MovieController {
 
     private final MovieService movieService;
@@ -64,7 +65,7 @@ public class MovieController {
             model.addAttribute("movieGoerRegistrationForm", movieGoerRegistrationForm);
             return "moviegoer/registration";
         }
-        return "redirect:/";
+        return "redirect:/moviegoer/";
     }
 
     @GetMapping("/movie")
@@ -90,7 +91,7 @@ public class MovieController {
             model.addAttribute("movieGoer", movieGoerView);
             return "moviegoer/bookings/book";
         } else {
-            return "redirect:/loyalty-signup?programId=" + movieProgramId + "&numberOfSeats=" + numberOfSeats;
+            return "redirect:/moviegoer/loyalty-signup?programId=" + movieProgramId + "&numberOfSeats=" + numberOfSeats;
         }
     }
 
@@ -102,9 +103,9 @@ public class MovieController {
         Notification notification = bookingService.payForBooking(booking, payment);
 
         if (notification.isSuccess()) {
-            return "redirect:/bookings";
+            return "redirect:/moviegoer/bookings";
         } else {
-            return "redirect:/seatsNotAvailable";
+            return "redirect:/moviegoer/seatsNotAvailable";
         }
     }
 
