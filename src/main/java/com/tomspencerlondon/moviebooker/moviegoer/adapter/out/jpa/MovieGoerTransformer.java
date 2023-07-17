@@ -1,33 +1,32 @@
 package com.tomspencerlondon.moviebooker.moviegoer.adapter.out.jpa;
 
+import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.MovieGoerDbo;
 import com.tomspencerlondon.moviebooker.common.adapter.out.jpa.UserDbo;
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.MovieGoer;
 import org.springframework.stereotype.Service;
 
 @Service("jpaMovieGoerTransformer")
 public class MovieGoerTransformer {
-    public UserDbo toMovieGoerDbo(MovieGoer movieGoer) {
-        UserDbo userDbo = new UserDbo();
-        userDbo.setUserId(movieGoer.getUserId());
-        userDbo.setUserName(movieGoer.userName());
-        userDbo.setPassword(movieGoer.password());
-        userDbo.setLoyaltyPoints(movieGoer.loyaltyPoints());
-        userDbo.setIsLoyaltyUser(movieGoer.isLoyaltyUser());
-        userDbo.setAskedForLoyalty(movieGoer.isAskedForLoyalty());
-        userDbo.setRole(movieGoer.role());
-        return userDbo;
+    public MovieGoerDbo toMovieGoerDbo(MovieGoer movieGoer, Long userId) {
+        MovieGoerDbo movieGoerDbo = new MovieGoerDbo();
+        movieGoerDbo.setMoviegoerId(movieGoer.getUserId());
+        movieGoerDbo.setLoyaltyPoints(movieGoer.loyaltyPoints());
+        movieGoerDbo.setIsLoyaltyUser(movieGoer.isLoyaltyUser());
+        movieGoerDbo.setAskedForLoyalty(movieGoer.isAskedForLoyalty());
+        movieGoerDbo.setUserId(userId);
+        return movieGoerDbo;
     }
 
-    public MovieGoer toMovieGoer(UserDbo userDbo) {
+    public MovieGoer toMovieGoer(MovieGoerDbo movieGoerDbo, UserDbo userDbo) {
         MovieGoer movieGoer = new MovieGoer(
                 userDbo.getUserName(),
                 userDbo.getPassword(),
-                userDbo.getLoyaltyPoints(),
-                userDbo.getIsLoyaltyUser(),
-                userDbo.getAskedForLoyalty(),
+                movieGoerDbo.getLoyaltyPoints(),
+                movieGoerDbo.getIsLoyaltyUser(),
+                movieGoerDbo.getAskedForLoyalty(),
                 userDbo.getRole());
 
-        movieGoer.setUserId(userDbo.getUserId());
+        movieGoer.setUserId(movieGoerDbo.getMoviegoerId());
 
         return movieGoer;
     }

@@ -32,7 +32,7 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeHttpRequests((authorize) ->
                         authorize
-                                .requestMatchers("/register/**")
+                                .requestMatchers("/moviegoer/register/**")
 
                                 .permitAll()
                                 .requestMatchers(toH2Console())

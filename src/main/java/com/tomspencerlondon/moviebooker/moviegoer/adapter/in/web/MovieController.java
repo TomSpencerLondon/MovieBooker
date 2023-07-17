@@ -56,7 +56,7 @@ public class MovieController {
                 movieGoerRegistrationForm.getUserName(),
                 passwordEncoder.encode(movieGoerRegistrationForm.getPassword()),
                 0, false, false,
-            Role.USER
+                Role.USER
         );
         try {
             movieGoerService.save(movieGoer);

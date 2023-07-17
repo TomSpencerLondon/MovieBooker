@@ -68,7 +68,7 @@
 
                     <div class="mt-8">
                         <div class="mt-6">
-                            <form th:action="@{/register}" th:object="${movieGoerRegistrationForm}" method="POST" class="space-y-6">
+                            <form th:action="@{/moviegoer/register}" th:object="${movieGoerRegistrationForm}" method="POST" class="space-y-6">
                                 <div>
                                     <label for="email" class="block text-sm font-medium text-gray-700">Email
                                         address</label>
@@ -92,7 +92,7 @@
 
                                 <div class="grid justify-items-end">
                                     <div class="text-sm">
-                                        <a th:href="@{/login}" class="font-medium text-indigo-600 hover:text-indigo-500">Sign in</a>
+                                        <a th:href="@{/moviegoer/login}" class="font-medium text-indigo-600 hover:text-indigo-500">Sign in</a>
                                     </div>
                                 </div>
 
