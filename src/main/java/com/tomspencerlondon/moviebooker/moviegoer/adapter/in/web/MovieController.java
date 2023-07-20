@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequestMapping("/moviegoer")
@@ -27,6 +28,11 @@ public class MovieController {
         this.bookingService = bookingService;
         this.movieGoerService = movieGoerService;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    @GetMapping
+    public RedirectView redirectToBookings() {
+        return new RedirectView("/moviegoer/bookings", true);
     }
 
     @GetMapping("/")

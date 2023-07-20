@@ -10,7 +10,7 @@
             <div class="bg-white rounded-t-lg">
                 <img src="img/book/illustration-hero.svg" alt="" srcset="" class="w-full rounded-t-lg">
             </div>
-            <form th:action="@{/book}" th:object="${bookingForm}" method="POST">
+            <form th:action="@{/moviegoer/book}" th:object="${bookingForm}" method="POST">
                 <input type="hidden" th:name="movieGoerId" th:value="*{movieGoerId}"/>
                 <input type="hidden" th:name="movieName" th:value="*{movieName}"/>
                 <input type="hidden" th:name="scheduleDate" th:value="*{scheduleDate}"/>

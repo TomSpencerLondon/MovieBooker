@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.File;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -39,6 +40,11 @@ public class AdminController {
         this.adminMovieService = adminMovieService;
         this.adminImageUploadService = adminImageUploadService;
         this.screenService = screenService;
+    }
+
+    @GetMapping
+    public RedirectView redirectToBookings() {
+        return new RedirectView("/admin/movie-programs", true);
     }
 
     @GetMapping("/login")

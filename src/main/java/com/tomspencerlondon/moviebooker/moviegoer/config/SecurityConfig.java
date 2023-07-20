@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
@@ -48,6 +49,7 @@ public class SecurityConfig {
                         form -> form
                                 .loginPage("/moviegoer/login")
                                 .loginProcessingUrl("/moviegoer/login")
+                                .successHandler(movieGoerSuccessHandler())
                                 .failureUrl("/moviegoer/login?error=true")
                                 .permitAll()
                 ).logout(
@@ -62,6 +64,12 @@ public class SecurityConfig {
         return http.build();
     }
 
+    private AuthenticationSuccessHandler movieGoerSuccessHandler() {
+        return (request, response, authentication) -> {
+            response.sendRedirect("/moviegoer/bookings");
+        };
+    }
+
     @Bean
     @Order(2)
     public SecurityFilterChain filterChain2(HttpSecurity http) throws Exception {
@@ -72,6 +80,7 @@ public class SecurityConfig {
             .formLogin()
             .loginPage("/admin/login")
             .loginProcessingUrl("/admin/login")
+            .successHandler(adminSuccessHandler())
             .failureUrl("/admin/login?error=true")
             .permitAll()
             .and()
@@ -81,6 +90,12 @@ public class SecurityConfig {
             .permitAll();
 
         return http.build();
+    }
+
+    private AuthenticationSuccessHandler adminSuccessHandler() {
+        return (request, response, authentication) -> {
+            response.sendRedirect("/admin/movie-programs");
+        };
     }
 
     @Autowired
