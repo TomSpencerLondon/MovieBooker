@@ -44,7 +44,7 @@ class AmendBookingTransactionTest {
 
     private static MovieGoer createMovieGoer(int loyaltyPoints) {
         return new MovieGoer(
-                "Tom", "password",
+                null, "Tom", "password",
                 loyaltyPoints, true,
                 true, Role.USER);
     }

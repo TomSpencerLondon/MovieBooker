@@ -27,6 +27,7 @@ public class MovieGoerRepositoryJpaAdapter implements MovieGoerRepository {
     @Override
     public MovieGoer save(MovieGoer movieGoer) {
         UserDbo userDbo = new UserDbo();
+        userDbo.setUserId(movieGoer.getUserId());
         userDbo.setUserName(movieGoer.userName());
         userDbo.setPassword(movieGoer.password());
         userDbo.setRole(movieGoer.role());
@@ -35,7 +36,7 @@ public class MovieGoerRepositoryJpaAdapter implements MovieGoerRepository {
         MovieGoerDbo saved = movieGoerJpaRepository.save(movieGoerDbo);
 
         return new MovieGoer(
-                savedUser.getUserName(),
+                userDbo.getUserId(), savedUser.getUserName(),
                 savedUser.getPassword(),
                 saved.getLoyaltyPoints(),
                 saved.getIsLoyaltyUser(), saved.getAskedForLoyalty(), Role.USER);

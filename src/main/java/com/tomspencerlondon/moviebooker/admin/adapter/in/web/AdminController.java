@@ -8,6 +8,9 @@ import com.tomspencerlondon.moviebooker.admin.hexagon.domain.AdminMovie;
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.AdminProgram;
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.Screen;
 import jakarta.validation.Valid;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,15 +45,15 @@ public class AdminController {
         this.screenService = screenService;
     }
 
-    @GetMapping
-    public RedirectView redirectToBookings() {
-        return new RedirectView("/admin/movie-programs", true);
-    }
-
     @GetMapping("/login")
     public String loginForm(@RequestParam(value = "error", defaultValue = "false") boolean error, Model model) {
         model.addAttribute("error", error);
         return "admin/login";
+    }
+
+    @PostMapping("/login")
+    public String loginForm() {
+        return "redirect:/admin/movie-programs";
     }
 
     @GetMapping("/movie-programs")

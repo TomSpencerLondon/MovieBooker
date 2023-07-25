@@ -34,14 +34,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) ->
                         authorize
                                 .requestMatchers("/moviegoer/register/**")
-
                                 .permitAll()
                                 .requestMatchers(toH2Console())
                                 .permitAll()
                                 .requestMatchers(
-                        "/js/**",
-                        "/css/**",
-                        "/img/**", "/admin/**")
+                                        "/js/**",
+                                        "/css/**",
+                                        "/img/**", "/admin/**")
                                 .permitAll()
                                 .requestMatchers("/moviegoer/**")
                                 .hasRole("USER")
@@ -74,20 +73,20 @@ public class SecurityConfig {
     @Order(2)
     public SecurityFilterChain filterChain2(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
-            .requestMatchers("/admin/**")
-            .hasRole("ADMIN")
-            .and()
-            .formLogin()
-            .loginPage("/admin/login")
-            .loginProcessingUrl("/admin/login")
-            .successHandler(adminSuccessHandler())
-            .failureUrl("/admin/login?error=true")
-            .permitAll()
-            .and()
-            .logout()
-            .logoutUrl("/admin/logout")
-            .logoutSuccessUrl("/")
-            .permitAll();
+                .requestMatchers("/admin/**")
+                .hasRole("ADMIN")
+                .and()
+                .formLogin()
+                .loginPage("/admin/login")
+                .loginProcessingUrl("/admin/login")
+                .successHandler(adminSuccessHandler())
+                .failureUrl("/admin/login?error=true")
+                .permitAll()
+                .and()
+                .logout()
+                .logoutUrl("/admin/logout")
+                .logoutSuccessUrl("/")
+                .permitAll();
 
         return http.build();
     }

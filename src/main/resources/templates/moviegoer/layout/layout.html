@@ -6,6 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Movie Goer</title>
+  <link rel="shortcut icon" href="#" />
   <link rel="stylesheet"
   th:href="@{/css/application.css}"
   href="../../../../target/classes/static/css/application.css"
@@ -67,7 +68,7 @@
                 <span th:text="${movieGoer.getLoyaltyPoints()}"></span>
                 <span th:text="${movieGoer.getLoyaltyPoints() == 1 ? 'Loyalty Point' : 'Loyalty Points' }"></span>
               </span>
-              <a th:href="@{/moviegoer/logout}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-3">Log out</a>
+              <a th:href="@{/logout}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-3">Log out</a>
             </div>
           </div>
         </div>

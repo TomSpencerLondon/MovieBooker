@@ -19,6 +19,7 @@ public class MovieGoerTransformer {
 
     public MovieGoer toMovieGoer(MovieGoerDbo movieGoerDbo, UserDbo userDbo) {
         MovieGoer movieGoer = new MovieGoer(
+                userDbo.getUserId(),
                 userDbo.getUserName(),
                 userDbo.getPassword(),
                 movieGoerDbo.getLoyaltyPoints(),
