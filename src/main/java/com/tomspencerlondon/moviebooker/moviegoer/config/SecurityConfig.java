@@ -35,8 +35,6 @@ public class SecurityConfig {
                         authorize
                                 .requestMatchers("/moviegoer/register/**")
                                 .permitAll()
-                                .requestMatchers(toH2Console())
-                                .permitAll()
                                 .requestMatchers(
                                         "/js/**",
                                         "/css/**",
