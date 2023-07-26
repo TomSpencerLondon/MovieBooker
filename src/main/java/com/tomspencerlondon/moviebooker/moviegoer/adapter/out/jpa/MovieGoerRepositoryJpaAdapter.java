@@ -59,7 +59,7 @@ public class MovieGoerRepositoryJpaAdapter implements MovieGoerRepository {
             return Optional.empty();
         } else {
             MovieGoerDbo movieGoerDbo = movieGoerJpaRepository
-                .findById(userDbo.get().getUserId())
+                .findByUserId(userDbo.get().getUserId())
                 .orElseThrow(IllegalArgumentException::new);
             return Optional.of(movieGoerTransformer.toMovieGoer(movieGoerDbo, userDbo.get()));
         }

@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface MovieGoerJpaRepository extends JpaRepository<MovieGoerDbo, Long> {
 
+    Optional<MovieGoerDbo> findByUserId(Long userId);
 }
