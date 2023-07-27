@@ -41,6 +41,10 @@
             <div class="flex space-x-4">
               <!-- Current: "bg-blue-900 text-white", Default: "text-gray-300 hover:bg-blue-700 hover:text-white" -->
               <a th:href="@{/admin/movie-programs}" class="bg-blue-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Moviegoer Admin</a>
+              <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+              <a th:href="@{/admin/movie-list}" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Movies</a>
+              <a th:href="@{/admin/movie-programs}" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Programs</a>
+              <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Admins</a>
             </div>
           </div>
         </div>
@@ -51,7 +55,10 @@
     <div class="sm:hidden" id="mobile-menu">
       <div class="space-y-1 px-2 pt-2 pb-3">
         <!-- Current: "bg-blue-900 text-white", Default: "text-gray-300 hover:bg-blue-700 hover:text-white" -->
-        <a href="#" class="bg-blue-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page">Moviegoer Admin</a>
+        <a th:href="@{/admin/movie-programs}" class="bg-blue-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page">Moviegoer Admin</a>
+        <a th:href="@{/admin/movie-list}" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Movies</a>
+        <a th:href="@{/admin/movie-programs}" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Programs</a>
+        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Admins</a>
       </div>
     </div>
   </nav>
