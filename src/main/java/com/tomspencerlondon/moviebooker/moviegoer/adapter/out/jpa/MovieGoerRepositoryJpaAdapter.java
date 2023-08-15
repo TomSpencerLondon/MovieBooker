@@ -26,6 +26,17 @@ public class MovieGoerRepositoryJpaAdapter implements MovieGoerRepository {
 
     @Override
     public MovieGoer save(MovieGoer movieGoer) {
+        Optional<UserDbo> userDboByUserName = userJpaRepository.findByUserName(movieGoer.userName());
+        if (userDboByUserName.isPresent()) {
+            MovieGoerDbo movieGoerDbo = movieGoerTransformer.toMovieGoerDbo(movieGoer, userDboByUserName.get().getUserId());
+            MovieGoerDbo saved = movieGoerJpaRepository.save(movieGoerDbo);
+            return new MovieGoer(
+                    userDboByUserName.get().getUserId(), movieGoerDbo.getMoviegoerId(), userDboByUserName.get().getUserName(),
+                    userDboByUserName.get().getPassword(),
+                    saved.getLoyaltyPoints(),
+                    saved.getIsLoyaltyUser(), saved.getAskedForLoyalty(), Role.USER);
+        }
+
         UserDbo userDbo = new UserDbo();
         userDbo.setUserId(movieGoer.getUserId());
         userDbo.setUserName(movieGoer.userName());
@@ -36,7 +47,7 @@ public class MovieGoerRepositoryJpaAdapter implements MovieGoerRepository {
         MovieGoerDbo saved = movieGoerJpaRepository.save(movieGoerDbo);
 
         return new MovieGoer(
-                userDbo.getUserId(), savedUser.getUserName(),
+                userDbo.getUserId(), movieGoerDbo.getMoviegoerId(), savedUser.getUserName(),
                 savedUser.getPassword(),
                 saved.getLoyaltyPoints(),
                 saved.getIsLoyaltyUser(), saved.getAskedForLoyalty(), Role.USER);
@@ -45,7 +56,7 @@ public class MovieGoerRepositoryJpaAdapter implements MovieGoerRepository {
     @Override
     public Optional<MovieGoer> findById(Long userId) {
         UserDbo userDbo = userJpaRepository.findById(userId).orElseThrow(IllegalArgumentException::new);
-        MovieGoerDbo movieGoerDbo = movieGoerJpaRepository.findById(userId).orElseThrow(
+        MovieGoerDbo movieGoerDbo = movieGoerJpaRepository.findByUserId(userId).orElseThrow(
             IllegalArgumentException::new);
 
         return Optional.of(movieGoerTransformer.toMovieGoer(movieGoerDbo, userDbo));

@@ -4,6 +4,7 @@ import com.tomspencerlondon.moviebooker.common.hexagon.User;
 
 public class MovieGoer extends User {
     private Long userId;
+    private Long movieGoerId;
 
     private String userName;
 
@@ -15,9 +16,11 @@ public class MovieGoer extends User {
     private boolean askedForLoyalty;
     private Role role;
 
-    public MovieGoer(Long userId, String userName, String password, Integer loyaltyPoints, boolean isLoyaltyUser, boolean askedForLoyalty,
+    public MovieGoer(Long userId, Long movieGoerId, String userName, String password, Integer loyaltyPoints, boolean isLoyaltyUser, boolean askedForLoyalty,
                      Role role) {
         super(userId, userName, password, role);
+        this.userId = userId;
+        this.movieGoerId = movieGoerId;
         this.userName = userName;
         this.password = password;
         this.loyaltyPoints = loyaltyPoints;
@@ -32,6 +35,10 @@ public class MovieGoer extends User {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public Long getMovieGoerId() {
+        return movieGoerId;
     }
 
     public String userName() {

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class MovieGoerTransformer {
     public MovieGoerDbo toMovieGoerDbo(MovieGoer movieGoer, Long userId) {
         MovieGoerDbo movieGoerDbo = new MovieGoerDbo();
-        movieGoerDbo.setMoviegoerId(movieGoer.getUserId());
+        movieGoerDbo.setMoviegoerId(movieGoer.getMovieGoerId());
         movieGoerDbo.setLoyaltyPoints(movieGoer.loyaltyPoints());
         movieGoerDbo.setIsLoyaltyUser(movieGoer.isLoyaltyUser());
         movieGoerDbo.setAskedForLoyalty(movieGoer.isAskedForLoyalty());
@@ -20,14 +20,12 @@ public class MovieGoerTransformer {
     public MovieGoer toMovieGoer(MovieGoerDbo movieGoerDbo, UserDbo userDbo) {
         MovieGoer movieGoer = new MovieGoer(
                 userDbo.getUserId(),
-                userDbo.getUserName(),
+                movieGoerDbo.getMoviegoerId(), userDbo.getUserName(),
                 userDbo.getPassword(),
                 movieGoerDbo.getLoyaltyPoints(),
                 movieGoerDbo.getIsLoyaltyUser(),
                 movieGoerDbo.getAskedForLoyalty(),
                 userDbo.getRole());
-
-        movieGoer.setUserId(movieGoerDbo.getMoviegoerId());
 
         return movieGoer;
     }

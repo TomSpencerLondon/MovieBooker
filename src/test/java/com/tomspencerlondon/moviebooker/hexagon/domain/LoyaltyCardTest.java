@@ -33,7 +33,7 @@ class LoyaltyCardTest {
 
     private static void assertSeatsAndLoyaltyPoints(int numberOfSeatsPurchased, int movieGoerStartLoyaltyPoints,
                                                     int expectedLoyaltySeats, int expectedFinalLoyaltyPoints) {
-        MovieGoer movieGoer = new MovieGoer(null, "moviegoer", "password", movieGoerStartLoyaltyPoints, true, true,
+        MovieGoer movieGoer = new MovieGoer(null, null, "moviegoer", "password", movieGoerStartLoyaltyPoints, true, true,
             Role.USER);
 
 

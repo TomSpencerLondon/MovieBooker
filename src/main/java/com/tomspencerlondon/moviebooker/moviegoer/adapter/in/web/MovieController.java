@@ -54,7 +54,7 @@ public class MovieController {
     public String register(@ModelAttribute("movieGoerRegistrationForm") MovieGoerRegistrationForm movieGoerRegistrationForm, Model model) {
         // TODO: is the right place for the passwordEncoder? Should the passwordEncoder be used in the SecurityConfig
         MovieGoer movieGoer = new MovieGoer(
-                null, movieGoerRegistrationForm.getUserName(),
+                null, null, movieGoerRegistrationForm.getUserName(),
                 passwordEncoder.encode(movieGoerRegistrationForm.getPassword()),
                 0, false, false,
                 Role.USER
