@@ -9,6 +9,7 @@ import com.tomspencerlondon.moviebooker.common.hexagon.application.port.MoviePro
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.MovieProgram;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -36,8 +37,7 @@ public class MovieProgramRepositoryJpaAdapter implements MovieProgramRepository 
     public List<MovieProgram> findByMovieId(Long movieId) {
 
         return movieProgramJpaRepository.findMovieProgramDbosBy(movieId)
-                .stream().map(movieProgramDbo ->
-                        getMovieProgram(movieProgramDbo))
+                .stream().map(this::getMovieProgram)
                 .collect(Collectors.toList());
     }
 
@@ -51,9 +51,31 @@ public class MovieProgramRepositoryJpaAdapter implements MovieProgramRepository 
     @Override
     public Optional<MovieProgram> findById(Long scheduleId) {
         return movieProgramJpaRepository.findById(scheduleId)
-                .map(movieProgramDbo -> getMovieProgram(movieProgramDbo));
+                .map(this::getMovieProgram);
     }
 
+    @Override
+    public List<MovieProgram> current() {
+        return movieProgramJpaRepository.findAll()
+                .stream()
+                .filter(this::isCurrent)
+                .map(this::getMovieProgram).toList();
+    }
 
+    @Override
+    public List<MovieProgram> future() {
+        return movieProgramJpaRepository.findAll()
+                .stream()
+                .filter(this::isComing)
+                .map(this::getMovieProgram).toList();
+    }
 
+    private boolean isCurrent(MovieProgramDbo movieProgramDbo) {
+        return movieProgramDbo.getScheduleDate().isBefore(LocalDateTime.now()) ||
+                movieProgramDbo.getScheduleDate().isEqual(LocalDateTime.now());
+    }
+
+    private boolean isComing(MovieProgramDbo movieProgramDbo) {
+        return movieProgramDbo.getScheduleDate().isAfter(LocalDateTime.now());
+    }
 }

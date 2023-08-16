@@ -9,4 +9,8 @@ public interface MovieProgramRepository {
     List<MovieProgram> findByMovieId(Long movieId);
 
     Optional<MovieProgram> findById(Long scheduleId);
+
+    List<MovieProgram> current();
+
+    List<MovieProgram> future();
 }

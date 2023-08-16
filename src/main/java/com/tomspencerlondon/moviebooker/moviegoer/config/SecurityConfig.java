@@ -57,7 +57,7 @@ public class SecurityConfig {
 
 
         http.headers().frameOptions().disable();
-
+        http.exceptionHandling().accessDeniedPage("/moviegoer/403");
         return http.build();
     }
 
@@ -85,7 +85,7 @@ public class SecurityConfig {
                 .logoutUrl("/admin/logout")
                 .logoutSuccessUrl("/")
                 .permitAll();
-
+        http.exceptionHandling().accessDeniedPage("/admin/403");
         return http.build();
     }
 

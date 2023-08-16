@@ -30,6 +30,13 @@ public class MovieController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @GetMapping("/403")
+    public String _403(Model model) {
+        model.addAttribute("nowShowing", movieService.nowShowing());
+        model.addAttribute("comingSoon", movieService.comingSoon());
+        return "moviegoer/403";
+    }
+
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("movieGoer", movieGoerView());
@@ -131,7 +138,7 @@ public class MovieController {
         Notification notification = bookingService.amendBooking(bookingId, additionalSeats, payment);
 
         if(notification.isSuccess()) {
-            return "redirect:/bookings";
+            return "redirect:/moviegoer/bookings";
         } else {
             return "redirect:/moviegoer/seatsNotAvailable?bookingId=" + bookingId;
         }

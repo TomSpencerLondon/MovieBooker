@@ -38,4 +38,18 @@ public class MovieService {
         return movieProgramRepository.findById(scheduleId).orElseThrow(IllegalArgumentException::new);
     }
 
+    public List<Movie> nowShowing() {
+        return movieProgramRepository.current().stream()
+                .map(MovieProgram::movie)
+                .toList();
+    }
+
+    public List<Movie> comingSoon() {
+        return movieProgramRepository
+                .future()
+                .stream()
+                .map(MovieProgram::movie)
+                .toList();
+    }
+
 }
