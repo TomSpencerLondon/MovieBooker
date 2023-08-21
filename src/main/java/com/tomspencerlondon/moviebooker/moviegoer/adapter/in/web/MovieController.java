@@ -1,10 +1,12 @@
 package com.tomspencerlondon.moviebooker.moviegoer.adapter.in.web;
 
+import com.tomspencerlondon.moviebooker.common.hexagon.ImageService;
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.BookingService;
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.MovieGoerService;
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.MovieService;
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.application.Notification;
 import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.*;
+import java.util.List;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,28 +21,41 @@ public class MovieController {
 
     private final MovieService movieService;
     private final BookingService bookingService;
-    private MovieGoerService movieGoerService;
+    private final MovieGoerService movieGoerService;
+    private final PasswordEncoder passwordEncoder;
+    private final ImageService imageService;
 
-    private PasswordEncoder passwordEncoder;
-
-    public MovieController(MovieService movieService, BookingService bookingService, MovieGoerService movieGoerService, PasswordEncoder passwordEncoder) {
+    public MovieController(MovieService movieService, BookingService bookingService, MovieGoerService movieGoerService, PasswordEncoder passwordEncoder,
+        ImageService imageService) {
         this.movieService = movieService;
         this.bookingService = bookingService;
         this.movieGoerService = movieGoerService;
         this.passwordEncoder = passwordEncoder;
+        this.imageService = imageService;
     }
 
     @GetMapping("/403")
     public String _403(Model model) {
-        model.addAttribute("nowShowing", movieService.nowShowing());
-        model.addAttribute("comingSoon", movieService.comingSoon());
+        List<MovieView> nowShowing = movieService.nowShowing()
+                .stream()
+                .map(movie -> MovieView.from(movie, imageService.imagePath(movie.image())))
+                .toList();
+        List<MovieView> comingSoon = movieService.comingSoon()
+            .stream()
+            .map(movie -> MovieView.from(movie, imageService.imagePath(movie.image())))
+            .toList();
+        model.addAttribute("nowShowing", nowShowing);
+        model.addAttribute("comingSoon", comingSoon);
         return "moviegoer/403";
     }
 
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("movieGoer", movieGoerView());
-        model.addAttribute("movies", movieService.findAll());
+        List<MovieView> movies = movieService.findAll()
+                .stream().map(movie -> MovieView.from(movie, imageService.imagePath(movie.image())))
+                .toList();
+        model.addAttribute("movies", movies);
         return "moviegoer/start";
     }
 
@@ -80,8 +95,16 @@ public class MovieController {
     public String movie(Model model, @RequestParam(value = "filmId", defaultValue = "") String filmId) {
         Long filmIdLong = Long.valueOf(filmId);
         model.addAttribute("movieGoer", movieGoerView());
-        model.addAttribute("movie", movieService.findById(filmIdLong));
-        model.addAttribute("moviePrograms", movieService.programsForFilm(filmIdLong));
+        Movie movie = movieService.findById(filmIdLong);
+        model.addAttribute("movie", MovieView.from(movie,
+            imageService.imagePath(movie.image())));
+        List<ProgramView> moviePrograms = movieService.programsForFilm(filmIdLong)
+                .stream()
+                .map(program -> ProgramView.from(
+                    program,
+                    MovieView.from(program.movie(), imageService.imagePath(program.movie().image()))
+                )).toList();
+        model.addAttribute("moviePrograms", moviePrograms);
         model.addAttribute("numberOfSeats", 1);
         return "moviegoer/movie/index";
     }

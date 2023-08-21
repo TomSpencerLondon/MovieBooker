@@ -7,10 +7,9 @@ import com.tomspencerlondon.moviebooker.admin.hexagon.application.ScreenService;
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.AdminMovie;
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.AdminProgram;
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.Screen;
+import com.tomspencerlondon.moviebooker.common.hexagon.ImageService;
+import com.tomspencerlondon.moviebooker.moviegoer.adapter.in.web.MovieView;
 import jakarta.validation.Valid;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.File;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -37,12 +35,16 @@ public class AdminController {
     private AdminMovieService adminMovieService;
     private AdminImageUploadService adminImageUploadService;
     private ScreenService screenService;
+    private final ImageService imageService;
 
-    public AdminController(AdminProgramService adminProgramService, AdminMovieService adminMovieService, AdminImageUploadService adminImageUploadService, ScreenService screenService) {
+
+    public AdminController(AdminProgramService adminProgramService, AdminMovieService adminMovieService, AdminImageUploadService adminImageUploadService, ScreenService screenService,
+        ImageService imageService) {
         this.adminProgramService = adminProgramService;
         this.adminMovieService = adminMovieService;
         this.adminImageUploadService = adminImageUploadService;
         this.screenService = screenService;
+        this.imageService = imageService;
     }
 
     @GetMapping("/login")
@@ -59,9 +61,10 @@ public class AdminController {
     @GetMapping("/movie-programs")
     public String allPrograms(Model model) {
         List<AdminProgramView> adminProgramViews = adminProgramService.findAll()
-                .stream().map(AdminProgramView::from)
-                .toList();
-
+                .stream().map(adminProgram -> AdminProgramView.from(
+                    adminProgram,
+                    AdminMovieView.from(adminProgram.movie(), imageService.imagePath(adminProgram.movie().image()))
+                )).toList();
         model.addAttribute("programs", adminProgramViews);
         return "admin/program/programs";
     }
@@ -71,7 +74,10 @@ public class AdminController {
         List<Screen> screens = screenService.findAll();
         AddProgramForm addProgramForm = new AddProgramForm();
         List<AdminMovieView> adminMovieViews = adminMovieService
-                .findAll().stream().map(AdminMovieView::from).toList();
+                .findAll()
+                .stream()
+                .map(movie -> AdminMovieView.from(movie, imageService.imagePath(movie.image())))
+                .toList();
         addProgramForm.setAdminMovies(adminMovieViews);
         addProgramForm.setScreens(screens);
 
@@ -84,7 +90,8 @@ public class AdminController {
     public String addProgram(@Valid @ModelAttribute("addProgramForm") AddProgramForm addProgramForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<AdminMovieView> adminMovieViews = adminMovieService
-                    .findAll().stream().map(AdminMovieView::from).toList();
+                    .findAll().stream().map(
+                    movie -> AdminMovieView.from(movie, imageService.imagePath(movie.image()))).toList();
             addProgramForm.setAdminMovies(adminMovieViews);
             return "/admin/program/add-program";
         }
@@ -110,7 +117,11 @@ public class AdminController {
 
     @GetMapping("/movie-list")
     public String home(Model model) {
-        model.addAttribute("movies", adminMovieService.findAll());
+        List<AdminMovieView> movies = adminMovieService.findAll()
+                .stream()
+                .map(movie -> AdminMovieView.from(movie, imageService.imagePath(movie.image())))
+                .toList();
+        model.addAttribute("movies", movies);
         return "admin/movie/movie-list";
     }
 

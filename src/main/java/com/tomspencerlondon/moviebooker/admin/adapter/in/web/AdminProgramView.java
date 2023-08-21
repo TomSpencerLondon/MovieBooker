@@ -1,12 +1,9 @@
 package com.tomspencerlondon.moviebooker.admin.adapter.in.web;
 
 import com.tomspencerlondon.moviebooker.admin.hexagon.domain.AdminProgram;
-import com.tomspencerlondon.moviebooker.moviegoer.hexagon.domain.Movie;
 
 import java.math.BigDecimal;
-import java.text.NumberFormat;
 import java.time.LocalDateTime;
-import java.util.Locale;
 
 public class AdminProgramView {
     private Long scheduleId;
@@ -16,12 +13,12 @@ public class AdminProgramView {
     private BigDecimal seatPrice;
     private String screenName;
 
-    public static AdminProgramView from(AdminProgram adminProgram) {
+    public static AdminProgramView from(AdminProgram adminProgram, AdminMovieView adminMovieView) {
         AdminProgramView adminProgramView = new AdminProgramView();
         adminProgramView.setScheduleId(adminProgram.getScheduleId());
         adminProgramView.setScheduleDate(adminProgram.scheduleDate());
         adminProgramView.setTotalSeats(adminProgram.totalSeats());
-        adminProgramView.setMovie(AdminMovieView.from(adminProgram.movie()));
+        adminProgramView.setMovie(adminMovieView);
         adminProgramView.setSeatPrice(adminProgram.price());
         adminProgramView.setScreenName(adminProgram.getScreen().name());
         return adminProgramView;

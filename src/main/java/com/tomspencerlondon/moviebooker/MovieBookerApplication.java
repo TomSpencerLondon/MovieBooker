@@ -46,26 +46,26 @@ public class MovieBookerApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 //        bootstrapData();
-
-        String description = "Luke Skywalker, a young man, finds himself embroiled in an interplanetary war between an authoritarian empire and rebel forces";
-
-        AdminMovie movie = new AdminMovie(null,
-                "Star Wars",
-                "/img/star-wars.jpg",
-                LocalDate.of(2022, 9, 21)
-                , description);
-
-        Screen screen = new Screen(null,20, "Screen 2");
-
-        Screen savedScreen = screenService.save(screen);
-
-        AdminMovie savedMovie = movieService.save(movie);
-        var movieProgram = new AdminProgram(null,
-                LocalDateTime.of(2026, 2, 14, 13, 0),
-                savedScreen,
-                savedMovie, new BigDecimal("5.00"));
-
-        adminProgramService.save(movieProgram);
+//
+//        String description = "Luke Skywalker, a young man, finds himself embroiled in an interplanetary war between an authoritarian empire and rebel forces";
+//
+//        AdminMovie movie = new AdminMovie(null,
+//                "Star Wars",
+//                "/img/star-wars.jpg",
+//                LocalDate.of(2022, 9, 21)
+//                , description);
+//
+//        Screen screen = new Screen(null,20, "Screen 2");
+//
+//        Screen savedScreen = screenService.save(screen);
+//
+//        AdminMovie savedMovie = movieService.save(movie);
+//        var movieProgram = new AdminProgram(null,
+//                LocalDateTime.of(2026, 2, 14, 13, 0),
+//                savedScreen,
+//                savedMovie, new BigDecimal("5.00"));
+//
+//        adminProgramService.save(movieProgram);
 
     }
 

@@ -35,19 +35,19 @@
                                         Clapham Common
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
-                                        th:text="${program.scheduleDateText()}"
+                                        th:text="${program.getScheduleDate()}"
                                     >
                                     </td>
                                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
-                                        th:text="${program.seatsText()}"
+                                        th:text="${program.getSeatsText()}"
                                     >
                                     </td>
-                                    <th:block th:if="${program.canBook()}">
+                                    <th:block th:if="${program.isBookable()}">
                                         <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                             <form th:method="post" th:action="@{/moviegoer/bookings}">
                                                 <input type="hidden" th:name="programId" th:value="${program.getScheduleId()}"/>
                                                 <select field="*{numberOfSeats}" th:name="numberOfSeats">
-                                                    <option th:each="i : ${#numbers.sequence(1, program.availableSeats())}" th:value="${i}" th:text="${i}">
+                                                    <option th:each="i : ${#numbers.sequence(1, program.getAvailableSeats())}" th:value="${i}" th:text="${i}">
                                                     </option>
                                                 </select>
                                                 <button class="text-indigo-600 hover:text-indigo-900">Book</button>

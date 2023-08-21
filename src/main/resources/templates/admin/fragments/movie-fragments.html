@@ -5,16 +5,16 @@
     <div class="rounded overflow-hidden shadow-lg m-4 flex justify-between">
         <div class="md:flex-shrink-0">
             <img class="md:w-56"
-                 th:src="@{{path}(path=${movie.image()})}"
+                 th:src="@{{path}(path=${movie.getImage()})}"
                  alt="A Quiet Place movie poster"/>
         </div>
         <div class="flex flex-col flex-grow px-8 py-4 bg-color-333">
             <h3 class="font-bold text-4xl md:text-2xl lg:text-2xl text-gray-900 movie--title"
-                th:text="${movie.movieName()}"></h3>
-            <span class="movie--year text-xl lg:text-sm lg:mb-4" th:text="${movie.releaseDateText()}"></span>
+                th:text="${movie.getMovieName()}"></h3>
+            <span class="movie--year text-xl lg:text-sm lg:mb-4" th:text="${movie.getReleaseDate()}"></span>
             <div class="flex-grow">
                 <p class="text-xl md:text-base lg:text-base text-gray-900 leading-snug truncate-overflow"
-                   th:text="${movie.description()}">
+                   th:text="${movie.getDescription()}">
                 </p>
             </div>
         </div>
