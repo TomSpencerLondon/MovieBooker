@@ -10,6 +10,8 @@
     "build-prod:css": "npm run build:css",
     "build-prod:js": "mkdirp target/classes/static/js && babel src/main/resources/static/js/ --minified --out-dir target/classes/static/js/",
     "build-prod:svg": "npm run build:svg",
+    "dev": "npm-run-all --parallel dev:*",
+    "dev:s3-local": "script/localstack/s3/init-s3-bucket.sh",
     "watch": "npm-run-all --parallel watch:*",
     "watch:html": "onchange 'src/main/resources/templates/**/*.html' -- npm-run-all --serial build:css build:html",
     "watch:css": "onchange 'src/main/resources/static/css/**/*.css' -- npm run build:css",
